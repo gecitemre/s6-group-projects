@@ -48,12 +48,38 @@ Homework 1}
             &2z + 5 = j - \bar{z} \\
             &2(x + yj) + 5 = j - (x - yj) \\
             &2x + 5 + 2yj = (1 + y)j - x \\
-            &y = 1, x = -5/3 \\
-            &z = -5/3 + j\\
-            &|z|^2 = 25/9 + 1 = 26/9
+            &y = 1, x = \frac{-5}{3} \\
+            &z = \frac{-5}{3} + j\\
+            &|z|^2 = \frac{25}{9} + 1 = \frac{34}{9}
     \end{align*}
 
-    \includegraphics*[width=0.5\textwidth]{q1a.png}
+    % \includegraphics*[width=0.5\textwidth]{q1a.png}
+
+    \begin{center}
+        \begin{tikzpicture}
+
+            \pgfplotsset{
+                scale only axis,
+            }
+        
+            \begin{axis}[
+            xlabel=$real$,
+            ylabel=$imaginary$,
+            grid = both,
+            xmin=-2, xmax=-1,
+            ]
+            \addplot[only marks, mark=*]
+            coordinates{
+                (-1.66, 1)
+            }; \label{z}
+        
+                \addlegendimage{/pgfplots/refstyle=plot_one}
+            \addlegendentry{z}
+            \end{axis}
+        
+        \end{tikzpicture}
+    \end{center}
+      
         
     \item \begin{align*}
         & z = re^{j\theta} \implies z^5 = r^5e^{j5\theta} \\
@@ -61,7 +87,23 @@ Homework 1}
         & 32e^{j\pi/2} = r^5e^{j5\theta} \implies r = 2, \theta = \pi/10 \\
         & z = 2e^{j\pi/10}
     \end{align*}
-    \item %write the solution of q1c
+    \item \begin{align*}
+        z & = \frac{(1 + j) (\frac{1}{2} + \frac{\sqrt{3}}{2}) j}{j - 1} \\
+        & = \frac{(j + 1) (1 + j) (\frac{1}{2} + \frac{\sqrt{3}}{2}) j}{(j + 1) (j - 1)} \\
+        & = \frac{(j + 1)^2 (\frac{1}{2} + \frac{\sqrt{3}}{2})}{-2} \\
+        & = \frac{(j^2 + 2j + 1) (\frac{1}{2} + \frac{\sqrt{3}}{2})}{-2} \\
+        & = \frac{(-1 + 2j + 1) (\frac{1}{2} + \frac{\sqrt{3}}{2})}{-2} \\
+        & = \frac{2j (\frac{1}{2} + \frac{\sqrt{3}}{2})}{-2} \\
+        & = -j (\frac{1}{2} + \frac{\sqrt{3}}{2}) \\
+        z & = r cos\theta + r sin\theta j \\
+        j (- \frac{1}{2} - \frac{\sqrt{3}}{2}) & = r cos\theta + r sin\theta j \\
+        rcos\theta & = 0 \\
+        rsin\theta & = - \frac{1}{2} - \frac{\sqrt{3}}{2} \\
+        cos\theta & = 0 \\
+        sin\theta & = -1 \\
+        r & = \frac{1}{2} + \frac{\sqrt{3}}{2} \\
+        \theta & = -\pi/2 \\
+    \end{align*}
     \item \begin{align*}
         z & = je^{-j\pi/2} \\
         & = e^{j\pi/2}e^{-j\pi/2} \\
