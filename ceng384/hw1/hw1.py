@@ -15,7 +15,7 @@ def decompose(signal_name):
 
     pyplot.title("Original Signal")
     pyplot.plot(range(start, end + 1), signal)
-    pyplot.savefig(signal_name + "_original.png")
+    pyplot.savefig("images/" + signal_name + "_original.png")
     pyplot.clf()
 
     if abs(start) > end:
@@ -30,12 +30,13 @@ def decompose(signal_name):
 
     pyplot.title("Even Component")
     pyplot.plot(range(start, end + 1), even)
-    pyplot.savefig(signal_name + "_even.png")
+    pyplot.savefig("images/" + signal_name + "_even.png")
     pyplot.clf()
 
     pyplot.title("Odd Component")
     pyplot.plot(range(start, end + 1), odd)
-    pyplot.savefig(signal_name + "_odd.png")
+    pyplot.savefig("images/" + signal_name + "_odd.png")
+    pyplot.clf()
 
 
 decompose("sine_part_a")
