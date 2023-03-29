@@ -2,16 +2,16 @@
 
 from matplotlib import pyplot
 
+
 IMAGES_PATH = "assets/q7a/"
 
 def decompose(signal_name):
-    """Open the CSV file with the signal name, decompose it into even and odd components,
+    """Read the CSV file with the signal name, decompose the signal into even and odd components,
     and save the results as PNG files."""
 
     with open(signal_name + ".csv", "r", encoding="ascii") as file:
         data = [float(item) for item in file.read().split(",")]
     start = int(data[0])
-    print(start)
     signal = data[1:]
     end = start + len(signal) - 1
 
