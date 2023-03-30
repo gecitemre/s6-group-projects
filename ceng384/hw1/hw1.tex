@@ -188,8 +188,57 @@ Homework 1}
     \begin{enumerate}
     % Write your solutions in the following items.
     \item %write the solution of q6a
+        \begin{align*}
+            y(x) & = tx(2x + 3) \\
+        \end{align*}
+        \textit{Memory: } The system has memory, as the output depends on the future values of the input.
+        For example, for $t = 3$, the output value depends on the future value of the input, $y(3) = 3x(9)$.\\
+        \textit{Stability: } The system is \textbf{not} stable, as there is no finite number $b'$ such that $|y(t)| \leq b'$ for all $t$.\\
+        \textit{Causality: } The system is \textbf{not} causal, as the output depends on the future values of the input.\\
+        \textit{Linearity: } The system is linear, because the superposition principle holds.\\
+        \begin{align*}
+            x_1 \implies y_1(t) & = tx_1(2t + 3) \\
+            x_2 \implies y_2(t) & = tx_2(2t + 3) \\
+            x_3 & = a_1x_1 + a_2x_2 & assumption\\
+            y_3 & = t(a_1x_1 + a_2x_2) = a_1y_1 + a_2y_2 \\
+        \end{align*}
+        \textit{Invertibility: } The system is invertible for $t \neq 0$.
+        \begin{align*}
+            y(t) & = tx(2t + 3) \\
+            \frac{1}{t}y(t) & = x(2t + 3) \\
+            \frac{1}{t}y\left(\frac{t - 3}{2}\right) & = x(t) \\
+        \end{align*}
+        \textit{Time invariance: } The system is \textbf{not} time invariant.
+        \begin{align*}
+            y(t) & = tx(2t + 3) \\
+            y(t - t_0) = (t-t_0)x(2(t - t_0) + 3) & \neq tx(2(t - t_0) + 3) \\
+        \end{align*}
     \item %write the solution of q6b
-    \end{enumerate}
+        \begin{align*}
+            y[n] & = \sum_{k = 1}^{\infty} x[n - k] \\
+        \end{align*}
+        \textit{Memory: } The system has memory, as the output depends on the past values of the input.
+        For example, for $n = 6$, the output value depends on the past values of the input,
+        $y[6] = x[5] + x[4] + x[3] + \cdots$.\\
+        \textit{Stability: } The system is \textbf{not} stable, as there is no finite number $b'$ such that $|y(t)| \leq b'$ for all $t$.
+        For example, if we take $x(n)$ as the unit step function, the signal $\sum_{k = 1}^{\infty} u[n - k]$ is unbounded for $n \implies \infty$.\\
+        \textit{Causality: } The system is causal, as the output depends on the past values of the input.\\
+        \textit{Linearity: } The system is linear, because the superposition principle holds.\\
+        \begin{align*}
+            x_1 \implies y_1(n) & = \sum_{k = 1}^{\infty} x_1[n - k] \\
+            x_2 \implies y_2(n) & = \sum_{k = 1}^{\infty} x_2[n - k] \\
+            y_3 & = \sum_{k = 1}^{\infty} (a_1x_1[n - k] + a_2x_2[n - k])\\
+            & = a_1y_1 + a_2y_2 \\
+            \sum_{k = 1}^{\infty} x_3[n - k] & = a_1\sum_{k = 1}^{\infty} x_1[n - k] + a_2\sum_{k = 1}^{\infty} x_2[n - k] \\ 
+        \end{align*}
+        \textit{Invertibility: } The system is not invertible, because the output depends on all the past values of the input.\\
+        \textit{Time invariance: } The system is time invariant, because a delay in the input signal $x[n]$ by $x$, causes a
+        corresponding delay for the output signal $y[n]$ by $x$ as well.\\
+        \begin{align*}
+            y[n] & = \sum_{k = 1}^{\infty} x[n - k] \\
+            y[n- n_0] = \sum_{k = 1}^{\infty} x[(n - n_0) - k]\\
+        \end{align*}
+        \end{enumerate}
     
 \item %write the solution of q7
     \begin{enumerate}
