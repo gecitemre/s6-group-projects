@@ -3,8 +3,10 @@
 from matplotlib import pyplot
 
 
+IMAGES_PATH = "assets/q7a/"
+
 def decompose(signal_name):
-    """Open the CSV file with the signal name, decompose it into even and odd components,
+    """Read the CSV file with the signal name, decompose the signal into even and odd components,
     and save the results as PNG files."""
 
     with open(signal_name + ".csv", "r", encoding="ascii") as file:
@@ -15,7 +17,7 @@ def decompose(signal_name):
 
     pyplot.title("Original Signal")
     pyplot.plot(range(start, end + 1), signal)
-    pyplot.savefig("images/" + signal_name + "_original.png")
+    pyplot.savefig(IMAGES_PATH + signal_name + "_original.png")
     pyplot.clf()
 
     if abs(start) > end:
@@ -30,12 +32,12 @@ def decompose(signal_name):
 
     pyplot.title("Even Component")
     pyplot.plot(range(start, end + 1), even)
-    pyplot.savefig("images/" + signal_name + "_even.png")
+    pyplot.savefig(IMAGES_PATH + signal_name + "_even.png")
     pyplot.clf()
 
     pyplot.title("Odd Component")
     pyplot.plot(range(start, end + 1), odd)
-    pyplot.savefig("images/" + signal_name + "_odd.png")
+    pyplot.savefig(IMAGES_PATH + signal_name + "_odd.png")
     pyplot.clf()
 
 

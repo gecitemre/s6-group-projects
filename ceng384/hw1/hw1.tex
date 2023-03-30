@@ -1,5 +1,6 @@
 \documentclass[10pt,a4paper, margin=1in]{article}
 \usepackage{fullpage}
+\usepackage{subcaption}
 \usepackage{amsfonts, amsmath, pifont}
 \usepackage{amsthm}
 \usepackage{graphicx}
@@ -7,6 +8,7 @@
 \usepackage{wrapfig}
 \usepackage{tkz-euclide}
 \usepackage{tikz}
+\usepackage{minted}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.13}
 
@@ -189,13 +191,179 @@ Homework 1}
     
 \item %write the solution of q7
     \begin{enumerate}
-    % Write your solutions in the following items.
-    \item %write the solution of q7a
-    \item %write the solution of q7b
+    \item \hfill\begin{minted}{python}
+def decompose(signal_name):
+    """Read the CSV file with the signal name, decompose the signal into even and odd components,
+    and save the results as PNG files."""
+
+    with open(signal_name + ".csv", "r", encoding="ascii") as file:
+        data = [float(item) for item in file.read().split(",")]
+    start = int(data[0])
+    signal = data[1:]
+    end = start + len(signal) - 1
+
+    pyplot.title("Original Signal")
+    pyplot.plot(range(start, end + 1), signal)
+    pyplot.savefig(IMAGES_PATH + signal_name + "_original.png")
+    pyplot.clf()
+
+    if abs(start) > end:
+        signal = signal + [0] * (abs(start) - end)
+        end = -start
+    else:
+        signal = [0] * (end - abs(start)) + signal
+        start = -end
+
+    even = [(x + y) / 2 for x, y in zip(signal, signal[::-1])]
+    odd = [(x - y) / 2 for x, y in zip(signal, signal[::-1])]
+
+    pyplot.title("Even Component")
+    pyplot.plot(range(start, end + 1), even)
+    pyplot.savefig(IMAGES_PATH + signal_name + "_even.png")
+    pyplot.clf()
+
+    pyplot.title("Odd Component")
+    pyplot.plot(range(start, end + 1), odd)
+    pyplot.savefig(IMAGES_PATH + signal_name + "_odd.png")
+    pyplot.clf()
+\end{minted}
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[t]{0.3\linewidth}
+    \centering
+        \caption{Original Signal}
+        \includegraphics[width=1\linewidth]{assets/q7a/sine_part_a_original.png}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.3\linewidth}
+    \centering
+        \caption{Even Component}
+        \includegraphics[width=1\linewidth]{assets/q7a/sine_part_a_even.png}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.3\linewidth}
+    \centering
+        \caption{Odd Component}
+        \includegraphics[width=1\linewidth]{assets/q7a/sine_part_a_odd.png}
+    \end{subfigure}
+    \caption{Sinusoidal Signal Decomposition}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[t]{0.3\linewidth}
+        \centering
+        \caption{Original Signal}
+        \includegraphics[width=1\linewidth]{assets/q7a/shifted_sawtooth_part_a_original.png}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.3\linewidth}
+        \centering
+        \caption{Even Component}
+        \includegraphics[width=1\linewidth]{assets/q7a/shifted_sawtooth_part_a_even.png}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.3\linewidth}
+        \centering
+        \caption{Odd Component}
+        \includegraphics[width=1\linewidth]{assets/q7a/shifted_sawtooth_part_a_odd.png}
+    \end{subfigure}
+    \caption{Shifted Sawtooth Signal Decomposition}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[t]{0.3\linewidth}
+        \centering
+        \caption{Original Signal}
+        \includegraphics[width=1\linewidth]{assets/q7a/chirp_part_a_original.png}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.3\linewidth}
+        \centering
+        \caption{Even Component}
+        \includegraphics[width=1\linewidth]{assets/q7a/chirp_part_a_even.png}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.3\linewidth}
+        \centering
+        \caption{Odd Component}
+        \includegraphics[width=1\linewidth]{assets/q7a/chirp_part_a_odd.png}
+    \end{subfigure}
+    \caption{Chirp Signal Decomposition}
+\end{figure}
+
+
+    
+
+    \item \hfill \begin{minted}{python}
+class Signal:
+    def __init__(self, signal, start, a, b):
+        self.signal = signal
+        self.start = start
+        self.a = a
+        self.b = b
+
+    def __getitem__(self, index):
+        return self.signal[self.a * index + self.b - self.start]
+
+
+def shift_n_scale(signal_name):
+    """
+    Read the CSV file with the signal name, shift and scale the signal,
+        and save the results as PNG files.
+
+    This functions reads a signal x[n], and produces x[a*n + b] for a and b
+    """
+
+    with open(signal_name + ".csv", "r", encoding="ascii") as file:
+        data = [float(item) for item in file.read().split(",")]
+    start = int(data[0])
+    a = int(data[1])
+    b = int(data[2])
+    signal = Signal(data[3:], start, a, b)
+    end = start + len(signal.signal) - 1
+
+    new_start = (start - b) // a
+    new_end = (end - b) // a
+    pyplot.xlim(new_start, new_end)
+
+    pyplot.plot(range(start, end + 1), signal.signal,linewidth=1)
+
+    if new_start > new_end:
+        domain = range(new_start, new_end, -1)
+    else:
+        domain = range(new_start, new_end + 1)
+    pyplot.plot(
+        domain,
+        [signal[i] for i in domain],
+        linewidth=1,
+    )
+    pyplot.legend(
+        ["x[n]", "x[" + str(a) + "n " + ("+" if b >= 0 else "") + str(b) + "]"],
+        loc="lower right",
+        fontsize=8,
+    )
+    pyplot.savefig(IMAGES_PATH + signal_name)
+    pyplot.clf()
+    \end{minted}
     \end{enumerate}    
 
 \end{enumerate}
 
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[t]{0.3\linewidth}
+        \centering
+        \caption{Sinusoidal Signal}
+        \includegraphics[width=1\linewidth]{assets/q7b/sine_part_b.png}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.3\linewidth}
+        \centering
+        \caption{Shifted Sawtooth Signal}
+        \includegraphics[width=1\linewidth]{assets/q7b/shifted_sawtooth_part_b.png}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.3\linewidth}
+        \centering
+        \caption{Chirp Signal}
+        \includegraphics[width=1\linewidth]{assets/q7b/chirp_part_b.png}
+    \end{subfigure}
+    \caption{Shift and Scale}
+\end{figure}
 
 \end{document}
 

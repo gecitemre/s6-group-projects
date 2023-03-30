@@ -1,6 +1,7 @@
 .vscode/
-# LaTeX
+ceng384/hw1/_minted-hw1/
 
+# LaTeX
 *.aux
 *.log
 *.synctex.gz
