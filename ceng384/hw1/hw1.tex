@@ -18,8 +18,8 @@
  total={210mm,297mm},
  left=10mm,
  right=10mm,
- top=10mm,
- bottom=10mm,
+ top=20mm,
+ bottom=20mm,
  }
  % Write both of your names here. Fill exxxxxxx with your ceng mail address.
  \author{
@@ -92,17 +92,17 @@ Homework 1}
     \item \begin{align*}
         z & = \frac{(1 + j) (\frac{1}{2} + \frac{\sqrt{3}}{2}) j}{j - 1} \\
         & = \frac{(j + 1) (1 + j) (\frac{1}{2} + \frac{\sqrt{3}}{2}) j}{(j + 1) (j - 1)} \\
-        & = \frac{(j + 1)^2 (\frac{1}{2} + \frac{\sqrt{3}}{2})}{-2} \\
+        & = \frac{{(j + 1)}^2 (\frac{1}{2} + \frac{\sqrt{3}}{2})}{-2} \\
         & = \frac{(j^2 + 2j + 1) (\frac{1}{2} + \frac{\sqrt{3}}{2})}{-2} \\
         & = \frac{(-1 + 2j + 1) (\frac{1}{2} + \frac{\sqrt{3}}{2})}{-2} \\
         & = \frac{2j (\frac{1}{2} + \frac{\sqrt{3}}{2})}{-2} \\
         & = -j (\frac{1}{2} + \frac{\sqrt{3}}{2}) \\
-        z & = r cos\theta + r sin\theta j \\
-        j (- \frac{1}{2} - \frac{\sqrt{3}}{2}) & = r cos\theta + r sin\theta j \\
-        rcos\theta & = 0 \\
-        rsin\theta & = - \frac{1}{2} - \frac{\sqrt{3}}{2} \\
-        cos\theta & = 0 \\
-        sin\theta & = -1 \\
+        z & = r \cos\theta + r \sin\theta j \\
+        j (- \frac{1}{2} - \frac{\sqrt{3}}{2}) & = r \cos\theta + r \sin\theta j \\
+        r\cos\theta & = 0 \\
+        r\sin\theta & = - \frac{1}{2} - \frac{\sqrt{3}}{2} \\
+        \cos\theta & = 0 \\
+        \sin\theta & = -1 \\
         r & = \frac{1}{2} + \frac{\sqrt{3}}{2} \\
         \theta & = -\pi/2 \\
     \end{align*}
@@ -113,6 +113,7 @@ Homework 1}
     \end{align*}
     \end{enumerate}
 
+\newpage % start a new page so that the layout of the graph is not messed up.
 \item %write the solution of q2
     The graph of the function is given below.
     \begin{center}
@@ -140,26 +141,42 @@ Homework 1}
 
 \item %write the solution of q4
     \begin{enumerate}
-    \item $2\pi/3$
+    \item \begin{align*}
+        x(t) & = x(t + t_0) \\
+        5\sin(3t - \frac{\pi}{4}) & = 5\sin(3(t + t_0) - \frac{\pi}{4})\\
+        \sin(3t - \frac{\pi}{4}) & = \sin(3t + 3t_0 - \frac{\pi}{4})\\
+        \sin(3t - \frac{\pi}{4}) & = \sin(3t) \cos(3t_0 - \frac{\pi}{4}) + \cos(3t) \sin(3t_0 - \frac{\pi}{4})\\
+        \sin(3t) \cos(- \frac{\pi}{4}) + \cos(3t) \sin(- \frac{\pi}{4}) & = \sin(3t) \cos(3t_0 - \frac{\pi}{4}) + \cos(3t) \sin(3t_0 - \frac{\pi}{4})\\
+        \sin(3t) \frac{\sqrt{2}}{2} - \cos(3t) \frac{\sqrt{2}}{2} & = \sin(3t) \cos(3t_0 - \frac{\pi}{4}) + \cos(3t) \sin(3t_0 - \frac{\pi}{4})\\
+        \sin(3t) \frac{\sqrt{2}}{2} - \sin(3t) \cos(3t_0 - \frac{\pi}{4}) & = \cos(3t) \frac{\sqrt{2}}{2} + \cos(3t) \sin(3t_0 - \frac{\pi}{4})\\
+        \sin(3t) \left(\frac{\sqrt{2}}{2} - \cos(3t_0 - \frac{\pi}{4})\right) & = \cos(3t) \left(\frac{\sqrt{2}}{2} + \sin(3t_0 - \frac{\pi}{4})\right)\\
+        \frac{\sqrt{2}}{2} - \cos(3t_0 - \frac{\pi}{4}) & = 0\\
+        \frac{\sqrt{2}}{2} + \sin(3t_0 - \frac{\pi}{4}) & = 0\\
+        t_0 & = \frac{2\pi}{3}\\
+    \end{align*}    
     \item \begin{align*}
         x[n] & = x[n + t_0] \\
-        cos[\frac{13\pi}{10}n] + sin[\frac{7\pi}{10}n] & = cos[\frac{13\pi}{10}(n + t_0)] + sin[\frac{7\pi}{10}(n + t_0)] \\
-        sin[\frac{\pi}{2} - \frac{13\pi}{10}n] + sin[\frac{7\pi}{10}n] & = sin[\frac{\pi}{2} - \frac{13\pi}{10}(n + t_0)] + sin[\frac{7\pi}{10}(n + t_0)] \\
-        sin[\frac{5\pi}{10} - \frac{13\pi}{10}n] + sin[\frac{7\pi}{10}n] & = sin[\frac{5 \pi}{10} - \frac{13\pi}{10}(n + t_0)] + sin[\frac{7\pi}{10}(n + t_0)] \\
-        sin[\frac{\pi}{10} (13n - 5)] + sin[\frac{7\pi}{10}n] & = sin[\frac{\pi}{10}(13n + 13t_0 - 5)] + sin[\frac{7\pi}{10}(n + t_0)] \\
-        2sin(\frac{\frac{\pi}{10} (13n - 5) + \frac{7\pi}{10}n}{2})cos(\frac{\frac{\pi}{10} (13n - 5) - \frac{7\pi}{10}n}{2}) & \\
-        = 2sin(\frac{\frac{\pi}{10} (13n + 13t_0 - 5) + \frac{7\pi}{10}(n + t_0)}{2})cos&(\frac{\frac{\pi}{10} (13n + 13t_0 - 5) - \frac{7\pi}{10}(n + t_0)}{2}) \\
-        sin(\frac{\pi}{20}(20n - 5))cos(\frac{\pi}{20}(6n - 5)) & = sin(\frac{\pi}{20}(20n + 20t_0 - 5))cos(\frac{\pi}{20}(6n + 6t_0 - 5)) \\
-        sin(n\pi - \frac{\pi}{4})cos(\frac{3n\pi}{10} - \frac{\pi}{4}) & = sin(n\pi + t_0\pi - \frac{\pi}{4})cos(\frac{3n\pi + 3t_0\pi}{10} - \frac{\pi}{4}) \\
+        \cos[\frac{13\pi}{10}n] + \sin[\frac{7\pi}{10}n] & = \cos[\frac{13\pi}{10}(n + t_0)] + \sin[\frac{7\pi}{10}(n + t_0)] \\
+        \sin[\frac{\pi}{2} - \frac{13\pi}{10}n] + \sin[\frac{7\pi}{10}n] & = \sin[\frac{\pi}{2} - \frac{13\pi}{10}(n + t_0)] + \sin[\frac{7\pi}{10}(n + t_0)] \\
+        \sin[\frac{5\pi}{10} - \frac{13\pi}{10}n] + \sin[\frac{7\pi}{10}n] & = \sin[\frac{5 \pi}{10} - \frac{13\pi}{10}(n + t_0)] + \sin[\frac{7\pi}{10}(n + t_0)] \\
+        \sin[\frac{\pi}{10} (13n - 5)] + \sin[\frac{7\pi}{10}n] & = \sin[\frac{\pi}{10}(13n + 13t_0 - 5)] + \sin[\frac{7\pi}{10}(n + t_0)] \\
+        2\sin(\frac{\frac{\pi}{10} (13n - 5) + \frac{7\pi}{10}n}{2})\cos(\frac{\frac{\pi}{10} (13n - 5) - \frac{7\pi}{10}n}{2}) & \\
+        = 2\sin(\frac{\frac{\pi}{10} (13n + 13t_0 - 5) + \frac{7\pi}{10}(n + t_0)}{2})\cos&(\frac{\frac{\pi}{10} (13n + 13t_0 - 5) - \frac{7\pi}{10}(n + t_0)}{2}) \\
+        \sin(\frac{\pi}{20}(20n - 5))\cos(\frac{\pi}{20}(6n - 5)) & = \sin(\frac{\pi}{20}(20n + 20t_0 - 5))\cos(\frac{\pi}{20}(6n + 6t_0 - 5)) \\
+        \sin(n\pi - \frac{\pi}{4})\cos(\frac{3n\pi}{10} - \frac{\pi}{4}) & = \sin(n\pi + t_0\pi - \frac{\pi}{4})\cos(\frac{3n\pi + 3t_0\pi}{10} - \frac{\pi}{4}) \\
     \end{align*}
 
     The smallest integer $t_0$ that satisfies the equation above is $t_0 = 20$.
-	\item The signal is not periodic.
+	\item The signal is not periodic as there is no integer that satisfies the equation below.
+    \begin{align*}
+        \frac{1}{2}\cos(7n - 5) & = \frac{1}{2}\cos(7(n + t_0) - 5) \\
+    \end{align*}
     \end{enumerate}
 
 \item %write the solution of q5
     \begin{enumerate}
     \item $x(t) = u[t-1] - 3u[t-3] + u[t-4]$
+    \newpage % start a new page so that the layout of the graph is not messed up.
     \item $\frac{dx(t)}{dt} = \delta(t-1) -3\delta(t-3) +\delta(t-4)$
         The graph of $\frac{dx(t)}{dt}$ is given below.
         \begin{center}
@@ -171,8 +188,56 @@ Homework 1}
     \begin{enumerate}
     % Write your solutions in the following items.
     \item %write the solution of q6a
+        \begin{align*}
+            y(x) & = tx(2x + 3) \\
+        \end{align*}
+        \textit{Memory: } The system has memory, as the output depends on the future values of the input.
+        For example, for $t = 3$, the output value depends on the future value of the input, $y(3) = 3x(9)$.\\
+        \textit{Stability: } The system is \textbf{not} stable, as there is no finite number $b'$ such that $|y(t)| \leq b'$ for all $t$.\\
+        \textit{Causality: } The system is \textbf{not} causal, as the output depends on the future values of the input.\\
+        \textit{Linearity: } The system is linear, because the superposition principle holds.\\
+        \begin{align*}
+            x_1 \implies y_1(t) & = tx_1(2t + 3) \\
+            x_2 \implies y_2(t) & = tx_2(2t + 3) \\
+            x_3 & = a_1x_1 + a_2x_2 & assumption\\
+            y_3 & = t(a_1x_1 + a_2x_2) = a_1y_1 + a_2y_2 \\
+        \end{align*}
+        \textit{Invertibility: } The system is invertible for $t \neq 0$.
+        \begin{align*}
+            y(t) & = tx(2t + 3) \\
+            \frac{1}{t}y(t) & = x(2t + 3) \\
+            \frac{1}{t}y\left(\frac{t - 3}{2}\right) & = x(t) \\
+        \end{align*}
+        \textit{Time invariance: } The system is \textbf{not} time invariant.
+        \begin{align*}
+            y(t) & = tx(2t + 3) \\
+            y(t - t_0) = (t-t_0)x(2(t - t_0) + 3) & \neq tx(2(t - t_0) + 3) \\
+        \end{align*}
     \item %write the solution of q6b
-    \end{enumerate}
+        \begin{align*}
+            y[n] & = \sum_{k = 1}^{\infty} x[n - k] \\
+        \end{align*}
+        \textit{Memory: } The system has memory, as the output depends on the past values of the input.
+        For example, for $n = 6$, the output value depends on the past values of the input,
+        $y[6] = x[5] + x[4] + x[3] + \cdots$.\\
+        \textit{Stability: } The system is \textbf{not} stable, as there is no finite number $b'$ such that $|y(t)| \leq b'$ for all $t$.
+        For example, if we take $x(n)$ as the unit step function, the signal $\sum_{k = 1}^{\infty} u[n - k]$ is unbounded for $n \implies \infty$.\\
+        \textit{Causality: } The system is causal, as the output depends on the past values of the input.\\
+        \textit{Linearity: } The system is linear, because the superposition principle holds.\\
+        \begin{align*}
+            x_1 \implies y_1(n) & = \sum_{k = 1}^{\infty} x_1[n - k] \\
+            x_2 \implies y_2(n) & = \sum_{k = 1}^{\infty} x_2[n - k] \\
+            a_1y_1 + a_2y_2 & = \sum_{k = 1}^{\infty} (a_1x_1[n - k] + a_2x_2[n - k])\\
+            \sum_{k = 1}^{\infty} x_3[n - k] & = a_1\sum_{k = 1}^{\infty} x_1[n - k] + a_2\sum_{k = 1}^{\infty} x_2[n - k] \\ 
+        \end{align*}
+        \textit{Invertibility: } The system is not invertible, because the output depends on all the past values of the input.\\
+        \textit{Time invariance: } The system is time invariant, because a delay in the input signal $x[n]$ by $x$, causes a
+        corresponding delay for the output signal $y[n]$ by $x$ as well.\\
+        \begin{align*}
+            y[n] & = \sum_{k = 1}^{\infty} x[n - k] \\
+            y[n- n_0] = \sum_{k = 1}^{\infty} x[(n - n_0) - k]\\
+        \end{align*}
+        \end{enumerate}
     
 \item %write the solution of q7
     \begin{enumerate}
@@ -212,7 +277,8 @@ def decompose(signal_name):
     pyplot.savefig(IMAGES_PATH + signal_name + "_odd.png")
     pyplot.clf()
 \end{minted}
-\begin{figure}[h]
+
+\begin{figure}[H]
     \centering
     \begin{subfigure}[t]{0.3\linewidth}
     \centering
@@ -252,7 +318,7 @@ def decompose(signal_name):
     \caption{Shifted Sawtooth Signal Decomposition}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \begin{subfigure}[t]{0.3\linewidth}
         \centering
@@ -330,7 +396,7 @@ def shift_n_scale(signal_name):
 
 \end{enumerate}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \begin{subfigure}[t]{0.3\linewidth}
         \centering
