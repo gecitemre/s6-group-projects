@@ -21,7 +21,7 @@
  top=20mm,
  bottom=20mm,
  }
- % Write both of your names here. Fill exxxxxxx with your ceng mail address.
+
  \author{
   Geçit, Emre\\
   \texttt{e2521581@ceng.metu.edu.tr}
@@ -129,11 +129,12 @@ Homework 1}
             \includegraphics*[width=0.5\textwidth]{assets/graphs/q3a.png}
         \end{center}
     \item \begin{align*}
-        & x[n] =  -\delta[n-1] + 2\delta[n-2] + -4\delta[n-4] + 3\delta[n-7] \\
-        & x[-n] = -\delta[-n-1] + 2\delta[-n-2] + -4\delta[-n-4] + 3\delta[-n-7] \\
-        & x[2n-1] = -\delta[2n-2] + 2\delta[2n-3] + -4\delta[2n-5] + 3\delta[2n-8] \\
-        & x[-n] + x[2n-1] = -\delta[-n-1] + 2\delta[-n-2] -4\delta[-n-4] + 3\delta[-n-7] -\delta[2n-2] + 2\delta[2n-3] \\
-        & -4\delta[2n-5] + 3\delta[2n-8] \\
+        x[n] &=  -\delta[n-1] + 2\delta[n-2] + -4\delta[n-4] + 3\delta[n-7] \\
+        x[-n] &= -\delta[-n-1] + 2\delta[-n-2] + -4\delta[-n-4] + 3\delta[-n-7] \\
+        &= -\delta[n+1] + 2\delta[n+2] + -4\delta[n+4] + 3\delta[n+7] \\
+        x[2n-1] &= -\delta[2n-2] + 2\delta[2n-3] + -4\delta[2n-5] + 3\delta[2n-8] \\
+        &= -\delta[n-1] + 3\delta[n-4] \\
+        x[-n] + x[2n-1] &= -\delta[n+1] + 2\delta[n+2] + -4\delta[n+4] + 3\delta[n+7] + -\delta[n-1] + 3\delta[n-4] \\
     \end{align*}
     
     
