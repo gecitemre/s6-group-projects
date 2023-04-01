@@ -36,7 +36,8 @@ def shift_n_scale(signal_name):
         linewidth=1,
     )
     pyplot.legend(
-        ["x[n]", "x[" + str(a) + "n " + ("+" if b >= 0 else "") + str(b) + "]"],
+        ["x[n]",
+        "x[" + (str(a) if a != 1 else "") + "n " + ("+" if b >= 0 else "") + str(b) + "]"],
         loc="lower right",
         fontsize=8,
     )

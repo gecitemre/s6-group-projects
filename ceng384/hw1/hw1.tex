@@ -228,7 +228,7 @@ Homework 1}
         corresponding delay for the output signal $y[n]$ by $x$ as well.\\
         \begin{align*}
             y[n] & = \sum_{k = 1}^{\infty} x[n - k] \\
-            y[n- n_0] = \sum_{k = 1}^{\infty} x[(n - n_0) - k]\\
+            y[n- n_0] & = \sum_{k = 1}^{\infty} x[(n - n_0) - k]\\
         \end{align*}
         \end{enumerate}
     
@@ -367,7 +367,8 @@ def shift_n_scale(signal_name):
         linewidth=1,
     )
     pyplot.legend(
-        ["x[n]", "x[" + str(a) + "n " + ("+" if b >= 0 else "") + str(b) + "]"],
+        ["x[n]",
+        "x[" + (str(a) if a != 1 else "") + "n " + ("+" if b >= 0 else "") + str(b) + "]"],
         loc="lower right",
         fontsize=8,
     )
