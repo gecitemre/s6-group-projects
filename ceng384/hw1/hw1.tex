@@ -218,7 +218,12 @@ Homework 1}
             a_1y_1 + a_2y_2 & = \sum_{k = 1}^{\infty} (a_1x_1[n - k] + a_2x_2[n - k])\\
             \sum_{k = 1}^{\infty} x_3[n - k] & = a_1\sum_{k = 1}^{\infty} x_1[n - k] + a_2\sum_{k = 1}^{\infty} x_2[n - k] \\ 
         \end{align*}
-        \textit{Invertibility: } The system is not invertible, because the output depends on all the past values of the input.\\
+        \textit{Invertibility: } The system is invertible, the fact that the system has the invertibility property can be seen
+        by taking the difference of two consequent values of $y[n]$.\\
+        \begin{align*}
+            y[n + 1] - y[n] & = \sum_{k = 1}^{\infty} x[n + 1 - k] - \sum_{k = 1}^{\infty} x[n - k]\\
+            y[n + 1] - y[n] & = x[n]\\
+        \end{align*}
         \textit{Time invariance: } The system is time invariant, because a delay in the input signal $x[n]$ by $x$, causes a
         corresponding delay for the output signal $y[n]$ by $x$ as well.\\
         \begin{align*}
