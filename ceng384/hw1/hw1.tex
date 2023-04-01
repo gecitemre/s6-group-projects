@@ -330,23 +330,12 @@ def decompose(signal_name):
     
 
     \item \hfill \begin{minted}{python}
-class Signal:
-    def __init__(self, signal, start, a, b):
-        self.signal = signal
-        self.start = start
-        self.a = a
-        self.b = b
-
-    def __getitem__(self, index):
-        return self.signal[self.a * index + self.b - self.start]
-
-
 def shift_n_scale(signal_name):
     """
     Read the CSV file with the signal name, shift and scale the signal,
         and save the results as PNG files.
 
-    This functions reads a signal x[n], and produces x[a*n + b] for a and b
+    This functions reads a signal x[n], and produces x[a*n + b] for a and b.
     """
 
     with open(signal_name + ".csv", "r", encoding="ascii") as file:
@@ -354,14 +343,14 @@ def shift_n_scale(signal_name):
     start = int(data[0])
     a = int(data[1])
     b = int(data[2])
-    signal = Signal(data[3:], start, a, b)
-    end = start + len(signal.signal) - 1
+    signal = data[3:]
+    end = start + len(signal) - 1
 
     new_start = (start - b) // a
     new_end = (end - b) // a
     pyplot.xlim(new_start, new_end)
 
-    pyplot.plot(range(start, end + 1), signal.signal,linewidth=1)
+    pyplot.plot(range(start, end + 1), signal,linewidth=1)
 
     if new_start > new_end:
         domain = range(new_start, new_end, -1)
@@ -369,7 +358,7 @@ def shift_n_scale(signal_name):
         domain = range(new_start, new_end + 1)
     pyplot.plot(
         domain,
-        [signal[i] for i in domain],
+        [signal[a*i+b-start] for i in domain],
         linewidth=1,
     )
     pyplot.legend(
