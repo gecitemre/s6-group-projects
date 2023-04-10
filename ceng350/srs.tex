@@ -1,18 +1,100 @@
 
-\documentclass[12pt]{article}
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{blindtext}
 \usepackage{hyperref}
 \usepackage{float}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{indentfirst}
+\usepackage{setspace}
 \usepackage[font=footnotesize,labelfont=bf]{caption}
+
+\setlength{\parindent}{6ex}
+\setlength{\parskip}{0.2ex}
+\renewcommand{\baselinestretch}{1.2}
 
 \author{Emre Geçit, Baran Yancı}
 \begin{document}
-\title{\includegraphics[scale=0.2]{ceng_400x400.png}\\ Software Requirements Specification for \\  \textbf{Afet Bilgi}}
-\maketitle
-\tableofcontents
-\section{Introduction}
+
+    \title{\includegraphics[scale=0.2]{ceng_400x400.png}\\ Software Requirements Specification for \\  \textbf{Afet Bilgi}}
+    \maketitle
+
+    \newpage
+    \makeatletter
+	\renewcommand\tableofcontents{%
+		\null\hfill\textbf{\Large\contentsname}\hfill\null\par
+		\@mkboth{\MakeUppercase\contentsname}{\MakeUppercase\contentsname}%
+		\@starttoc{toc}%
+	}
+	\makeatother
+
+    \tableofcontents
+    \doublespacing
+
+    \newpage
+
+    \section{Introduction}
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc sit amet aliquam tincidunt, nunc nisl aliquam nisl, eget aliquam nunc ni
+
+        \subsection{Purpose of the System}
+
+            \subsection{Scope}
+
+            \subsection{System Overview}
+
+                \subsubsection{System Perspective}
+
+                \subsubsection{System Functions}
+
+                \subsubsection{Stakeholder Characteristics}
+
+                \subsubsection{Limitations}
+
+            \subsubsection{Definitions}
+
+    \section{References}
+
+    \section{Specific Requirements}
+
+        \subsection{External Interfaces}
+
+        \subsection{Functions}
+
+        \subsection{Usability Requirements}
+
+        \subsection{Performance Requirements}
+
+        \subsection{Logical Database Requirements}
+
+        \subsection{Design Constraints}
+
+        \subsection{System Attributes}
+
+        \subsection{Supporting Information}
+
+    \section{Suggestions for Future Work}
+
+        \subsection{System Perspective}
+
+        \subsection{External Interfaces}
+
+        \subsection{Functions}
+
+        \subsection{Usability Requirements}
+
+        \subsection{Performance Requirements}
+
+        \subsection{Logical Database Requirements}
+
+        \subsection{Design Constraints}
+
+        \subsection{System Attributes}
+
+        \subsection{Supporting Information}
+
+
 
 \end{document}
