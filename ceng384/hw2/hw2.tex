@@ -79,7 +79,26 @@ Homework 2}
 	\begin{enumerate}
     % Write your solutions in the following items.
     \item %write the solution of q2a
+    \begin{align*}
+        y[n] & = x[n] * h[n] \\
+        & = \sum_{k=0}^{n} x[k]h[n-k] \\
+        & = \sum_{k=0}^{n} \left(2\delta [k] + \delta [k + 1]\right) \left(\delta [n-(1+k)] + 2\delta [n+1-k]\right) \\
+        & = 2\sum_{k=0}^{n} \delta [k] \delta [n-(1+k)] + 4\sum_{k=0}^{n} \delta [k] \delta [n+1-k] + \sum_{k=0}^{n} \delta [k + 1] \delta [n-(1+k)] + 2\sum_{k=0}^{n} \delta [k + 1] \delta [n+1-k] \\
+        & = 2\delta\left[\frac{n-1}{2}\right] + 4\delta\left[\frac{n+1}{2}\right] + \delta\left[\frac{n-2}{2}\right] + 2\delta\left[\frac{n}{2}\right] \\
+    \end{align*}
+
+    % TODO: drawing
+
     \item %write the solution of q2b
+    % TODO: this feels wrong
+    \begin{align*}
+        y(t) & = \frac{dx(t)}{dt} * h(t) \\
+        & = \frac{d}{dt}\left(u(t-1) + u(t+1)\right) * e^{-t} \sin (t)u(t) \\
+        & = \left(\delta(t-1) - \delta(t+1)\right) * e^{-t} \sin (t)u(t) \\
+        & = \int_{-\infty}^{\infty} \left(\delta(\tau-1) - \delta(\tau+1)\right) e^{-t - \tau} \sin (t - \tau) d\tau \\
+        & = \int_{-\infty}^{\infty} \delta(\tau-1)e^{-t - \tau} \sin (t - \tau) d\tau - \int_{-\infty}^{\infty} \delta(\tau+1) e^{-t - \tau} \sin (t - \tau) d\tau \\
+        & = e^{-t - 1} \sin (t - 1)u(t) + e^{-t + 1} \sin (t + 1)u(t) \\
+    \end{align*}
     \end{enumerate}
 
 \item %write the solution of q3
