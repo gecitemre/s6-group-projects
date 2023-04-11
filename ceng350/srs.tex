@@ -53,7 +53,25 @@
 
                 \subsubsection{System Perspective}
 
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget libero sollicitudin justo vehicula venenatis quis ut eros. Proin vitae.
+                \begin{center}
+                    \par
+                    \begin{tabular}{cc}
+                        \fbox{\includegraphics[width=1\linewidth]{./assets/context_diagram.png}}
+                    \end{tabular}
+                    \par
+                    \captionof{figure}{Context Diagram}
+                \end{center}
+
+                The \verb*|afetbilgi.com| product is not an element of a larger system. The project is split into two main parts.
+                The first part is the front-end of the website. The second part is the cloud services that is used to store and
+                process the data. The front-end is a web application that is developed using TypeScript and the ReactJS framework.
+                The front-end uses packages like MUI and is hosted on the static website \verb*|afetbilgi.com|. 
+                For the cloud services, the project uses Amazon Web Services (AWS) and the serverless framework. Alongside AWS,
+                GitHub Actions is used for continuous integration and continuous deployment (CI/CD). The cloud services process 
+                the data and store it in a database. The data comes from individuals who enter and/or validate the data. The data
+                is collected in Google Sheets and then processed by the cloud services. The cloud services are hosted on AWS.
+                GitHub actions are also responsible for generating PDF files including information about affected areas, from the
+                data in the database. The PDF files are then stored in the cloud services and can be accessed by the front-end.
 
                 \subsubsection{System Functions}
 
