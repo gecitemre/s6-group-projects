@@ -105,7 +105,28 @@ Homework 2}
     \begin{enumerate}
     % Write your solutions in the following items.
     \item %write the solution of q3a
+
+    % @y4nci: see https://odtuclass2022s.metu.edu.tr/pluginfile.php/523917/mod_resource/content/14/week_4.html#convolution-operation-in-continuous-time exercise 4.1
+
+    \begin{align*}
+        y(t) & = x(t) * h(t) \\
+        & = \int_{-\infty}^{\infty} x(\tau) h(t - \tau) d\tau \\
+        & = \int_{-\infty}^{\infty} x(t - \tau) h(\tau) d\tau \\
+        & = \int_{-\infty}^{\infty} e^{-(t - \tau)} e^{-2\tau} d\tau \\
+        & = \int_{0}^{t} e^{-(t - \tau)} e^{-2\tau} d\tau \\
+        & = e^{-t} \int_{0}^{t} e^{\tau} d\tau \\
+        & = e^{-t} \left(1 - e^{-t}\right)u(t) \\
+    \end{align*}
     \item %write the solution of q3b
+    \begin{align*}
+        y(t) & = x(t) * h(t) \\
+        & = \int_{-\infty}^{\infty} x(\tau) h(t - \tau) d\tau \\
+        & = \int_{-\infty}^{\infty} x(t - \tau) h(\tau) d\tau \\
+        & = \int_{-\infty}^{\infty} \left(u(t - \tau) - u(t - (\tau + 1))\right) e^{3\tau} d\tau \\
+        & = \int_{-\infty}^{\infty} u(t - \tau) e^{3\tau} d\tau - \int_{-\infty}^{\infty} u(t - (\tau + 1)) e^{3\tau} d\tau \\
+        & = \int_{-\infty}^{t} e^{3\tau} d\tau - \int_{-\infty}^{t - 1} e^{3\tau} d\tau \\
+        & = \frac{e^{3t}}{3} - \frac{e^{3t - 3}}{3}\\
+    \end{align*}
     \end{enumerate}
 
 \item %write the solution of q4
