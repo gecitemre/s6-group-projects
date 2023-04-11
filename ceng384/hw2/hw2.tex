@@ -44,7 +44,35 @@ Homework 2}
     \begin{enumerate}
     % Write your solutions in the following items.
     \item %write the solution of q1a
+    \begin{align*}
+        y(t) & = x(t) - 5 \dot{y}(t) \\
+    \end{align*}
     \item %write the solution of q1b
+    \begin{align*}
+        y(t) & = (e^{-t} + e^{-3t})u(t) - 5 \dot{y}(t) \\
+        y(t) + 5 \dot{y}(t) & = (e^{-t} + e^{-3t})u(t) \\
+        y(t) & = y_p(t) + y_h(t) \\
+        y_p(t) & = Ke^{-t}u(t) + Le^{-3t}u(t) \\
+        Ke^{-t}u(t) + Le^{-3t}u(t) + 5 (-Ke^{-t}u(t) -3Le^{-3t}u(t)) & = (e^{-t} + e^{-3t})u(t) \\
+        Ke^{-t}u(t) + Le^{-3t}u(t) - 5Ke^{-t}u(t) - 15Le^{-3t}u(t) & = (e^{-t} + e^{-3t})u(t) \\
+        e^{-t}u(t) (K - 5K) + e^{-3t}u(t) (L - 15L) & = (e^{-t} + e^{-3t})u(t) \\
+        K - 5K & = 1 \\
+        K & = - 1/4 \\
+        L - 15L & = 1 \\
+        L & = - 1/14 \\
+        y_p(t) & = \frac{-1}{4}e^{-t}u(t) + \frac{-1}{14}e^{-3t}u(t) \\
+        y_h(t) & = c_1e^{\alpha t} \\
+        c_1e^{\alpha t} + 5\alpha c_1e^{\alpha t} & = 0 \\
+        c_1 + 5\alpha c_1 & = 0 \\
+        \alpha & = \frac{-1}{5} \\
+        y_h(t) & = c_1e^{\frac{-1}{5}t} \\
+        y(t) & = y_p(t) + y_h(t) \\
+        & = \frac{-1}{4}e^{-t}u(t) + \frac{-1}{14}e^{-3t}u(t) + c_1e^{\frac{-1}{5}t} \\
+        y(0) & = 0 \\
+        0 & = \frac{-1}{4} + \frac{-1}{14} + c_1 \\
+        c_1 & = \frac{9}{28} \\
+        y(t) & = \frac{-1}{4}e^{-t}u(t) + \frac{-1}{14}e^{-3t}u(t) + \frac{9}{28}e^{\frac{-1}{5}t} \\
+    \end{align*}
     \end{enumerate}
 
 \item %write the solution of q2  
