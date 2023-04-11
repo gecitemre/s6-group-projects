@@ -103,7 +103,125 @@
 
         \subsection{Functions}
 
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget libero sollicitudin justo vehicula venenatis quis ut eros. Proin vitae.
+        % TODO: add use case diagram and other diagrams
+
+        \begin{center}
+            \begin{table}[h]
+                \resizebox{\textwidth}{!}{%
+                \begin{tabular}{|l|l|}
+                \hline
+                \textbf{Use case name}    & See PDF About a City                                                                                                                                                                                           \\ \hline
+                \textbf{Actors}           & User, Static Website, PDF Viewer                                                                                                                                                                                           \\ \hline
+                \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}If a user wants to see the PDF document containing\\ information about a city, the city selection dialog is shown, then\\ the desired is picked on the dialog.\end{tabular} \\ \hline
+                \textbf{Data}             & PDF file about the city                                                                                                                                                                                           \\ \hline
+                \textbf{Preconditions}    & The PDF for the city file must be refreshed previously.                                                                                                                                                                     \\ \hline
+                \textbf{Stimulus}         & User clicks on the "PDF" button and picks a city                                                                                                                                                               \\ \hline
+                \textbf{Basic flow}       & \begin{tabular}[c]{@{}l@{}}Step 1: User clicks the "PDF" button\\ Step 2: The pop-up dialog is shown\\ Step 3: User picks the desired city on the city selection dialog\end{tabular}                                      \\ \hline
+                \textbf{Alternative flow} & -                                                                                                                                                                                                              \\ \hline
+                \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
+                \textbf{Post conditions}  & User is redirected to the PDF viewer                                                                                                                                                                           \\ \hline
+                \end{tabular}%
+                }
+            \end{table}
+            \captionof{table}{See PDF About Hatay Function}
+            \vspace{1cm}
+
+            \begin{table}[h]
+                \resizebox{\textwidth}{!}{%
+                \begin{tabular}{|l|l|}
+                \hline
+                \textbf{Use case name}    & Kızılay Blood Donation Places                                                                                                                                                                                           \\ \hline
+                \textbf{Actors}           & User, Static Website, Kızılay Website                                                                                                                                                                                           \\ \hline
+                \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}The user wants to see the blood donation locations.\end{tabular} \\ \hline
+                \textbf{Data}             & Blood Donation Locations                                                                                                                                                                                          \\ \hline
+                \textbf{Preconditions}    & -                                                                                                                                                                     \\ \hline
+                \textbf{Stimulus}         & User clicks on the "Kızılay Blood Donation Places" button                                                                                                                                                           \\ \hline
+                \textbf{Basic flow}       & \begin{tabular}[c]{@{}l@{}}Step 1: User clicks the "Kızılay Blood Donation Places" button\end{tabular}                                  \\ \hline
+                \textbf{Alternative flow} & -                                                                                                                                                                                                              \\ \hline
+                \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
+                \textbf{Post conditions}  & User is redirected to the Kızılay website                                                                                                                                                                           \\ \hline
+                \end{tabular}%
+                }
+            \end{table}
+            \captionof{table}{Kızılay Blood Donation Places Function}
+            \vspace{1cm}
+
+            \newpage % TODO: this is to prevent page structure, might be subject to change
+
+            \begin{table}[h]
+                \resizebox{\textwidth}{!}{%
+                \begin{tabular}{|l|l|}
+                \hline
+                \textbf{Use case name}    & Generating PDF Documents                                                                                                                                                                                           \\ \hline
+                \textbf{Actors}           & GitHub Actions, automation code, Data Providers \& Validators                                                                                                                                                                                           \\ \hline
+                \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}The PDF files are generated by the automated code running \\ on GitHub Actions. Those PDF files include information about
+                                            \\evacuation points, food distribution centers, pharmacies, gas \\ stations and more, based on the districts of the given city.
+                                            \\ All the information comes from Google Sheets, which holds \\ the data coming from voluntary individuals. \end{tabular} \\ \hline
+                \textbf{Data}             & \begin{tabular}[c]{@{}l@{}}Open pharmacies, evacuation points, food distribution centers, \\gas stations, acommodation places, veterinarians.                   \end{tabular} \\ \hline  
+                \textbf{Preconditions}    & The information should be on Google Sheets prior to generation.                                                                                                                                                                     \\ \hline
+                \textbf{Stimulus}         & GitHub actions runs this task periodically.                                                                                                                                                   \\ \hline
+                \textbf{Basic flow}       & \begin{tabular}[c]{@{}l@{}}Step 1: The data from sheets are fetched \\
+                                            Step 2: The PDF file is generated using the Python script \\
+                                            Step 3: The file is stored in AWS Cloud.\end{tabular}                                  \\ \hline
+                \textbf{Alternative flow} & -                                                                                                                                                                                                              \\ \hline
+                \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
+                \textbf{Post conditions}  & \begin{tabular}[c]{@{}l@{}}The updated PDF file is stored on the cloud, and is ready\\ to be seen on the front-end.   \end{tabular}                                                                                                                                                                       \\ \hline
+                \end{tabular}%
+                }
+            \end{table}
+            \captionof{table}[]{Generating PDF Documents Function}
+            \vspace{1cm}
+
+            \begin{table}[h]
+                \resizebox{\textwidth}{!}{%
+                \begin{tabular}{|l|l|}
+                \hline
+                \textbf{Use case name}    & Showing Maps                                                                                                                                                                                           \\ \hline
+                \textbf{Actors}           & Leaflet, Data Providers \& Validators                                                                                                                                                                                           \\ \hline
+                \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}The map is generated by the map provider Leaflet. \\ The map includes information about
+                                            donation centers,\\ temporary acommodation places, food distribution places, \\ pharmacies, gas stations and more, and where they are
+                                            \\ on the map. All the information comes from from voluntary\\ individuals. \end{tabular} \\ \hline
+                \textbf{Data}             & \begin{tabular}[c]{@{}l@{}}Open pharmacies, evacuation points, food distribution centers, \\gas stations, acommodation places, veterinarians.                   \end{tabular} \\ \hline  
+                \textbf{Preconditions}    & The information should be available on the sources prior to generation.                                                                                                                                                                     \\ \hline
+                \textbf{Stimulus}         & User clicks the "map" button on the page.                                                                                                                                                   \\ \hline
+                \textbf{Basic flow}       & \begin{tabular}[c]{@{}l@{}}Step 1: The user clicks the "map" button \\
+                                            Step 2: The user is redirected to maps.afebilgi.com \\
+                                            Step 3: The map is shown.\end{tabular}                                  \\ \hline
+                \textbf{Alternative flow} & Step 1: The user opens maps.afetbilgi.com.                                                                                                                                                                                                              \\ \hline
+                \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
+                \textbf{Post conditions}  & -                                                                                                                                                                    \\ \hline
+                \end{tabular}%
+                }
+            \end{table}
+            \captionof{table}[]{Showing Maps Function}
+            \vspace{1cm}
+            
+            \newpage % TODO: this is to prevent page structure, might be subject to change
+
+            \begin{table}[h]
+                \resizebox{\textwidth}{!}{%
+                \begin{tabular}{|l|l|}
+                \hline
+                \textbf{Use case name}    & Changing Language                                                                                                                                                                                         \\ \hline
+                \textbf{Actors}           & User, Static Website                                                                                                                                                                                           \\ \hline
+                \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}There are millions of people living in the affected \\ ares belonging to different ethnicities
+                                            and background,\\ and although the main language of the site is Turkish, \\ support for different languages is a must.
+                                            \\ The project comes in four different languages which the \\ users can choose from: Turkish, English, Kurdish and Arabic. \end{tabular} \\ \hline
+                \textbf{Data}             & \begin{tabular}[c]{@{}l@{}}Visual messages                   \end{tabular} \\ \hline  
+                \textbf{Preconditions}    & The translations are done previously.                                                                                                                                                                     \\ \hline
+                \textbf{Stimulus}         & User clicks the language button on the site                                                                                                                                                 \\ \hline
+                \textbf{Basic flow}       & \begin{tabular}[c]{@{}l@{}}Step 1: The user clicks the language button \\
+                                            Step 2: A dropdown menu for language selection is shown \\
+                                            Step 3: The desired language is selected\end{tabular}                                  \\ \hline
+                \textbf{Alternative flow} & -                                                                                                                                                                                                            \\ \hline
+                \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
+                \textbf{Post conditions}  & The site is now in the desired language.                                                                                                                                                                    \\ \hline
+                \end{tabular}%
+                }
+            \end{table}
+            \captionof{table}[]{Changing Language Function} 
+            \vspace{1cm}
+        \end{center}
 
         \subsection{Usability Requirements}
 
