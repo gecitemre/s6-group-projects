@@ -237,6 +237,20 @@ Homework 2}
     \begin{enumerate}
     % Write your solutions in the following items.
     \item %write the solution of q6a
+    \begin{align*}
+        w[n] - \frac{1}{2}w[n - 1] & = x[n]\\
+        w[0] & = 0\\
+        w[1] - \frac{1}{2}w[0] & = x[1]\\
+        w[1] & = x[1]\\
+        w[2] - \frac{1}{2}w[1] & = x[2]\\
+        w[2] & = x[2] + \frac{1}{2}x[1]\\
+        w[3] - \frac{1}{2}w[2] & = x[3]\\
+        w[3] & = x[3] + \frac{1}{2}x[2] + \frac{1}{4}x[1]\\
+        &...\\
+        w[n] & = \sum_{k = 0}^{n - 1} \frac{1}{2^k}x[n - k]\\
+        & \\
+        h_0[n] & = \sum_{k = 0}^{n - 1} \frac{1}{2^k}\delta[n - k]\\
+    \end{align*}
     \item %write the solution of q6b
 	\item %write the solution of q6c
     \end{enumerate}
