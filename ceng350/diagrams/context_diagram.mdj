@@ -57,7 +57,7 @@
 											"top": 383,
 											"width": 197,
 											"height": 20,
-											"text": "Afet Bİlgi",
+											"text": "Afet Bilgi",
 											"wordWrap": true
 										},
 										{
@@ -973,7 +973,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGHdrWf+3JYTkw="
 							},
-							"name": "Afet Bİlgi",
+							"name": "Afet Bilgi",
 							"ownedElements": [
 								{
 									"_type": "DFDDataFlow",
