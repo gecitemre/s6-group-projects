@@ -94,9 +94,9 @@ Homework 2}
     \begin{align*}
         y(t) & = \frac{dx(t)}{dt} * h(t) \\
         & = \frac{d}{dt}\left(u(t-1) + u(t+1)\right) * e^{-t} \sin (t)u(t) \\
-        & = \left(\delta(t-1) - \delta(t+1)\right) * e^{-t} \sin (t)u(t) \\
-        & = \int_{-\infty}^{\infty} \left(\delta(\tau-1) - \delta(\tau+1)\right) e^{-t - \tau} \sin (t - \tau) d\tau \\
-        & = \int_{-\infty}^{\infty} \delta(\tau-1)e^{-t - \tau} \sin (t - \tau) d\tau - \int_{-\infty}^{\infty} \delta(\tau+1) e^{-t - \tau} \sin (t - \tau) d\tau \\
+        & = \left(\delta(t-1) + \delta(t+1)\right) * e^{-t} \sin (t)u(t) \\
+        & = \int_{-\infty}^{\infty} \left(\delta(\tau-1) + \delta(\tau+1)\right) e^{-t - \tau} \sin (t - \tau) d\tau \\
+        & = \int_{-\infty}^{\infty} \delta(\tau-1)e^{-t - \tau} \sin (t - \tau) d\tau + \int_{-\infty}^{\infty} \delta(\tau+1) e^{-t - \tau} \sin (t - \tau) d\tau \\
         & = e^{-t - 1} \sin (t - 1)u(t) + e^{-t + 1} \sin (t + 1)u(t) \\
     \end{align*}
     \end{enumerate}
