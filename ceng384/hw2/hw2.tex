@@ -87,7 +87,13 @@ Homework 2}
         & = 2\delta\left[\frac{n-1}{2}\right] + 4\delta\left[\frac{n+1}{2}\right] + \delta\left[\frac{n-2}{2}\right] + 2\delta\left[\frac{n}{2}\right] \\
     \end{align*}
 
-    % TODO: drawing
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[ xlabel=$n$, ylabel=$y$, axis x line=center, axis y line = center, xmin=-3.5, xmax=3.5, ymin=-6, ymax=6]
+                \addplot+[ycomb,mark=triangle,mark options={rotate=0}] plot coordinates {(1, 2) (2, 1) (0, 2) (-1, 4)};
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
 
     \item %write the solution of q2b
     % TODO: this feels wrong
