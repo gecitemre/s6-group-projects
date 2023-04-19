@@ -239,20 +239,32 @@ Homework 2}
     \item %write the solution of q6a
     \begin{align*}
         w[n] - \frac{1}{2}w[n - 1] & = x[n]\\
-        w[0] & = 0\\
+        w[n] & = 0,  \forall n < 0 \\
+        w[0] - \frac{1}{2}w[-1] & = x[0]\\
+        w[0] & = x[0]\\
         w[1] - \frac{1}{2}w[0] & = x[1]\\
-        w[1] & = x[1]\\
+        w[1] & = x[1] + \frac{1}{2}x[0]\\
         w[2] - \frac{1}{2}w[1] & = x[2]\\
-        w[2] & = x[2] + \frac{1}{2}x[1]\\
-        w[3] - \frac{1}{2}w[2] & = x[3]\\
-        w[3] & = x[3] + \frac{1}{2}x[2] + \frac{1}{4}x[1]\\
+        w[2] & = x[2] + \frac{1}{2}x[1] + \frac{1}{4}x[0]\\
         &...\\
-        w[n] & = \sum_{k = 0}^{n - 1} \frac{1}{2^k}x[n - k]\\
+        w[n] & = \sum_{k = 0}^{n} 2^{-k}x[n - k]\\
         & \\
-        h_0[n] & = \sum_{k = 0}^{n - 1} \frac{1}{2^k}\delta[n - k]\\
+        h_0[n] & = \sum_{k = 0}^{n} 2^{-k}\delta[n - k]\\
+        & = 2^{-n} & (\delta[n-k] = 0 \text{ for } k != n)\\
     \end{align*}
-    \item %write the solution of q6b
-	\item %write the solution of q6c
+    \item
+    If we feed the first system with the unit impulse, we get $h_0[n]$. If we feed the second system with $h_0[n]$, we get
+    \begin{align*}
+        h[n] &= \sum_{k = 0}^{n} 2^{-k}2^{-n+k} \\
+        &= \sum_{k = 0}^{n} 2^{-n} \\
+        &= (n+1) * 2^{-n} \\
+    \end{align*}
+    \item \begin{align*}
+        y[n] = x[n] * h[n] \\
+        &= \sum_{k = -\infty}^{\infty} x[n-k]h[k] \\
+        &= \sum_{k = 0}^{\infty} x[n-k]h[k] & (h[k] = 0 \text{ for } k < 0)\\
+        &= \sum_{k = 0}^{\infty} x[k]*(n+1) * 2^{k-n} \\
+    \end{align*}
     \end{enumerate}
     
 \item %write the solution of q7
