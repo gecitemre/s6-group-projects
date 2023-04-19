@@ -84,13 +84,13 @@ Homework 2}
         & = \sum_{k=0}^{n} x[k]h[n-k] \\
         & = \sum_{k=0}^{n} \left(2\delta [k] + \delta [k + 1]\right) \left(\delta [n-(1+k)] + 2\delta [n+1-k]\right) \\
         & = 2\sum_{k=0}^{n} \delta [k] \delta [n-(1+k)] + 4\sum_{k=0}^{n} \delta [k] \delta [n+1-k] + \sum_{k=0}^{n} \delta [k + 1] \delta [n-(1+k)] + 2\sum_{k=0}^{n} \delta [k + 1] \delta [n+1-k] \\
-        & = 2\delta\left[\frac{n-1}{2}\right] + 4\delta\left[\frac{n+1}{2}\right] + \delta\left[\frac{n-2}{2}\right] + 2\delta\left[\frac{n}{2}\right] \\
+        & = 2\delta\left[n - 1\right] + 4\delta\left[n + 1\right] + \delta\left[n\right] + 2\delta\left[n + 2\right] \\
     \end{align*}
 
     \begin{center}
         \begin{tikzpicture}
             \begin{axis}[ xlabel=$n$, ylabel=$y$, axis x line=center, axis y line = center, xmin=-3.5, xmax=3.5, ymin=-6, ymax=6]
-                \addplot+[ycomb,mark=triangle,mark options={rotate=0}] plot coordinates {(1, 2) (2, 1) (0, 2) (-1, 4)};
+                \addplot+[ycomb,mark=triangle,mark options={rotate=0}] plot coordinates {(-2, 2) (-1, 4) (0, 1) (1, 2)};
             \end{axis}
         \end{tikzpicture}
     \end{center}
@@ -103,7 +103,7 @@ Homework 2}
         & = \left(\delta(t-1) + \delta(t+1)\right) * e^{-t} \sin (t)u(t) \\
         & = \int_{-\infty}^{\infty} \left(\delta(\tau-1) + \delta(\tau+1)\right) e^{-t - \tau} \sin (t - \tau) d\tau \\
         & = \int_{-\infty}^{\infty} \delta(\tau-1)e^{-t - \tau} \sin (t - \tau) d\tau + \int_{-\infty}^{\infty} \delta(\tau+1) e^{-t - \tau} \sin (t - \tau) d\tau \\
-        & = e^{-t - 1} \sin (t - 1)u(t) + e^{-t + 1} \sin (t + 1)u(t) \\
+        & = e^{-t - 1} \sin (t - 1)u(t -1) + e^{-t + 1} \sin (t + 1)u(t + 1) \\
     \end{align*}
     \end{enumerate}
 
