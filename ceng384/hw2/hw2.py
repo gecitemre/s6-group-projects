@@ -1,6 +1,5 @@
 from matplotlib import pyplot
 
-
 class Signal:
     def __init__(self, data, start):
         self.data = data
@@ -26,25 +25,17 @@ class ConvolutionResult(Signal):
     def __init__(self, signal1, signal2):
         self.signal1 = signal1
         self.signal2 = signal2
-
-    @property
-    def start(self):
-        return self.signal1.start + self.signal2.start
-
-    @property
-    def end(self):
-        return self.signal1.end + self.signal2.end
-
-    @property
-    def data(self):
-        return [self[i] for i in range(self.start, self.end + 1)]
+        self.start = signal1.start + signal2.start
+        self.end = signal1.end + signal2.end
+        self.data = [self[i] for i in range(self.start, self.end + 1)]
 
     def __getitem__(self, index):
+        if index < self.start or index > self.end:
+            return 0
         result = 0
         for i in range(self.start, self.end + 1):
             result += self.signal1[i] * self.signal2[index - i]
         return result
-
 
 with open("hw2_signal.csv", "r", encoding="ascii") as file:
     raw_data = [float(item) for item in file.read().split(",")]

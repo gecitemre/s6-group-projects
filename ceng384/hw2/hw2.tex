@@ -267,12 +267,43 @@ Homework 2}
     \end{align*}
     \end{enumerate}
     
-\item %write the solution of q7
-    \begin{enumerate}
-    % Write your solutions in the following items.
-    \item %write the solution of q7a
-    \item %write the solution of q7b
-    \end{enumerate}    
+\item The code used to generate the plots is at the end of the answer.
+
+\begin{figure}[H]    
+    \centering
+    \caption{Original Signal}
+    \includegraphics[width=0.4\linewidth]{images/original.png}
+\end{figure}
+\begin{enumerate}
+    \item The effect of convoluting with $\delta[n-5]$ is to shift the signal by 5 units to the right.
+\begin{figure}[H]
+    \centering
+    \caption{Convolution with $h[n] = \delta[n-5]$}
+    \includegraphics[width=0.4\linewidth]{images/convolution.png}
+\end{figure}
+    \item The effect is unknown ???????.
+\begin{figure}[H]
+    \centering
+    \caption{Convolution with the moving average filter, N = 3}
+    \includegraphics[width=0.4\linewidth]{images/moving_average_3.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \caption{Convolution with the moving average filter, N = 5}
+    \includegraphics[width=0.4\linewidth]{images/moving_average_5.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \caption{Convolution with the moving average filter, N = 10}
+    \includegraphics[width=0.4\linewidth]{images/moving_average_10.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \caption{Convolution with the moving average filter, N = 20}
+    \includegraphics[width=0.4\linewidth]{images/moving_average_20.png}
+\end{figure}
+
+    \end{enumerate}
 
 \end{enumerate}
 
