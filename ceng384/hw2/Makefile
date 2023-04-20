@@ -4,11 +4,11 @@ TEX=pdflatex
 #	compiler	flags
 TFLAGS=-shell-escape
 
-PYTHON = python
+PYTHON = python3
 
 IMAGES = images/q7a.png	images/original.png
 
-hw2.pdf: hw2.tex $(IMAGES)
+hw2.pdf: hw2.tex $(IMAGES) hw2.py
 	$(TEX)	$(TFLAGS) hw2.tex
 
 $(IMAGES): hw2.py
