@@ -9,7 +9,7 @@ srs.pdf: srs.tex assets $(REGISTERED)
 	$(TEX)	$(TFLAGS)	srs.tex
 
 %-registered.svg: %.svg
-	$(PYTHON) scripts/register.py $< $@
+	scripts/register.py $< $@
 
 clean:
 	rm	srs.pdf	srs.aux	srs.log	srs.out	srs.toc
