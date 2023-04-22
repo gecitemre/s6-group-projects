@@ -52,16 +52,10 @@
 
             \subsection{System Overview}
 
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget libero sollicitudin justo vehicula venenatis quis ut eros. Proin vitae.
-
                 \subsubsection{System Perspective}
 
                 \begin{center}
-                    \par
-                    \begin{tabular}{cc}
-                        \fbox{\includesvg[inkscapelatex=false, scale=0.5]{assets/ContextDiagram-registered.svg}}
-                    \end{tabular}
-                    \par
+                        \fbox{\includesvg[inkscapelatex=false, width=\textwidth]{assets/ContextDiagram-registered.svg}}
                     \captionof{figure}{Context Diagram}
                 \end{center}
 
@@ -77,8 +71,14 @@
                 data in the database. The PDF files are then stored in the cloud services and can be accessed by the front-end.
 
                 \subsubsection{System Functions}
-
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget libero sollicitudin justo vehicula venenatis quis ut eros. Proin vitae.
+                Functionalities of \verb*|afetbilgi.com| are summarized below. More detailed information about the functionalities can be found in \hyperlink{subsection.3.2}{Section 3.2}.
+                \begin{itemize}
+                    \item \textbf{See PDF About a City}: If a user wants to see the PDF document containing information about a city, the city selection dialog is shown, then the desired is picked on the dialog.
+                    \item \textbf{Kızılay Donation Centers}: If a user wants to see the donation centers of Kızılay, the donation centers are shown on the map.
+                    \item \textbf{Generate PDF Documents}: Automatic PDF generation. The PDF files include information about affected areas.
+                    \item \textbf{Show Maps}: Shows a map of useful locations in the affected area.
+                    \item \textbf{TODO}: continue here
+                \end{itemize}
 
                 \subsubsection{Stakeholder Characteristics}
 
@@ -105,10 +105,12 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget libero sollicitudin justo vehicula venenatis quis ut eros. Proin vitae.
 
         \subsection{Functions}
-
         % TODO: add use case diagram and other diagrams
+        \begin{figure}[h]
+            \centering
         \includesvg[inkscapelatex=false, scale=0.5]{./assets/UseCaseDiagram-registered.svg}
         \captionof{figure}{Use Case Diagram}
+        \end{figure}
 
         \begin{center}
             \begin{table}[h]
@@ -376,7 +378,10 @@
 
     \section{Suggestions for Future Work}
 
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget libero sollicitudin justo vehicula venenatis quis ut eros. Proin vitae.
+        \textbf{Draft Ideas}
+        \begin{itemize}
+            \item This system can be improved and held ready for future earthquakes and any possible disasters.
+        \end{itemize}
 
         \subsection{System Perspective}
 
