@@ -189,28 +189,25 @@ Homework 2}
     \end{enumerate}
 
 \item %write the solution of q5
-    % TODO: feels wrong, needs review
     \begin{enumerate}
     % Write your solutions in the following items.
     \item %write the solution of q5a
     \begin{align*}
         y''(t) + 5y'(t) + 6y(t) & = \cos(5t)\\
-        & = \frac{e^{j5t} - e^{-j5t}}{2}\\
-        & = \frac{e^{j5t}}{2} - \frac{e^{-j5t}}{2}\\
+        & = \frac{e^{j5t} + e^{-j5t}}{2}\\
+        & = \frac{e^{j5t}}{2} + \frac{e^{-j5t}}{2}\\
     \end{align*}
     \begin{align*}
         y_p(t) & = c_1e^{j5t} + c_2e^{-j5t}\\
     \end{align*}
     \begin{align*}
-        -25c_1e^{j5t} - 25c_2e^{-j5t} + 25jc_1e^{j5t} - 25jc_2e^{-j5t} + 6c_1e^{j5t} + 6c_2e^{-j5t} & = \frac{e^{j5t}}{2} - \frac{e^{-j5t}}{2}\\
-        e^{j5t} \left(-19c_1 + 25jc_1\right) + e^{-j5t} \left(-19c_2 - 25jc_2\right) & = \frac{e^{j5t}}{2} - \frac{e^{-j5t}}{2}\\
+        -25c_1e^{j5t} - 25c_2e^{-j5t} + 25jc_1e^{j5t} - 25jc_2e^{-j5t} + 6c_1e^{j5t} + 6c_2e^{-j5t} & = \frac{e^{j5t}}{2} + \frac{e^{-j5t}}{2}\\
+        e^{j5t} \left(-19c_1 + 25jc_1\right) + e^{-j5t} \left(-19c_2 - 25jc_2\right) & = \frac{e^{j5t}}{2} + \frac{e^{-j5t}}{2}\\
     \end{align*}
     \begin{align*}
-        \left(-19c_1 + 25jc_1\right) & = \left(-19c_2 - 25jc_2\right) = \frac{1}{2}\\
-        & \\
-        c_1 & = \frac{1}{50j - 38} \\
-        c_2 & = \frac{-1}{50j + 38} \\
-        y_p(t) & = \frac{1}{50j - 38}e^{j5t} - \frac{1}{50j + 38}e^{-j5t}\\
+        c_1 & = \frac{5j}{-38 + 50j} \\
+        c_2 & = \frac{5j}{38 + 50j} \\
+        y_p(t) & = \frac{5j}{-38 + 50j}e^{j5t} + \frac{5j}{38 + 50j}e^{-j5t}\\
     \end{align*}
     \item %write the solution of q5b
     \begin{align*}
@@ -223,19 +220,19 @@ Homework 2}
 	\item %write the solution of q5c
     \begin{align*}
         y(t) & = y_p(t) + y_h(t)\\
-        & = \frac{1}{50j - 38}e^{j5t} - \frac{1}{50j + 38}e^{-j5t} + c_1e^{-3t} + c_2e^{-2t}\\
+        & = \frac{5j}{50j - 38}e^{j5t} + \frac{5j}{50j + 38}e^{-j5t} + c_1e^{-3t} + c_2e^{-2t}\\
     \end{align*}
     \begin{align*}
         y(0) = y'(0) = 0& \\
-        \frac{1}{50j - 38} - \frac{1}{50j + 38} + c_1 + c_2 & = 0\\
-        \frac{5j}{50j - 38} + \frac{5j}{50j + 38} - 3c_1 - 2c_2 & = 0\\
+        \frac{5j}{50j - 38} + \frac{5j}{50j + 38} + c_1 + c_2 & = 0\\
+        \frac{-25}{50j - 38} + \frac{25}{50j + 38} - 3c_1 - 2c_2 & = 0\\
     \end{align*}
     \begin{align*}
-        c_1 & = \frac{3}{34} \\
-        c_2 & = \frac{-2}{29} \\
+        c_1 & = \frac{25}{34} \\
+        c_2 & = \frac{-25}{29} \\
     \end{align*}
     \begin{align*}
-        y(t) & = \frac{1}{50j - 38}e^{j5t} - \frac{1}{50j + 38}e^{-j5t} + \frac{3}{34}e^{-3t} - \frac{2}{29}e^{-2t}\\
+        y(t) & = \frac{5j}{50j - 38}e^{j5t} + \frac{5j}{50j + 38}e^{-j5t} + \frac{25}{34}e^{-3t} - \frac{-25}{29}e^{-2t}\\
     \end{align*}
     \end{enumerate}    
     
