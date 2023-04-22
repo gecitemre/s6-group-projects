@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Remove the "UNREGISTERED" text from the SVG file.
 Takes the path to the SVG file as the argument.
-Produces a new file with the same name and the ".registered.svg" extension."""
+Produces a new file with the same name and "-registered.svg" extension."""
 
 import re
 from sys import argv
