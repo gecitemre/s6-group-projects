@@ -1,0 +1,16 @@
+{
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "make",
+            "tools": [
+                "make"
+            ]
+        },
+    ],
+    "latex-workshop.latex.tools": [
+        {
+            "name": "make",
+            "command": "make",
+        },
+    ]
+}
