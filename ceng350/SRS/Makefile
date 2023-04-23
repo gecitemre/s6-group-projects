@@ -10,5 +10,8 @@ srs.pdf: srs.tex assets $(REGISTERED)
 %-registered.svg: %.svg
 	scripts/register.py $< $@
 
+group20.zip: srs.pdf diagrams/
+	zip -r group20.zip srs.pdf diagrams/
+
 clean:
 	rm	srs.pdf	srs.aux	srs.log	srs.out	srs.toc

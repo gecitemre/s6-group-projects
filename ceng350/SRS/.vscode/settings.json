@@ -11,6 +11,9 @@
         {
             "name": "make",
             "command": "make",
+            "args": [
+                "%DOCFILE%.pdf"
+            ]
         },
     ]
 }
