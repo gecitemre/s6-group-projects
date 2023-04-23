@@ -466,17 +466,28 @@
     
         \subsection{System Perspective}
     
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget libero sollicitudin justo vehicula venenatis quis ut eros. Proin vitae.
+        % TODO: UML Diagrams
 
         \subsection{External Interfaces}
 
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget libero sollicitudin justo vehicula venenatis quis ut eros. Proin vitae.
+        % TODO: UML Diagrams
 
         \subsection{Functions}
 
-        \begin{itemize}
-            \item \textbf{Get data from verified information source}: System fetches data from the verified information sources automatically.
-        \end{itemize}
+        \begin{table}[h]
+            \resizebox{\textwidth}{!}{%
+            \begin{tabular}{|l|l|}
+            \hline
+            \textbf{Suggested Function}    & \textbf{Summary}\\ \hline
+            \textbf{Get data from verified information source}           & \begin{tabular}[c]{@{}l@{}}System fetches data from the verified\\information sources automatically.\end{tabular} \\ \hline
+            \textbf{Submit Information} & \begin{tabular}[c]{@{}l@{}}System allows users to submit information\\about the disaster situation.\end{tabular} \\ \hline
+            \textbf{Filter Information for Disaster} & \begin{tabular}[c]{@{}l@{}}System filters the information according to\\a specific disaster.\end{tabular} \\ \hline
+            \textbf{Information About What to Do} & \begin{tabular}[c]{@{}l@{}}System provides information about what to do\\in a disaster situation for future disasters.\end{tabular} \\ \hline
+            \end{tabular}%
+            }
+        \end{table}
+        \captionof{table}{System Function Suggestions}
+        \vspace{1cm}
 
         \subsection{Usability Requirements}
     
@@ -495,11 +506,15 @@
         
         \subsection{Logical Database Requirements}
 
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget libero sollicitudin justo vehicula venenatis quis ut eros. Proin vitae.
+        % TODO: There is no database
 
         \subsection{Design Constraints}
 
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget libero sollicitudin justo vehicula venenatis quis ut eros. Proin vitae.
+        \begin{itemize}
+            \item \textbf{Different Repositories}: The source code of the system should be in different repositories. This will make the system more modular and easier to maintain.
+            \item \textbf{Continuous Integration}: The system should be able to be tested automatically. This will make the system more reliable.
+            \item \textbf{Used Packages}: The system should use packages that are well maintained and have a good community.
+        \end{itemize}
 
         \subsection{System Attributes}
 
