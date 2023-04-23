@@ -8,7 +8,7 @@ srs.pdf: srs.tex assets $(REGISTERED)
 	$(TEX)	$(TFLAGS)	srs.tex
 
 %-registered.svg: %.svg
-	scripts/register.py $< $@
+	scripts/register.py $<
 
 group20.zip: srs.pdf diagrams/
 	zip -r group20.zip srs.pdf diagrams/
