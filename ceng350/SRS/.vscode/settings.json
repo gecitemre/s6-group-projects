@@ -15,5 +15,25 @@
                 "%DOCFILE%.pdf"
             ]
         },
+    ],
+    "cSpell.words": [
+        "Afet",
+        "afetbilgi",
+        "afetharita",
+        "Bilgi",
+        "deprem",
+        "depremyardim",
+        "ethnicities",
+        "Kahramanmaraş",
+        "Kızılay",
+        "mkboth",
+        "Pazarcık",
+        "starttoc"
+    ],
+    "grammarly.selectors": [
+        {
+            "language": "latex",
+            "scheme": "file"
+        }
     ]
 }
