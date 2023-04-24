@@ -492,14 +492,94 @@
             \resizebox{\textwidth}{!}{%
             \begin{tabular}{|l|l|}
             \hline
-            \textbf{Suggested Function}    & \textbf{Summary}\\ \hline
-            \textbf{Get data from verified information source}           & \begin{tabular}[c]{@{}l@{}}System fetches data from the verified\\information sources automatically.\end{tabular} \\ \hline
-            \textbf{Submit Information} & \begin{tabular}[c]{@{}l@{}}System allows users to submit information\\about the disaster situation.\end{tabular} \\ \hline
-            \textbf{Filter Information for Disaster} & \begin{tabular}[c]{@{}l@{}}System filters the information according to\\a specific disaster.\end{tabular} \\ \hline
-            \textbf{Information About What to Do} & \begin{tabular}[c]{@{}l@{}}System provides information about what to do\\in a disaster situation for future disasters.\end{tabular} \\ \hline
+            \textbf{Use case name}    & \begin{tabular}[c]{@{}l@{}}Get Data from Verified Information\\ Source\\ \end{tabular}                                                                                                                                                                                       \\ \hline
+            \textbf{Actors}           & User, Static Website, Data sources                                                                                                                                                                                           \\ \hline
+            \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}System fetches data from the verified\\information sources automatically. \end{tabular} \\ \hline
+            \textbf{Data}            & \begin{tabular}[c]{@{}l@{}}Information about gathering places, \\ food distribution locations, shelters, \\ gas stations etc.                   \end{tabular} \\ \hline
+            \textbf{Preconditions}   & -                                                                                                                                                                     \\ \hline
+            \textbf{Stimulus}        & -                                                                                                                                               \\ \hline
+            \textbf{Basic flow}     & \begin{tabular}[c]{@{}l@{}}
+                                        Step 1: System fetches data from the\\ verified information sources.
+                                        \end{tabular}                                  \\ \hline
+            \textbf{Alternative flow} & \begin{tabular}[c]{@{}l@{}}The user directly visits the sources\end{tabular} \\\hline
+            \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
+            \textbf{Post conditions}  & - \\ \hline
             \end{tabular}%
             }
-            \captionof{table}{System Function Suggestions}
+            \captionof{table}[H]{Get Data from Verified Information Source Function}
+        \end{table}
+        \vspace{1cm}
+
+        \begin{table}[H]
+            \resizebox{\textwidth}{!}{%
+            \begin{tabular}{|l|l|}
+            \hline
+            \textbf{Use case name}    & \begin{tabular}[c]{@{}l@{}}Submit Information \end{tabular}                                                                                                                                                                                       \\ \hline
+            \textbf{Actors}           & User, Static Website                                                                                                                                                                                           \\ \hline
+            \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}System allows users to submit\\ information about the disaster situation. \end{tabular} \\ \hline
+            \textbf{Data}            & \begin{tabular}[c]{@{}l@{}}Information about gathering places, \\ food distribution locations, shelters, \\ gas stations etc.                   \end{tabular} \\ \hline
+            \textbf{Preconditions}   & \begin{tabular}[c]{@{}l@{}}User has significant information about the\\ disaster.                           \end{tabular}                                                                                                                                           \\ \hline
+            \textbf{Stimulus}        & -                                                                                                                                               \\ \hline
+            \textbf{Basic flow}     & \begin{tabular}[c]{@{}l@{}}
+                                        Step 1: The user clicks the submit information\\ button.\\
+                                        Step 2: The user enters the information.\\
+                                        Step 3: The user clicks the submit button.\\
+                                        Step 4: The system verifies the information.\\
+                                        \end{tabular}                                  \\ \hline
+            \textbf{Alternative flow} & \begin{tabular}[c]{@{}l@{}}The user submits info to\\ one of afetbilgi.com's sources\end{tabular} \\\hline
+            \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
+            \textbf{Post conditions}  & The information is submitted. \\ \hline
+            \end{tabular}%
+            }
+            \captionof{table}[H]{Submit Information Function}
+        \end{table}
+        \vspace{1cm}
+
+        \begin{table}[H]
+            \resizebox{\textwidth}{!}{%
+            \begin{tabular}{|l|l|}
+            \hline
+            \textbf{Use case name}    & \begin{tabular}[c]{@{}l@{}}Filter Information for Disaster \end{tabular}                                                                                                                                                                                       \\ \hline
+            \textbf{Actors}           & User, Static Website                                                                                                                                                                                           \\ \hline
+            \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}System filters the information according to\\a specific disaster. \end{tabular} \\ \hline
+            \textbf{Data}            & \begin{tabular}[c]{@{}l@{}}Information about gathering places, \\ food distribution locations, shelters, \\ gas stations etc.                   \end{tabular} \\ \hline
+            \textbf{Preconditions}   & \begin{tabular}[c]{@{}l@{}}User wants to learn about a given \\ disaster.                           \end{tabular}                                                                                                                                           \\ \hline
+            \textbf{Stimulus}        & -                                                                                                                                               \\ \hline
+            \textbf{Basic flow}     & \begin{tabular}[c]{@{}l@{}}
+                                        Step 1: The user clicks the filter information\\ button.\\
+                                        Step 2: The user picks the disaster.\\
+                                        Step 3: The user clicks the filter button.\\
+                                        Step 4: The system filters the information.\\
+                                        \end{tabular}                                  \\ \hline
+            \textbf{Alternative flow} & - \\\hline
+            \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
+            \textbf{Post conditions}  & The information is filtered. \\ \hline
+            \end{tabular}%
+            }
+            \captionof{table}[H]{Filter Information Function}
+        \end{table}
+        \vspace{1cm}
+
+        \begin{table}[H]
+            \resizebox{\textwidth}{!}{%
+            \begin{tabular}{|l|l|}
+            \hline
+            \textbf{Use case name}    & \begin{tabular}[c]{@{}l@{}}Information About What to Do \end{tabular}                                                                                                                                                                                       \\ \hline
+            \textbf{Actors}           & User, Static Website                                                                                                                                                                                           \\ \hline
+            \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}System provides information about what\\ to do in a disaster situation for \\ future disasters. \end{tabular} \\ \hline
+            \textbf{Data}            & \begin{tabular}[c]{@{}l@{}}Vital information about what should \\ a person do in a case of a disaster\\ such as an earthquake, flood etc.                   \end{tabular} \\ \hline
+            \textbf{Preconditions}   & \begin{tabular}[c]{@{}l@{}}User wants to learn what to do about \\ a given disaster.                           \end{tabular}                                                                                                                                           \\ \hline
+            \textbf{Stimulus}        & -                                                                                                                                               \\ \hline
+            \textbf{Basic flow}     & \begin{tabular}[c]{@{}l@{}}
+                                        Step 1: The user clicks the learn\\ button.\\
+                                        Step 2: The user is shown the info.\\
+                                        \end{tabular}                                  \\ \hline
+            \textbf{Alternative flow} & - \\\hline
+            \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
+            \textbf{Post conditions}  & The information is shown. \\ \hline
+            \end{tabular}%
+            }
+            \captionof{table}[H]{Information About What to Do Function}
         \end{table}
         \vspace{1cm}
 
