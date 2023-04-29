@@ -35,13 +35,16 @@ org 0x0000
 
 
 org 0x0008
-interrupt_service_routine:
+interrupt_service_routine: ; only timer0 for the moment
   btfss INTCON, INTCON_TMR0IF_POSITION
-
+  retfie fast
 
 main:
   movlw 0b10000000 ; enable timer0, no prescaler
   movwf T0CON
+  movlw 0b10100000
+  movwf INTCON
+
   
 main_loop:
   goto main_loop
