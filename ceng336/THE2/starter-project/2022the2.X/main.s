@@ -24,6 +24,8 @@ CONFIG XINST = OFF      ; Extended Instruction Set Enable bit (Instruction set e
 #define TIMER_START 15536 ; 100ms (65536 - 50000)
 #define TIMER_START_LOW 0xb0
 #define TIMER_START_HIGH 0x3c
+#define BEAT_DURATION_DEFAULT 10
+#define BAR_LENGTH_DEFAULT 4
     
 ; GLOBAL SYMBOLS
 ; You need to add your variables here if you want to debug them.
@@ -33,7 +35,7 @@ GLOBAL counter1, time_ds
 PSECT udata_acs
 counter1:
   DS 1
-time_ds: ; time in deciseconds, increase every 100ms
+time_ds: ; time in deciseconds counting backwards, decrease every 100ms
     DS 1
 wreg_tmp:
     DS 1
@@ -42,6 +44,12 @@ status_tmp:
 new_portb:
     DS 1
 last_portb:
+    DS 1
+beat_duration_ds:
+    DS 1
+pause:
+    DS 1
+bar_length:
     DS 1
 
 PSECT CODE
@@ -62,9 +70,11 @@ timer0_interrupt:
   movwf TMR0L
   movlw TIMER_START_HIGH
   movwf TMR0H
-  incf time_ds
-  bcf INTCON, 2  
+  dcfsnz time_ds
+  movff beat_duration_ds, time_ds
+  bcf INTCON, 2 
   return
+
 rb_interrupt:
     movff PORTB, new_portb
     comf new_portb, W
@@ -81,16 +91,49 @@ rb_interrupt:
     bcf INTCON, 0
     return
 rb4_pressed:
+    comf pause
     return
+
 rb5_pressed:
+    ;Increase button. Affects the speed level if paused, bar length if running.
+    movf pause
+    bnz paused_rb5
+    incf bar_length
     return
+paused_rb5:
+    incf beat_duration_ds ; TODO: this value should not pass 10
+    return
+
 rb6_pressed:
+    ;Decrease button. Affects the speed level if paused, bar length if running.
+    movf pause
+    bnz paused_rb6
+    decf bar_length
     return
+paused_rb6:
+    decf beat_duration_ds ; TODO: this value should not pass 2
+    return
+
 rb7_pressed:
+    ;Reset button. Affects the speed level if paused, bar length if running.
+    movf pause
+    bnz paused_rb7
+    movlw BEAT_DURATION_DEFAULT
+    movwf beat_duration_ds
+paused_rb7:
+    movlw BAR_LENGTH_DEFAULT
+    movwf bar_length
     return
+
 main:
   call timer0_interrupt ; reset timer to start value
-  clrf time_ds
+  movlw BEAT_DURATION_DEFAULT
+  movwf beat_duration_ds
+  movwf time_ds
+  movlw 0
+  movwf pause
+  movlw BAR_LENGTH_DEFAULT
+  movwf bar_length
   
 ; configure_timer
   movlw 0b10000000 ; enable timer0, 1:2 prescaler, 131.072 ms 0 -> 65,536
