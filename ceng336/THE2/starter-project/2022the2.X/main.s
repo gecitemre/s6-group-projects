@@ -21,7 +21,7 @@ CONFIG LVP = OFF        ; Single-Supply ICSP Enable bit (Single-Supply ICSP disa
 CONFIG XINST = OFF      ; Extended Instruction Set Enable bit (Instruction set extension and Indexed Addressing mode disabled (Legacy mode))
 
 ; timer macros
-#define TIMER_START 15536 ; 100ms
+#define TIMER_START 15536 ; 100ms (65536 - 50000)
 #define TIMER_START_LOW 0xb0
 #define TIMER_START_HIGH 0x3c
     
@@ -33,7 +33,7 @@ GLOBAL counter1, post_timer
 PSECT udata_acs
 counter1:
   DS 1
-post_timer: ; increase every 100ms
+time_ds: ; time in deciseconds, increase every 100ms
     DS 1
 
 PSECT CODE
@@ -52,7 +52,7 @@ timer0_isr:
   movwf TMR0L
   movlw TIMER_START_HIGH
   movwf TMR0H
-  incf post_timer
+  incf time_ds
   return
 
 main:
