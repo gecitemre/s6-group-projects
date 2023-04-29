@@ -21,18 +21,20 @@ CONFIG LVP = OFF        ; Single-Supply ICSP Enable bit (Single-Supply ICSP disa
 CONFIG XINST = OFF      ; Extended Instruction Set Enable bit (Instruction set extension and Indexed Addressing mode disabled (Legacy mode))
 
 ; timer macros
-#define TIMER_START 3036 ; 1000ms
-#define TIMER_START_LOW 0xdc
-#define TIMER_START_HIGH 0x0b
+#define TIMER_START 15536 ; 100ms
+#define TIMER_START_LOW 0xb0
+#define TIMER_START_HIGH 0x3c
     
 ; GLOBAL SYMBOLS
 ; You need to add your variables here if you want to debug them.
-GLOBAL counter1
+GLOBAL counter1, post_timer
 
 ; Define space for the variables in RAM
 PSECT udata_acs
 counter1:
-  DS 1 
+  DS 1
+post_timer: ; increase every 100ms
+    DS 1
 
 PSECT CODE
 org 0x0000
@@ -50,11 +52,12 @@ timer0_isr:
   movwf TMR0L
   movlw TIMER_START_HIGH
   movwf TMR0H
+  incf post_timer
   return
 
 main:
 configure_timer: ; this is a label for clearity
-  movlw 0b10000011 ; enable timer0, 1:16 prescaler, 1048.576 ms 0 -> 65,536
+  movlw 0b10000000 ; enable timer0, 1:2 prescaler, 131.072 ms 0 -> 65,536
   movwf T0CON
   movlw 0b10100000
   movwf INTCON
