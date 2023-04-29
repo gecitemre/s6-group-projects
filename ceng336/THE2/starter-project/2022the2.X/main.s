@@ -20,6 +20,11 @@ CONFIG MCLRE = ON       ; MCLR Pin Enable bit (MCLR pin enabled; RE3 input pin d
 CONFIG LVP = OFF        ; Single-Supply ICSP Enable bit (Single-Supply ICSP disabled)
 CONFIG XINST = OFF      ; Extended Instruction Set Enable bit (Instruction set extension and Indexed Addressing mode disabled (Legacy mode))
 
+; timer macros
+#define TIMER_START 3036 ; 1000ms
+#define TIMER_START_LOW 0xdc
+#define TIMER_START_HIGH 0x0b
+    
 ; GLOBAL SYMBOLS
 ; You need to add your variables here if you want to debug them.
 GLOBAL counter1
@@ -34,16 +39,30 @@ org 0x0000
   goto main
 
 
+
 org 0x0008
 interrupt_service_routine: ; only timer0 for the moment
-  btfss INTCON, INTCON_TMR0IF_POSITION
-  retfie fast
+  call timer0_isr
+  retfie
+timer0_isr:
+  bcf INTCON, INTCON_TMR0IF_POSITION
+  movlw TIMER_START_LOW
+  movwf TMR0L
+  movlw TIMER_START_HIGH
+  movwf TMR0H
+  return
 
 main:
-  movlw 0b10000000 ; enable timer0, no prescaler
+configure_timer: ; this is a label for clearity
+  movlw 0b10000011 ; enable timer0, 1:16 prescaler, 1048.576 ms 0 -> 65,536
   movwf T0CON
   movlw 0b10100000
   movwf INTCON
+  movlw TIMER_START_LOW
+  movwf TMR0L
+  movlw TIMER_START_HIGH
+  movwf TMR0H
+
 
   
 main_loop:
