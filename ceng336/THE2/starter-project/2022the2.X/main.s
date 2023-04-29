@@ -71,10 +71,13 @@ timer0_interrupt:
   movlw TIMER_START_HIGH
   movwf TMR0H
   dcfsnz time_ds
-  movff beat_duration_ds, time_ds
+  call beat_duration_reached
   bcf INTCON, 2 
   return
 
+beat_duration_reached:
+    movff beat_duration_ds, time_ds
+    return
 rb_interrupt:
     movff PORTB, new_portb
     comf new_portb, W
