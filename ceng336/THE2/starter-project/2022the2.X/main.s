@@ -27,13 +27,21 @@ CONFIG XINST = OFF      ; Extended Instruction Set Enable bit (Instruction set e
     
 ; GLOBAL SYMBOLS
 ; You need to add your variables here if you want to debug them.
-GLOBAL counter1, post_timer
+GLOBAL counter1, time_ds
 
 ; Define space for the variables in RAM
 PSECT udata_acs
 counter1:
   DS 1
 time_ds: ; time in deciseconds, increase every 100ms
+    DS 1
+wreg_tmp:
+    DS 1
+status_tmp:
+    DS 1
+new_portb:
+    DS 1
+last_portb:
     DS 1
 
 PSECT CODE
@@ -43,23 +51,51 @@ org 0x0000
 
 
 org 0x0008
-interrupt_service_routine: ; only timer0 for the moment
+interrupt_service_routine:
+  btfsc INTCON, 2
   call timer0_interrupt
-  retfie
+  btfsc INTCON, 0
+  call rb_interrupt
+  retfie 1
 timer0_interrupt:
-  bcf INTCON, INTCON_TMR0IF_POSITION
   movlw TIMER_START_LOW
   movwf TMR0L
   movlw TIMER_START_HIGH
   movwf TMR0H
   incf time_ds
+  bcf INTCON, 2  
   return
-
+rb_interrupt:
+    movff PORTB, new_portb
+    comf new_portb, W
+    andwf last_portb, W
+    movff new_portb, last_portb
+    btfsc WREG, 4
+    call rb4_pressed
+    btfsc WREG, 5
+    call rb5_pressed
+    btfsc WREG, 6
+    call rb6_pressed
+    btfsc WREG, 7
+    call rb7_pressed
+    bcf INTCON, 0
+    return
+rb4_pressed:
+    return
+rb5_pressed:
+    return
+rb6_pressed:
+    return
+rb7_pressed:
+    return
 main:
-configure_timer: ; this is a label for clearity
+  call timer0_interrupt ; reset timer to start value
+  clrf time_ds
+  
+; configure_timer
   movlw 0b10000000 ; enable timer0, 1:2 prescaler, 131.072 ms 0 -> 65,536
   movwf T0CON
-  movlw 0b10100000
+  movlw 0b10101000
   movwf INTCON
   movlw TIMER_START_LOW
   movwf TMR0L
@@ -67,7 +103,6 @@ configure_timer: ; this is a label for clearity
   movwf TMR0H
 
 
-  
 main_loop:
   goto main_loop
 
