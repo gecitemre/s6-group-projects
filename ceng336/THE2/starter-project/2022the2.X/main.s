@@ -76,8 +76,10 @@ timer0_interrupt:
   return
 
 beat_duration_reached:
+    ; TO BE IMPLEMENTED
     movff beat_duration_ds, time_ds
     return
+
 rb_interrupt:
     movff PORTB, new_portb
     comf new_portb, W
