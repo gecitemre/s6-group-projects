@@ -125,6 +125,7 @@ rb7_pressed:
     bnz paused_rb7
     movlw BEAT_DURATION_DEFAULT
     movwf beat_duration_ds
+    return
 paused_rb7:
     movlw BAR_LENGTH_DEFAULT
     movwf bar_length
