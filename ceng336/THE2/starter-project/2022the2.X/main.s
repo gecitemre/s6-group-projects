@@ -36,11 +36,13 @@ org 0x0000
 
 org 0x0008
 interrupt_service_routine:
-  retfie  1                 ; No match
+  btfss INTCON, INTCON_TMR0IF_POSITION
 
 
 main:
-  clrf counter1
+  movlw 0b10000000 ; enable timer0, no prescaler
+  movwf T0CON
+  
 main_loop:
   goto main_loop
 
