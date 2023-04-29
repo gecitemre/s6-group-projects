@@ -98,7 +98,7 @@ rb5_pressed:
     ;Increase button. Affects the speed level if paused, bar length if running.
     movf pause
     bnz paused_rb5
-    incf bar_length
+    incf bar_length ; TODO: this value should not pass 8
     return
 paused_rb5:
     incf beat_duration_ds ; TODO: this value should not pass 10
@@ -108,7 +108,7 @@ rb6_pressed:
     ;Decrease button. Affects the speed level if paused, bar length if running.
     movf pause
     bnz paused_rb6
-    decf bar_length
+    decf bar_length ; TODO: this value should not pass 2
     return
 paused_rb6:
     decf beat_duration_ds ; TODO: this value should not pass 2
