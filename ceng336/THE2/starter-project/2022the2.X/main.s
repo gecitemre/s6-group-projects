@@ -44,9 +44,9 @@ org 0x0000
 
 org 0x0008
 interrupt_service_routine: ; only timer0 for the moment
-  call timer0_isr
+  call timer0_interrupt
   retfie
-timer0_isr:
+timer0_interrupt:
   bcf INTCON, INTCON_TMR0IF_POSITION
   movlw TIMER_START_LOW
   movwf TMR0L
