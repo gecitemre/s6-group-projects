@@ -43,6 +43,8 @@ CONFIG XINST = OFF      ; Extended Instruction Set Enable bit (Instruction set e
 #define DISPLAY_8 0b01111111
 #define DISPLAY_9 0b01101111
 #define DISPLAY_0 0b00111111
+#define DISPLAY_P 0b01110011
+#define DISPLAY_DASH 0b01000000
 
     
 ; GLOBAL SYMBOLS
@@ -50,6 +52,7 @@ CONFIG XINST = OFF      ; Extended Instruction Set Enable bit (Instruction set e
 GLOBAL counter1, time_ds, wreg_tmp, status_tmp, new_portb, last_portb
 GLOBAL beat_duration_ds, pause, bar_length
 GLOBAL current_display
+GLOBAL main_loop_inc
 
 ; Define space for the variables in RAM
 PSECT udata_acs
@@ -73,6 +76,8 @@ bar_length:
     DS 1
 current_display:  ; [0, 3]: RA[0, 3]
     DS 1	  ; e.g if current_display = 1 => RA1 is lit
+main_loop_inc:    ; to keep track of main_loop
+    DS 1          ; will be useful in switching displays
 
 PSECT CODE
 org 0x0000
@@ -169,12 +174,15 @@ paused_rb7:
     movwf bar_length
     return
 
+;  -----------
+; | MAIN CODE |
+;  -----------
+    
 main:
     call init
     goto main_loop
 init:
     call timer0_interrupt ; reset timer to start value
-    movlw 0
 
   ; configure_timer
     movlw 0b10000000 ; enable timer0, 1:2 prescaler, 131.072 ms 0 -> 65,536
@@ -191,14 +199,149 @@ init:
     movwf beat_duration_ds
     movwf time_ds
 
-    movlw 0b11111111 ; enable pause
+    movlw 0b11111111 ; enable pause, any value except 0 will do
     movwf pause
     movlw BAR_LENGTH_DEFAULT
     movwf bar_length
+    
+    clrf main_loop_inc
+    incf main_loop_inc
 
     return
 
 
 main_loop:
+    ; POST LOOP MODIFICATIONS
+    incf main_loop_inc
+    clrf WREG
+    subwf main_loop_inc, 0
+    bz switch_display    ; if main_loop_inc = 0 then switch display
+    
     goto main_loop
 
+    
+switch_display:
+    clrf WREG
+    cpfseq pause
+    
+    ; if paused
+    goto switch_paused_display
+    
+    ; else
+    
+    goto switch_continuing_display
+    
+    switch_paused_display:
+	movff current_display, WREG
+	sublw 3
+	negf WREG
+	movwf current_display
+	return
+    
+    switch_continuing_display:
+	incf current_display   ; first increment current_display
+	movlw 4
+	cpfslt current_display ; if current_display < 4 skip
+	clrf current_display   ; else clear it
+	return    
+    
+show_RA0:
+    movlw 0b00000001
+    movwf RA
+
+    clrf WREG
+    cpfseq pause
+    
+    ; if paused
+    
+    goto show_paused_RA0
+    
+    ; else
+    
+    goto show_continuing_RA0
+    
+    ; show P
+    show_paused_RA0:
+	movlw DISPLAY_P
+	movwf RD
+	return
+	
+    ; show nothing
+    show_continuing_RA0:
+	clrf RD
+	return
+    
+show_RA1:
+    movlw 0b00000010
+    movwf RA
+
+    clrf WREG
+    cpfseq pause
+    
+    ; if paused
+    
+    goto show_paused_RA1
+    
+    ; else
+    
+    goto show_continuing_RA1
+    
+    ; TODO: show current beat
+    show_paused_RA1:
+	return
+	
+    ; show nothing
+    show_continuing_RA1:
+	clrf RD
+	return
+    
+show_RA2:
+    movlw 0b00000100
+    movwf RA
+
+    clrf WREG
+    cpfseq pause
+    
+    ; if paused
+    
+    goto show_paused_RA2
+    
+    ; else
+    
+    goto show_continuing_RA2
+    
+    ; show -
+    show_paused_RA2:
+	movlw DISPLAY_DASH
+	movwf RD
+	return
+	
+    ; show nothing
+    show_continuing_RA2:
+	clrf RD
+	return
+    
+show_RA3:
+    movlw 0b00001000
+    movwf RA
+
+    clrf WREG
+    cpfseq pause
+    
+    ; if paused
+    
+    goto show_paused_RA3
+    
+    ; else
+    
+    goto show_continuing_RA3
+    
+    ; TODO: show speed
+    show_paused_RA0:
+	return
+	
+    ; TODO: show bar length
+    show_continuing_RA0:	
+	return
+    return
+    
