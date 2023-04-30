@@ -31,10 +31,25 @@ CONFIG XINST = OFF      ; Extended Instruction Set Enable bit (Instruction set e
 #define BAR_LENGTH_HIGH 8
 #define BAR_LENGTH_LOW  2
     
+; VALUES FOR 7-SEGMENT DISPLAY PINS
+;                   -gfedcba
+#define DISPLAY_1 0b00000110
+#define DISPLAY_2 0b01011011
+#define DISPLAY_3 0b01001111
+#define DISPLAY_4 0b01100110
+#define DISPLAY_5 0b01101101
+#define DISPLAY_6 0b01111101
+#define DISPLAY_7 0b00000111
+#define DISPLAY_8 0b01111111
+#define DISPLAY_9 0b01101111
+#define DISPLAY_0 0b00111111
+
+    
 ; GLOBAL SYMBOLS
 ; You need to add your variables here if you want to debug them.
 GLOBAL counter1, time_ds, wreg_tmp, status_tmp, new_portb, last_portb
-GLOBAL beat_duration_ds, pause, bar_length, speed
+GLOBAL beat_duration_ds, pause, bar_length
+GLOBAL current_display
 
 ; Define space for the variables in RAM
 PSECT udata_acs
@@ -56,6 +71,8 @@ pause:            ; non-zero if paused, zero if paused
     DS 1
 bar_length:
     DS 1
+current_display:  ; [0, 3]: RA[0, 3]
+    DS 1	  ; e.g if current_display = 1 => RA1 is lit
 
 PSECT CODE
 org 0x0000
