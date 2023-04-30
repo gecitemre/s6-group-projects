@@ -24,12 +24,17 @@ CONFIG XINST = OFF      ; Extended Instruction Set Enable bit (Instruction set e
 #define TIMER_START 15536 ; 100ms (65536 - 50000)
 #define TIMER_START_LOW 0xb0
 #define TIMER_START_HIGH 0x3c
-#define BEAT_DURATION_DEFAULT 10
+#define BEAT_DURATION_DEFAULT 500
+#define BEAT_DURATION_HIGH 1000 ; when speed = 1
+#define BEAT_DURATION_LOW 200   ; when speed = 9
 #define BAR_LENGTH_DEFAULT 4
+#define BAR_LENGTH_HIGH 8
+#define BAR_LENGTH_LOW  2
     
 ; GLOBAL SYMBOLS
 ; You need to add your variables here if you want to debug them.
-GLOBAL counter1, time_ds
+GLOBAL counter1, time_ds, wreg_tmp, status_tmp, new_portb, last_portb
+GLOBAL beat_duration_ds, pause, bar_length, speed
 
 ; Define space for the variables in RAM
 PSECT udata_acs
@@ -45,9 +50,9 @@ new_portb:
     DS 1
 last_portb:
     DS 1
-beat_duration_ds:
-    DS 1
-pause:
+beat_duration_ds: ; beat duration in ms.
+    DS 1          ; beat_duration_ds = 1100 - (speed * 100)
+pause:            ; non-zero if paused, zero if paused
     DS 1
 bar_length:
     DS 1
@@ -59,6 +64,8 @@ org 0x0000
 
 
 org 0x0008
+  goto interrupt_service_routine
+  
 interrupt_service_routine:
   btfsc INTCON, 2
   call timer0_interrupt
@@ -80,7 +87,7 @@ beat_duration_reached:
     movff beat_duration_ds, time_ds
     return
 
-rb_interrupt:
+rb_interrupt: ; click handler
     movff PORTB, new_portb
     comf new_portb, W
     andwf last_portb, W
@@ -103,20 +110,36 @@ rb5_pressed:
     ;Increase button. Affects the speed level if paused, bar length if running.
     movf pause
     bnz paused_rb5
-    incf bar_length ; TODO: this value should not pass 8
-    return
+    
+    movff bar_length, WREG
+    cpfseq BAR_LENGTH_HIGH  ; if bar_length is max  
+    incf bar_length
+    return                  ; then return
 paused_rb5:
-    incf beat_duration_ds ; TODO: this value should not pass 10
+    movff beat_duration_ds, WREG
+    cpfseq BEAT_DURATION_LOW ; if beat duration is min, i.e. speed is max
+    call increase_beat_duration
+    return                   ; then return    
+increase_beat_duration:
+    movlw 100
+    addwf beat_duration_ds
     return
 
 rb6_pressed:
     ;Decrease button. Affects the speed level if paused, bar length if running.
     movf pause
     bnz paused_rb6
-    decf bar_length ; TODO: this value should not pass 2
-    return
+    cpfseq BAR_LENGTH_LOW   ; if bar_length is min  
+    decf bar_length
+    return                  ; then return
 paused_rb6:
-    decf beat_duration_ds ; TODO: this value should not pass 2
+    movff beat_duration_ds, WREG
+    cpfseq BEAT_DURATION_HIGH ; if beat duration is max, i.e. speed is min
+    call decrease_beat_duration
+    return                    ; then return    
+decrease_beat_duration:
+    movlw 100
+    subwf beat_duration_ds
     return
 
 rb7_pressed:
@@ -132,14 +155,11 @@ paused_rb7:
     return
 
 main:
+    call init
+    goto main_loop
+init:
   call timer0_interrupt ; reset timer to start value
-  movlw BEAT_DURATION_DEFAULT
-  movwf beat_duration_ds
-  movwf time_ds
   movlw 0
-  movwf pause
-  movlw BAR_LENGTH_DEFAULT
-  movwf bar_length
   
 ; configure_timer
   movlw 0b10000000 ; enable timer0, 1:2 prescaler, 131.072 ms 0 -> 65,536
@@ -150,6 +170,18 @@ main:
   movwf TMR0L
   movlw TIMER_START_HIGH
   movwf TMR0H
+  
+  ; init values for metronome
+  movlw BEAT_DURATION_DEFAULT
+  movwf beat_duration_ds
+  movwf time_ds
+  
+  movlw 0b11111111 ; enable pause
+  movwf pause
+  movlw BAR_LENGTH_DEFAULT
+  movwf bar_length
+  
+  return
 
 
 main_loop:
