@@ -59,28 +59,26 @@ bar_length:
 
 PSECT CODE
 org 0x0000
-  goto main
-
-
+goto main
 
 org 0x0008
-  goto interrupt_service_routine
+goto interrupt_service_routine
   
 interrupt_service_routine:
-  btfsc INTCON, 2
-  call timer0_interrupt
-  btfsc INTCON, 0
-  call rb_interrupt
-  retfie 1
+    btfsc INTCON, 2
+    call timer0_interrupt
+    btfsc INTCON, 0
+    call rb_interrupt
+    retfie 1
 timer0_interrupt:
-  movlw TIMER_START_LOW
-  movwf TMR0L
-  movlw TIMER_START_HIGH
-  movwf TMR0H
-  dcfsnz time_ds
-  call beat_duration_reached
-  bcf INTCON, 2 
-  return
+    movlw TIMER_START_LOW
+    movwf TMR0L
+    movlw TIMER_START_HIGH
+    movwf TMR0H
+    dcfsnz time_ds
+    call beat_duration_reached
+    bcf INTCON, 2 
+    return
 
 beat_duration_reached:
     ; TO BE IMPLEMENTED
@@ -158,32 +156,32 @@ main:
     call init
     goto main_loop
 init:
-  call timer0_interrupt ; reset timer to start value
-  movlw 0
-  
-; configure_timer
-  movlw 0b10000000 ; enable timer0, 1:2 prescaler, 131.072 ms 0 -> 65,536
-  movwf T0CON
-  movlw 0b10101000
-  movwf INTCON
-  movlw TIMER_START_LOW
-  movwf TMR0L
-  movlw TIMER_START_HIGH
-  movwf TMR0H
-  
-  ; init values for metronome
-  movlw BEAT_DURATION_DEFAULT
-  movwf beat_duration_ds
-  movwf time_ds
-  
-  movlw 0b11111111 ; enable pause
-  movwf pause
-  movlw BAR_LENGTH_DEFAULT
-  movwf bar_length
-  
-  return
+    call timer0_interrupt ; reset timer to start value
+    movlw 0
+
+  ; configure_timer
+    movlw 0b10000000 ; enable timer0, 1:2 prescaler, 131.072 ms 0 -> 65,536
+    movwf T0CON
+    movlw 0b10101000
+    movwf INTCON
+    movlw TIMER_START_LOW
+    movwf TMR0L
+    movlw TIMER_START_HIGH
+    movwf TMR0H
+
+    ; init values for metronome
+    movlw BEAT_DURATION_DEFAULT
+    movwf beat_duration_ds
+    movwf time_ds
+
+    movlw 0b11111111 ; enable pause
+    movwf pause
+    movlw BAR_LENGTH_DEFAULT
+    movwf bar_length
+
+    return
 
 
 main_loop:
-  goto main_loop
+    goto main_loop
 
