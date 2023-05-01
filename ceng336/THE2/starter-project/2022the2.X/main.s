@@ -21,9 +21,9 @@ CONFIG LVP = OFF        ; Single-Supply ICSP Enable bit (Single-Supply ICSP disa
 CONFIG XINST = OFF      ; Extended Instruction Set Enable bit (Instruction set extension and Indexed Addressing mode disabled (Legacy mode))
 
 ; timer macros
-#define TIMER_START 15536 ; 100ms (65536 - 50000)
-#define TIMER_START_LOW 0xb0
-#define TIMER_START_HIGH 0x3c
+#define TIMER_START 40536 ; 50ms (65536 - 25000)
+#define TIMER_START_LOW 0x58
+#define TIMER_START_HIGH 0x9e
 #define BEAT_DURATION_DEFAULT 5
 #define BEAT_DURATION_HIGH 10 ; when speed = 1
 #define BEAT_DURATION_LOW 2   ; when speed = 9
@@ -54,6 +54,7 @@ GLOBAL beat_duration_ds, pause, bar_length
 GLOBAL current_display
 GLOBAL main_loop_inc
 GLOBAL current_beat_num
+GLOBAL rc0_light, rc1_light
 
 ; Define space for the variables in RAM
 PSECT udata_acs
@@ -81,6 +82,10 @@ main_loop_inc:    ; to keep track of main_loop
     DS 1          ; will be useful in switching displays
 current_beat_num:
     DS 1
+rc0_light:        ; 1 if RC0 is turned on, -1 if RC0 is turned off
+    DS 1
+rc1_light:        ; 1 if RC1 is turned on, -1 if RC1 is turned off
+    DS 1
 
 PSECT CODE
 org 0x0000
@@ -100,12 +105,45 @@ timer0_interrupt:
     movwf TMR0L
     movlw TIMER_START_HIGH
     movwf TMR0H
-    dcfsnz time_ds
-    call beat_duration_reached
-    bcf INTCON, 2 
-    return
+
+    ; if rc0_light is currently off, that means the incoming interrupt is for turning it on
+    ; and indicates that it is the end of the 2nd 50ms of the 100ms period, i.e. the beginning of the 1st 50ms
+    ; of the next beat.
+    ; therefore, we will decrease time_ds if rc0_light is off when the interrupt is received.
+    ; 
+    ; if rc0_light is currently on, that means the incoming interrupt is for turning it off
+    ; and indicates that it is the end 1st 50ms of the 100ms period.
+    ; we will turn off rc0_light and rc1_light but we will not decrease time_ds.
+    ; 
+    ; rc1_light does not indicate anything because it is only turned on at the beginning of the new bar.
+
+    movlw 0b11111111 ; -1
+
+    cpfseq rc0_light
+    goto turn_rc_lights_off ; if rc0 is on
+    goto decrease_time_ds  ; if rc0 is off
+
+    turn_rc_lights_off:
+        movlw 0b11111111 ; -1
+        movwf rc0_light
+        movwf rc1_light
+
+        movlw 0b00000000 ; 0
+        movwf PORTC
+
+        return
+
+    decrease_time_ds:
+        dcfsnz time_ds
+        call beat_duration_reached
+        bcf INTCON, 2 
+        return
 
 beat_duration_reached:
+    ; turn rc0 on
+    movlw 1
+    movwf rc0_light
+
     movlw bar_length
     cpfseq current_beat_num
     goto not_on_the_beat   ; if bar_length == current_beat_num then its on the beat
@@ -114,15 +152,26 @@ beat_duration_reached:
     not_on_the_beat:
         incf current_beat_num
     
-	movff beat_duration_ds, time_ds
-	return
+        movff beat_duration_ds, time_ds
+
+        movlw 0b00000001 ; 1
+        movwf PORTC
+
+        return
 	
     on_the_beat:
         movlw 1
-	movwf current_beat_num
-	
-	movff beat_duration_ds, time_ds
-	return
+        movwf current_beat_num
+
+        ; turn rc1 on
+        movlw 1
+        movwf rc1_light
+
+        movlw 0b00000011 ; 2
+        movwf PORTC
+        
+        movff beat_duration_ds, time_ds
+        return
 
 rb_interrupt: ; click handler
     movff PORTB, new_portb
@@ -222,12 +271,11 @@ init:
     clrf current_display
     incf current_display
 
+
     return
 
 
 main_loop:
-    ; TODO: light RC for 50ms
-    
     ; POST LOOP MODIFICATIONS
     incf main_loop_inc
     clrf WREG
@@ -299,7 +347,6 @@ show_RA1:
     
     goto show_continuing_RA1
     
-    ; TODO: show current beat
     show_paused_RA1:
 	; switch case
 	movlw 8
