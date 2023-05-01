@@ -280,6 +280,8 @@ init:
     movlw 0b11111111
     movwf rc0_light
     movwf rc1_light
+
+    call show_paused_RA0
     
     clrf LATC
     
