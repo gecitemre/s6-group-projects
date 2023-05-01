@@ -271,7 +271,9 @@ init:
     clrf current_display
     incf current_display
 
-
+    clrf TRISA
+    clrf TRISD
+    
     return
 
 
@@ -301,7 +303,7 @@ switch_display:
 	cpfseq current_display
 	goto turn_DIS4_on   ; if current_display != 0b1000; then turn DIS4 on
 	goto turn_DIS1_on   ; if current_display == 0b1000; then turn DIS1 on
-	return
+	
     
     switch_continuing_display:
 	movlw 0b00001000
@@ -327,12 +329,12 @@ show_RA0:
     ; show P
     show_paused_RA0:
 	movlw DISPLAY_P
-	movwf PORTD ; RD
+	movwf LATD ; RD
 	return
 	
     ; show nothing
     show_continuing_RA0:
-	clrf PORTD ; RD
+	clrf LATD ; RD
 	return
     
 show_RA1:
@@ -379,7 +381,7 @@ show_RA1:
 	
     ; show nothing
     show_continuing_RA1:
-	clrf PORTD ; RD
+	clrf LATD ; RD
 	return
     
 show_RA2:
@@ -397,12 +399,12 @@ show_RA2:
     ; show -
     show_paused_RA2:
 	movlw DISPLAY_DASH
-	movwf PORTD ; RD
+	movwf LATD ; RD
 	return
 	
     ; show nothing
     show_continuing_RA2:
-	clrf PORTD ; RD
+	clrf LATD ; RD
 	return
     
 show_RA3:
@@ -492,68 +494,68 @@ show_RA3:
     
 display_0:
     movlw DISPLAY_0
-    movwf PORTD ; RD
+    movwf LATD ; RD
     return
     
 display_1:
     movlw DISPLAY_1
-    movwf PORTD ; RD
+    movwf LATD ; RD
     return
     
 display_2:
     movlw DISPLAY_2
-    movwf PORTD ; RD
+    movwf LATD ; RD
     return
     
 display_3:
     movlw DISPLAY_3
-    movwf PORTD ; RD
+    movwf LATD ; RD
     return
     
 display_4:
     movlw DISPLAY_4
-    movwf PORTD ; RD
+    movwf LATD ; RD
     return
     
 display_5:
     movlw DISPLAY_5
-    movwf PORTD ; RD
+    movwf LATD ; RD
     return
     
 display_6:
     movlw DISPLAY_6
-    movwf PORTD ; RD
+    movwf LATD ; RD
     return
     
 display_7:
     movlw DISPLAY_7
-    movwf PORTD ; RD
+    movwf LATD ; RD
     return
     
 display_8:
     movlw DISPLAY_8
-    movwf PORTD ; RD
+    movwf LATD ; RD
     return
     
 display_9:
     movlw DISPLAY_9
-    movwf PORTD ; RD
+    movwf LATD ; RD
     return
     
 display_p:
     movlw DISPLAY_P
-    movwf PORTD ; RD
+    movwf LATD ; RD
     return
     
 display_dash:
     movlw DISPLAY_DASH
-    movwf PORTD ; RD
+    movwf LATD ; RD
     return
     
     
 turn_DIS1_on:
     movlw 0b00000001
-    movwf PORTA
+    movwf LATA
     
     call show_RA0
     
@@ -561,7 +563,7 @@ turn_DIS1_on:
     
 turn_DIS2_on:
     movlw 0b00000010
-    movwf PORTA
+    movwf LATA
     
     call show_RA1
     
@@ -572,12 +574,12 @@ turn_DIS3_on:
     
     call show_RA2
     
-    movwf PORTA
+    movwf LATA
     return
     
 turn_DIS4_on:
     movlw 0b00001000
-    movwf PORTA
+    movwf LATA
     
     call show_RA3
     
