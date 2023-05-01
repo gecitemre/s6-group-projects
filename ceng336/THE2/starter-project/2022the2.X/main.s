@@ -218,6 +218,9 @@ init:
     
     clrf main_loop_inc
     incf main_loop_inc
+    
+    clrf current_display
+    incf current_display
 
     return
 
@@ -246,23 +249,22 @@ switch_display:
     goto switch_continuing_display
     
     switch_paused_display:
-	movff current_display, WREG
-	sublw 3
-	negf WREG
-	movwf current_display
+	movlw 0b00001000
+	cpfseq current_display
+	goto turn_DIS4_on   ; if current_display != 0b1000; then turn DIS4 on
+	goto turn_DIS1_on   ; if current_display == 0b1000; then turn DIS1 on
 	return
     
     switch_continuing_display:
-	incf current_display   ; first increment current_display
-	movlw 4
-	cpfslt current_display ; if current_display < 4 skip
-	clrf current_display   ; else clear it
+	movlw 0b00001000
+	cpfslt current_display
+	goto turn_DIS1_on   ; if current_display == 0b1000; then turn DIS1 on 
+	movlw 2		    ; else, current_display *= 2
+	mulwf current_display
+	movff PRODL, current_display
 	return    
     
 show_RA0:
-    movlw 0b00000001
-    movwf PORTA ; RA
-
     clrf WREG
     cpfseq pause
     
@@ -286,9 +288,6 @@ show_RA0:
 	return
     
 show_RA1:
-    movlw 0b00000010
-    movwf PORTA ; RA
-
     clrf WREG
     cpfseq pause
     
@@ -337,9 +336,6 @@ show_RA1:
 	return
     
 show_RA2:
-    movlw 0b00000100
-    movwf PORTA ; RA
-
     clrf WREG
     cpfseq pause
     
@@ -363,9 +359,6 @@ show_RA2:
 	return
     
 show_RA3:
-    movlw 0b00001000
-    movwf PORTA ; RA
-
     clrf WREG
     cpfseq pause
     
@@ -510,3 +503,35 @@ display_dash:
     movwf PORTD ; RD
     return
     
+    
+turn_DIS1_on:
+    movlw 0b00000001
+    movwf PORTA
+    
+    call show_RA0
+    
+    return
+    
+turn_DIS2_on:
+    movlw 0b00000010
+    movwf PORTA
+    
+    call show_RA1
+    
+    return
+    
+turn_DIS3_on:
+    movlw 0b00000100
+    
+    call show_RA2
+    
+    movwf PORTA
+    return
+    
+turn_DIS4_on:
+    movlw 0b00001000
+    movwf PORTA
+    
+    call show_RA3
+    
+    return
