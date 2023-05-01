@@ -53,6 +53,7 @@ GLOBAL counter1, time_ds, wreg_tmp, status_tmp, new_portb, last_portb
 GLOBAL beat_duration_ds, pause, bar_length
 GLOBAL current_display
 GLOBAL main_loop_inc
+GLOBAL current_beat_num
 
 ; Define space for the variables in RAM
 PSECT udata_acs
@@ -78,6 +79,8 @@ current_display:  ; [0, 3]: RA[0, 3]
     DS 1	  ; e.g if current_display = 1 => RA1 is lit
 main_loop_inc:    ; to keep track of main_loop
     DS 1          ; will be useful in switching displays
+current_beat_num:
+    DS 1
 
 PSECT CODE
 org 0x0000
@@ -103,9 +106,23 @@ timer0_interrupt:
     return
 
 beat_duration_reached:
-    ; TO BE IMPLEMENTED
-    movff beat_duration_ds, time_ds
-    return
+    movlw bar_length
+    cpfseq current_beat_num
+    goto not_on_the_beat   ; if bar_length == current_beat_num then its on the beat
+    goto on_the_beat
+    
+    not_on_the_beat:
+        incf current_beat_num
+    
+	movff beat_duration_ds, time_ds
+	return
+	
+    on_the_beat:
+        movlw 1
+	movwf current_beat_num
+	
+	movff beat_duration_ds, time_ds
+	return
 
 rb_interrupt: ; click handler
     movff PORTB, new_portb
@@ -190,6 +207,9 @@ init:
     movlw BEAT_DURATION_DEFAULT
     movwf beat_duration_ds
     movwf time_ds
+    
+    movlw 1
+    movwf current_beat_num
 
     movlw 0b11111111 ; enable pause, any value except 0 will do
     movwf pause
@@ -280,7 +300,69 @@ show_RA1:
     
     ; TODO: show current beat
     show_paused_RA1:
-	return
+	; switch case
+	movlw 8
+	sublw current_beat_num
+	bz beat_8
+	
+	movlw 7
+	sublw current_beat_num
+	bz beat_7
+	
+	movlw 6
+	sublw current_beat_num
+	bz beat_6
+	
+	movlw 5
+	sublw current_beat_num
+	bz beat_5
+	
+	movlw 4
+	sublw current_beat_num
+	bz beat_4
+	
+	movlw 3
+	sublw current_beat_num
+	bz beat_3
+	
+	movlw 2
+	sublw current_beat_num
+	bz beat_2
+	    
+	beat_2:
+	    movlw DISPLAY_2
+	    movwf RD
+	    return
+	    
+	beat_3:
+	    movlw DISPLAY_3
+	    movwf RD
+	    return
+	    
+	beat_4:
+	    movlw DISPLAY_4
+	    movwf RD
+	    return
+	    
+	beat_5:
+	    movlw DISPLAY_5
+	    movwf RD
+	    return
+	    
+	beat_6:
+	    movlw DISPLAY_6
+	    movwf RD
+	    return
+	    
+	beat_7:
+	    movlw DISPLAY_7
+	    movwf RD
+	    return
+	    
+	beat_8:
+	    movlw DISPLAY_8
+	    movwf RD
+	    return
 	
     ; show nothing
     show_continuing_RA1:
