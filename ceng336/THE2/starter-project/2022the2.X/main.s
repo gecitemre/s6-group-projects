@@ -129,7 +129,7 @@ timer0_interrupt:
         movwf rc1_light
 
         movlw 0b00000000 ; 0
-        movwf PORTC
+        movwf LATC
 
         return
 
@@ -155,7 +155,7 @@ beat_duration_reached:
         movff beat_duration_ds, time_ds
 
         movlw 0b00000001 ; 1
-        movwf PORTC
+        movwf LATC
 
         return
 	
@@ -168,7 +168,7 @@ beat_duration_reached:
         movwf rc1_light
 
         movlw 0b00000011 ; 2
-        movwf PORTC
+        movwf LATC
         
         movff beat_duration_ds, time_ds
         return
@@ -240,7 +240,7 @@ main:
     call init
     goto main_loop
 init:
-    call timer0_interrupt ; reset timer to start value
+    ; call timer0_interrupt ; reset timer to start value
 
   ; configure_timer
     movlw 0b10000000 ; enable timer0, 1:2 prescaler, 131.072 ms 0 -> 65,536
@@ -272,7 +272,16 @@ init:
     incf current_display
 
     clrf TRISA
+    clrf TRISC
     clrf TRISD
+    movlw 0b11110000
+    movwf TRISB
+    
+    movlw 0b11111111
+    movwf rc0_light
+    movwf rc1_light
+    
+    clrf LATC
     
     return
 
