@@ -223,6 +223,8 @@ init:
 
 
 main_loop:
+    ; TODO: light RC for 50ms
+    
     ; POST LOOP MODIFICATIONS
     incf main_loop_inc
     clrf WREG
