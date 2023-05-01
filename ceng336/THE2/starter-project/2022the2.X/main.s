@@ -127,6 +127,10 @@ timer0_interrupt:
         movlw 0b11111111 ; -1
         movwf rc0_light
         movwf rc1_light
+
+        movlw 0b00000000 ; 0
+        movwf PORTC
+
         return
 
     decrease_time_ds:
@@ -150,6 +154,9 @@ beat_duration_reached:
     
         movff beat_duration_ds, time_ds
 
+        movlw 0b00000001 ; 1
+        movwf PORTC
+
         return
 	
     on_the_beat:
@@ -159,6 +166,9 @@ beat_duration_reached:
         ; turn rc1 on
         movlw 1
         movwf rc1_light
+
+        movlw 0b00000011 ; 2
+        movwf PORTC
         
         movff beat_duration_ds, time_ds
         return
