@@ -24,9 +24,9 @@ CONFIG XINST = OFF      ; Extended Instruction Set Enable bit (Instruction set e
 #define TIMER_START 15536 ; 100ms (65536 - 50000)
 #define TIMER_START_LOW 0xb0
 #define TIMER_START_HIGH 0x3c
-#define BEAT_DURATION_DEFAULT 500
-#define BEAT_DURATION_HIGH 1000 ; when speed = 1
-#define BEAT_DURATION_LOW 200   ; when speed = 9
+#define BEAT_DURATION_DEFAULT 5
+#define BEAT_DURATION_HIGH 10 ; when speed = 1
+#define BEAT_DURATION_LOW 2   ; when speed = 9
 #define BAR_LENGTH_DEFAULT 4
 #define BAR_LENGTH_HIGH 8
 #define BAR_LENGTH_LOW  2
@@ -68,8 +68,8 @@ new_portb:
     DS 1
 last_portb:
     DS 1
-beat_duration_ds: ; beat duration in ms.
-    DS 1          ; beat_duration_ds = 1100 - (speed * 100)
+beat_duration_ds: ; beat duration in ds.
+    DS 1          ; beat_duration_ds = 11 - (speed)
 pause:            ; non-zero if paused, zero if paused
     DS 1
 bar_length:
@@ -138,12 +138,8 @@ rb5_pressed:
 paused_rb5:
     movff beat_duration_ds, WREG
     cpfseq BEAT_DURATION_LOW ; if beat duration is min, i.e. speed is max
-    call increase_beat_duration
-    return                   ; then return    
-increase_beat_duration:
-    movlw 100
-    addwf beat_duration_ds
-    return
+    decf beat_duration_ds
+    return                   ; then return  
 
 rb6_pressed:
     ;Decrease button. Affects the speed level if paused, bar length if running.
@@ -155,12 +151,8 @@ rb6_pressed:
 paused_rb6:
     movff beat_duration_ds, WREG
     cpfseq BEAT_DURATION_HIGH ; if beat duration is max, i.e. speed is min
-    call decrease_beat_duration
-    return                    ; then return    
-decrease_beat_duration:
-    movlw 100
-    subwf beat_duration_ds
-    return
+    incf beat_duration_ds
+    return                    ; then return
 
 rb7_pressed:
     ;Reset button. Affects the speed level if paused, bar length if running.
@@ -338,39 +330,39 @@ show_RA3:
     
     show_paused_RA0:
 	; switch case
-	movlw 1000
+	movlw 10
 	sublw beat_duration_ds
 	bz speed_1
 	
-	movlw 900
+	movlw 9
 	sublw beat_duration_ds
 	bz speed_2
 	
-	movlw 800
+	movlw 8
 	sublw beat_duration_ds
 	bz speed_3
 	
-	movlw 700
+	movlw 7
 	sublw beat_duration_ds
 	bz speed_4
 	
-	movlw 600
+	movlw 6
 	sublw beat_duration_ds
 	bz speed_5
 	
-	movlw 500
+	movlw 5
 	sublw beat_duration_ds
 	bz speed_6
 	
-	movlw 400
+	movlw 4
 	sublw beat_duration_ds
 	bz speed_7
 	
-	movlw 300
+	movlw 3
 	sublw beat_duration_ds
 	bz speed_8
 	
-	movlw 200
+	movlw 2
 	sublw beat_duration_ds
 	bz speed_9
 	
