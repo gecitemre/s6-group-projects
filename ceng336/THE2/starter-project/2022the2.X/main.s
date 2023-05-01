@@ -303,66 +303,31 @@ show_RA1:
 	; switch case
 	movlw 8
 	sublw current_beat_num
-	bz beat_8
+	bz display_8
 	
 	movlw 7
 	sublw current_beat_num
-	bz beat_7
+	bz display_7
 	
 	movlw 6
 	sublw current_beat_num
-	bz beat_6
+	bz display_6
 	
 	movlw 5
 	sublw current_beat_num
-	bz beat_5
+	bz display_5
 	
 	movlw 4
 	sublw current_beat_num
-	bz beat_4
+	bz display_4
 	
 	movlw 3
 	sublw current_beat_num
-	bz beat_3
+	bz display_3
 	
 	movlw 2
 	sublw current_beat_num
-	bz beat_2
-	    
-	beat_2:
-	    movlw DISPLAY_2
-	    movwf RD
-	    return
-	    
-	beat_3:
-	    movlw DISPLAY_3
-	    movwf RD
-	    return
-	    
-	beat_4:
-	    movlw DISPLAY_4
-	    movwf RD
-	    return
-	    
-	beat_5:
-	    movlw DISPLAY_5
-	    movwf RD
-	    return
-	    
-	beat_6:
-	    movlw DISPLAY_6
-	    movwf RD
-	    return
-	    
-	beat_7:
-	    movlw DISPLAY_7
-	    movwf RD
-	    return
-	    
-	beat_8:
-	    movlw DISPLAY_8
-	    movwf RD
-	    return
+	bz display_2
 	
     ; show nothing
     show_continuing_RA1:
@@ -414,148 +379,132 @@ show_RA3:
 	; switch case
 	movlw 10
 	sublw beat_duration_ds
-	bz speed_1
+	bz display_1
 	
 	movlw 9
 	sublw beat_duration_ds
-	bz speed_2
+	bz display_2
 	
 	movlw 8
 	sublw beat_duration_ds
-	bz speed_3
+	bz display_3
 	
 	movlw 7
 	sublw beat_duration_ds
-	bz speed_4
+	bz display_4
 	
 	movlw 6
 	sublw beat_duration_ds
-	bz speed_5
+	bz display_5
 	
 	movlw 5
 	sublw beat_duration_ds
-	bz speed_6
+	bz display_6
 	
 	movlw 4
 	sublw beat_duration_ds
-	bz speed_7
+	bz display_7
 	
 	movlw 3
 	sublw beat_duration_ds
-	bz speed_8
+	bz display_8
 	
 	movlw 2
 	sublw beat_duration_ds
-	bz speed_9
-	
-	speed_1:
-	    movlw DISPLAY_1
-	    movwf RD
-	    return
-	    
-	speed_2:
-	    movlw DISPLAY_2
-	    movwf RD
-	    return
-	    
-	speed_3:
-	    movlw DISPLAY_3
-	    movwf RD
-	    return
-	    
-	speed_4:
-	    movlw DISPLAY_4
-	    movwf RD
-	    return
-	    
-	speed_5:
-	    movlw DISPLAY_5
-	    movwf RD
-	    return
-	    
-	speed_6:
-	    movlw DISPLAY_6
-	    movwf RD
-	    return
-	    
-	speed_7:
-	    movlw DISPLAY_7
-	    movwf RD
-	    return
-	    
-	speed_8:
-	    movlw DISPLAY_8
-	    movwf RD
-	    return
-	    
-	speed_9:
-	    movlw DISPLAY_9
-	    movwf RD
-	    return
+	bz display_9
 
     show_continuing_RA0:	
 	; switch case
 	movlw 2
 	sublw bar_length
-	bz bar_length_2
+	bz display_2
 	
 	movlw 3
 	sublw bar_length
-	bz bar_length_3
+	bz display_3
 	
 	movlw 4
 	sublw bar_length
-	bz bar_length_4
+	bz display_4
 	
 	movlw 5
 	sublw bar_length
-	bz bar_length_5
+	bz display_5
 	
 	movlw 6
 	sublw bar_length
-	bz bar_length_6
+	bz display_6
 	
 	movlw 7
 	sublw bar_length
-	bz bar_length_7
+	bz display_7
 	
 	movlw 8
 	sublw bar_length
-	bz bar_length_8
-	
-	bar_length_2:
-	    movlw DISPLAY_2
-	    movwf RD
-	    return
-	    
-	bar_length_3:
-	    movlw DISPLAY_3
-	    movwf RD
-	    return
-	    
-	bar_length_4:
-	    movlw DISPLAY_4
-	    movwf RD
-	    return
-	    
-	bar_length_5:
-	    movlw DISPLAY_5
-	    movwf RD
-	    return
-	    
-	bar_length_6:
-	    movlw DISPLAY_6
-	    movwf RD
-	    return
-	    
-	bar_length_7:
-	    movlw DISPLAY_7
-	    movwf RD
-	    return
-	    
-	bar_length_8:
-	    movlw DISPLAY_8
-	    movwf RD
-	    return
+	bz display_8
+    return
+    
+    
+    
+; GENERIC DISPLAY FUNCTIONS
+    
+display_0:
+    movlw DISPLAY_0
+    movwf RD
+    return
+    
+display_1:
+    movlw DISPLAY_1
+    movwf RD
+    return
+    
+display_2:
+    movlw DISPLAY_2
+    movwf RD
+    return
+    
+display_3:
+    movlw DISPLAY_3
+    movwf RD
+    return
+    
+display_4:
+    movlw DISPLAY_4
+    movwf RD
+    return
+    
+display_5:
+    movlw DISPLAY_5
+    movwf RD
+    return
+    
+display_6:
+    movlw DISPLAY_6
+    movwf RD
+    return
+    
+display_7:
+    movlw DISPLAY_7
+    movwf RD
+    return
+    
+display_8:
+    movlw DISPLAY_8
+    movwf RD
+    return
+    
+display_9:
+    movlw DISPLAY_9
+    movwf RD
+    return
+    
+display_p:
+    movlw DISPLAY_P
+    movwf RD
+    return
+    
+display_dash:
+    movlw DISPLAY_DASH
+    movwf RD
     return
     
