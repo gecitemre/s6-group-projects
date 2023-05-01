@@ -336,12 +336,152 @@ show_RA3:
     
     goto show_continuing_RA3
     
-    ; TODO: show speed
     show_paused_RA0:
-	return
+	; switch case
+	movlw 1000
+	sublw beat_duration_ds
+	bz speed_1
 	
-    ; TODO: show bar length
+	movlw 900
+	sublw beat_duration_ds
+	bz speed_2
+	
+	movlw 800
+	sublw beat_duration_ds
+	bz speed_3
+	
+	movlw 700
+	sublw beat_duration_ds
+	bz speed_4
+	
+	movlw 600
+	sublw beat_duration_ds
+	bz speed_5
+	
+	movlw 500
+	sublw beat_duration_ds
+	bz speed_6
+	
+	movlw 400
+	sublw beat_duration_ds
+	bz speed_7
+	
+	movlw 300
+	sublw beat_duration_ds
+	bz speed_8
+	
+	movlw 200
+	sublw beat_duration_ds
+	bz speed_9
+	
+	speed_1:
+	    movlw DISPLAY_1
+	    movwf RD
+	    return
+	    
+	speed_2:
+	    movlw DISPLAY_2
+	    movwf RD
+	    return
+	    
+	speed_3:
+	    movlw DISPLAY_3
+	    movwf RD
+	    return
+	    
+	speed_4:
+	    movlw DISPLAY_4
+	    movwf RD
+	    return
+	    
+	speed_5:
+	    movlw DISPLAY_5
+	    movwf RD
+	    return
+	    
+	speed_6:
+	    movlw DISPLAY_6
+	    movwf RD
+	    return
+	    
+	speed_7:
+	    movlw DISPLAY_7
+	    movwf RD
+	    return
+	    
+	speed_8:
+	    movlw DISPLAY_8
+	    movwf RD
+	    return
+	    
+	speed_9:
+	    movlw DISPLAY_9
+	    movwf RD
+	    return
+
     show_continuing_RA0:	
-	return
+	; switch case
+	movlw 2
+	sublw bar_length
+	bz bar_length_2
+	
+	movlw 3
+	sublw bar_length
+	bz bar_length_3
+	
+	movlw 4
+	sublw bar_length
+	bz bar_length_4
+	
+	movlw 5
+	sublw bar_length
+	bz bar_length_5
+	
+	movlw 6
+	sublw bar_length
+	bz bar_length_6
+	
+	movlw 7
+	sublw bar_length
+	bz bar_length_7
+	
+	movlw 8
+	sublw bar_length
+	bz bar_length_8
+	
+	bar_length_2:
+	    movlw DISPLAY_2
+	    movwf RD
+	    return
+	    
+	bar_length_3:
+	    movlw DISPLAY_3
+	    movwf RD
+	    return
+	    
+	bar_length_4:
+	    movlw DISPLAY_4
+	    movwf RD
+	    return
+	    
+	bar_length_5:
+	    movlw DISPLAY_5
+	    movwf RD
+	    return
+	    
+	bar_length_6:
+	    movlw DISPLAY_6
+	    movwf RD
+	    return
+	    
+	bar_length_7:
+	    movlw DISPLAY_7
+	    movwf RD
+	    return
+	    
+	bar_length_8:
+	    movlw DISPLAY_8
+	    movwf RD
+	    return
     return
     
