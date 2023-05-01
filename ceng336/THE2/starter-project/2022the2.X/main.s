@@ -571,10 +571,10 @@ turn_DIS2_on:
     
 turn_DIS3_on:
     movlw 0b00000100
+    movwf LATA
     
     call show_RA2
     
-    movwf LATA
     return
     
 turn_DIS4_on:
