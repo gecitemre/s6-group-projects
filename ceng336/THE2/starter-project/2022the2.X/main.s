@@ -72,12 +72,12 @@ last_portb:
     DS 1
 beat_duration_ds: ; beat duration in ds.
     DS 1          ; beat_duration_ds = 11 - (speed)
-pause:            ; non-zero if paused, zero if paused
+pause:            ; -1 (all ones) if paused, zero if not paused
     DS 1
 bar_length:
     DS 1
-current_display:  ; [0, 3]: RA[0, 3]
-    DS 1	  ; e.g if current_display = 1 => RA1 is lit
+current_display:  
+    DS 1
 main_loop_inc:    ; to keep track of main_loop
     DS 1          ; will be useful in switching displays
 current_beat_num:
