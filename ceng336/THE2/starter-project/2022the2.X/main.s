@@ -49,7 +49,7 @@ CONFIG XINST = OFF      ; Extended Instruction Set Enable bit (Instruction set e
     
 ; GLOBAL SYMBOLS
 ; You need to add your variables here if you want to debug them.
-GLOBAL counter1, time_ds, wreg_tmp, status_tmp, new_portb, last_portb
+GLOBAL time_ds, new_portb, last_portb
 GLOBAL beat_duration_ds, pause, bar_length
 GLOBAL current_display
 GLOBAL main_loop_inc
@@ -58,13 +58,7 @@ GLOBAL rc0_light, rc1_light
 
 ; Define space for the variables in RAM
 PSECT udata_acs
-counter1:
-  DS 1
 time_ds: ; time in deciseconds counting backwards, decrease every 100ms
-    DS 1
-wreg_tmp:
-    DS 1
-status_tmp:
     DS 1
 new_portb:
     DS 1
