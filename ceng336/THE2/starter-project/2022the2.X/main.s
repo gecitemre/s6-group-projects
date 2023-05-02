@@ -323,6 +323,23 @@ switch_display:
 	movlw 2		    ; else, current_display *= 2
 	mulwf current_display
 	movff PRODL, current_display
+	
+	movlw 0b00001000
+	subwf current_display, 0
+	bz turn_DIS4_on
+	
+	movlw 0b00000100
+	subwf current_display, 0
+	bz turn_DIS3_on
+	
+	movlw 0b00000010
+	subwf current_display, 0
+	bz turn_DIS2_on
+	
+	movlw 0b00000001
+	subwf current_display, 0
+	bz turn_DIS1_on
+	
 	return    
     
 show_RA0:
