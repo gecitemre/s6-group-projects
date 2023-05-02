@@ -184,6 +184,7 @@ rb_interrupt: ; click handler
     return
 rb4_pressed:
     comf pause
+    call switch_display
     return
 
 rb5_pressed:
@@ -376,8 +377,13 @@ show_RA1:
     ; else
     
     goto show_continuing_RA1
-    
+	
+    ; show nothing
     show_paused_RA1:
+	clrf LATD ; RD
+	return
+	
+    show_continuing_RA1:
 	; switch case
 	movlw 8
 	subwf current_beat_num, 0
@@ -406,11 +412,6 @@ show_RA1:
 	movlw 2
 	subwf current_beat_num, 0
 	bz display_2
-	
-    ; show nothing
-    show_continuing_RA1:
-	clrf LATD ; RD
-	return
     
 show_RA2:
     clrf WREG
@@ -424,16 +425,17 @@ show_RA2:
     
     goto show_continuing_RA2
     
-    ; show -
+    ; show nothing
     show_paused_RA2:
+	clrf LATD ; RD
+	return
+
+    ; show -
+    show_continuing_RA2:
 	movlw DISPLAY_DASH
 	movwf LATD ; RD
 	return
 	
-    ; show nothing
-    show_continuing_RA2:
-	clrf LATD ; RD
-	return
     
 show_RA3:
     clrf WREG
