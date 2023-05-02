@@ -571,6 +571,7 @@ display_dash:
 turn_DIS1_on:
     movlw 0b00000001
     movwf LATA
+    movwf current_display
     
     call show_RA0
     
@@ -579,6 +580,7 @@ turn_DIS1_on:
 turn_DIS2_on:
     movlw 0b00000010
     movwf LATA
+    movwf current_display
     
     call show_RA1
     
@@ -587,6 +589,7 @@ turn_DIS2_on:
 turn_DIS3_on:
     movlw 0b00000100
     movwf LATA
+    movwf current_display
     
     call show_RA2
     
@@ -595,6 +598,7 @@ turn_DIS3_on:
 turn_DIS4_on:
     movlw 0b00001000
     movwf LATA
+    movwf current_display
     
     call show_RA3
     
