@@ -191,13 +191,13 @@ rb5_pressed:
     movf pause
     bnz paused_rb5
     
-    movff bar_length, WREG
-    cpfseq BAR_LENGTH_HIGH  ; if bar_length is max  
+    movlw BAR_LENGTH_HIGH
+    cpfseq bar_length       ; if bar_length is max  
     incf bar_length
     return                  ; then return
 paused_rb5:
-    movff beat_duration_ds, WREG
-    cpfseq BEAT_DURATION_LOW ; if beat duration is min, i.e. speed is max
+    movlw BEAT_DURATION_LOW
+    cpfseq beat_duration_ds  ; if beat duration is min, i.e. speed is max
     decf beat_duration_ds
     return                   ; then return  
 
@@ -205,12 +205,14 @@ rb6_pressed:
     ;Decrease button. Affects the speed level if paused, bar length if running.
     movf pause
     bnz paused_rb6
-    cpfseq BAR_LENGTH_LOW   ; if bar_length is min  
+    
+    movlw BAR_LENGTH_LOW
+    cpfseq bar_length       ; if bar_length is min  
     decf bar_length
     return                  ; then return
 paused_rb6:
-    movff beat_duration_ds, WREG
-    cpfseq BEAT_DURATION_HIGH ; if beat duration is max, i.e. speed is min
+    movlw BEAT_DURATION_HIGH
+    cpfseq beat_duration_ds   ; if beat duration is max, i.e. speed is min
     incf beat_duration_ds
     return                    ; then return
 
@@ -218,12 +220,12 @@ rb7_pressed:
     ;Reset button. Affects the speed level if paused, bar length if running.
     movf pause
     bnz paused_rb7
-    movlw BEAT_DURATION_DEFAULT
-    movwf beat_duration_ds
-    return
-paused_rb7:
     movlw BAR_LENGTH_DEFAULT
     movwf bar_length
+    return
+paused_rb7:
+    movlw BEAT_DURATION_DEFAULT
+    movwf beat_duration_ds
     return
 
 ;  -----------
