@@ -242,15 +242,8 @@ main:
 init:
     ; call timer0_interrupt ; reset timer to start value
 
-  ; configure_timer
-    movlw 0b10000000 ; enable timer0, 1:2 prescaler, 131.072 ms 0 -> 65,536
-    movwf T0CON
-    movlw 0b10101000
-    movwf INTCON
-    movlw TIMER_START_LOW
-    movwf TMR0L
-    movlw TIMER_START_HIGH
-    movwf TMR0H
+    ; configure_timer
+    call initialise_timer
 
     ; init values for metronome
     movlw BEAT_DURATION_DEFAULT
@@ -262,6 +255,7 @@ init:
 
     movlw 0b11111111 ; enable pause, any value except 0 will do
     movwf pause
+
     movlw BAR_LENGTH_DEFAULT
     movwf bar_length
     
@@ -287,6 +281,16 @@ init:
     
     return
 
+initialise_timer:
+    movlw 0b10000000 ; enable timer0, 1:2 prescaler, 131.072 ms 0 -> 65,536
+    movwf T0CON
+    movlw 0b10101000
+    movwf INTCON
+    movlw TIMER_START_LOW
+    movwf TMR0L
+    movlw TIMER_START_HIGH
+    movwf TMR0H
+    return
 
 main_loop:
     ; POST LOOP MODIFICATIONS
@@ -314,7 +318,6 @@ switch_display:
 	cpfseq current_display
 	goto turn_DIS4_on   ; if current_display != 0b1000; then turn DIS4 on
 	goto turn_DIS1_on   ; if current_display == 0b1000; then turn DIS1 on
-	
     
     switch_continuing_display:
 	movlw 0b00001000
@@ -363,31 +366,31 @@ show_RA1:
     show_paused_RA1:
 	; switch case
 	movlw 8
-	sublw current_beat_num
+	subwf current_beat_num, 0
 	bz display_8
 	
 	movlw 7
-	sublw current_beat_num
+	subwf current_beat_num, 0
 	bz display_7
 	
 	movlw 6
-	sublw current_beat_num
+	subwf current_beat_num, 0
 	bz display_6
 	
 	movlw 5
-	sublw current_beat_num
+	subwf current_beat_num, 0
 	bz display_5
 	
 	movlw 4
-	sublw current_beat_num
+	subwf current_beat_num, 0
 	bz display_4
 	
 	movlw 3
-	sublw current_beat_num
+	subwf current_beat_num, 0
 	bz display_3
 	
 	movlw 2
-	sublw current_beat_num
+	subwf current_beat_num, 0
 	bz display_2
 	
     ; show nothing
@@ -433,69 +436,69 @@ show_RA3:
     show_paused_RA3:
 	; switch case
 	movlw 10
-	sublw beat_duration_ds
+	subwf beat_duration_ds, 0
 	bz display_1
 	
 	movlw 9
-	sublw beat_duration_ds
+	subwf beat_duration_ds, 0
 	bz display_2
 	
 	movlw 8
-	sublw beat_duration_ds
+	subwf beat_duration_ds, 0
 	bz display_3
 	
 	movlw 7
-	sublw beat_duration_ds
+	subwf beat_duration_ds, 0
 	bz display_4
 	
 	movlw 6
-	sublw beat_duration_ds
+	subwf beat_duration_ds, 0
 	bz display_5
 	
 	movlw 5
-	sublw beat_duration_ds
+	subwf beat_duration_ds, 0
 	bz display_6
 	
 	movlw 4
-	sublw beat_duration_ds
+	subwf beat_duration_ds, 0
 	bz display_7
 	
 	movlw 3
-	sublw beat_duration_ds
+	subwf beat_duration_ds, 0
 	bz display_8
 	
 	movlw 2
-	sublw beat_duration_ds
+	subwf beat_duration_ds, 0
 	bz display_9
 
     show_continuing_RA3:	
 	; switch case
 	movlw 2
-	sublw bar_length
+	subwf bar_length, 0
 	bz display_2
 	
 	movlw 3
-	sublw bar_length
+	subwf bar_length, 0
 	bz display_3
 	
 	movlw 4
-	sublw bar_length
+	subwf bar_length, 0
 	bz display_4
 	
 	movlw 5
-	sublw bar_length
+	subwf bar_length, 0
 	bz display_5
 	
 	movlw 6
-	sublw bar_length
+	subwf bar_length, 0
 	bz display_6
 	
 	movlw 7
-	sublw bar_length
+	subwf bar_length, 0
 	bz display_7
 	
 	movlw 8
-	sublw bar_length
+	subwf bar_length, 0
 	bz display_8
     return
     
