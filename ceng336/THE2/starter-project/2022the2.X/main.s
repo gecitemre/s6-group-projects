@@ -296,8 +296,9 @@ main_loop:
     ; POST LOOP MODIFICATIONS
     incf main_loop_inc
     clrf WREG
-    subwf main_loop_inc, 0
-    bz switch_display    ; if main_loop_inc = 0 then switch display
+    cpfseq main_loop_inc
+    goto main_loop
+    call switch_display    ; if main_loop_inc = 0 then switch display
     
     goto main_loop
 
