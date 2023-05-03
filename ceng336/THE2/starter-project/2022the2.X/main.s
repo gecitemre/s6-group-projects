@@ -92,8 +92,6 @@ org 0x0000
 goto main
 
 org 0x0008
-goto interrupt_service_routine
-  
 interrupt_service_routine:
     btfsc INTCON, 2
     call timer0_interrupt
@@ -104,14 +102,7 @@ interrupt_service_routine:
     retfie 1
 
 timer1_interrupt:
-    movlw TIMER1_START_LOW
-    movwf TMR1L
-    movlw TIMER1_START_HIGH
-    movwf TMR1H
-    bcf PORTC, 1
-    bcf PORTC, 0
     bcf PIR1, 0
-    movlw 0b11111111 ; -1
     setf rc0_light
     setf rc1_light
     clrf LATC
@@ -119,11 +110,11 @@ timer1_interrupt:
     return
 
 timer0_interrupt:
+    bcf INTCON, 2 
     movlw TIMER0_START_LOW
     movwf TMR0L
     movlw TIMER0_START_HIGH
     movwf TMR0H
-    bcf INTCON, 2 
     
     ; if paused, turn the lights off, decrease time and do nothing else
     
@@ -132,12 +123,12 @@ timer0_interrupt:
     bnz quit_interrupt
 
     decrease_time_ds:
-        movlw 0b10000000 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
-        movwf T1CON
         movlw TIMER1_START_LOW
         movwf TMR1L
         movlw TIMER1_START_HIGH
         movwf TMR1H
+        movlw 0b10000000 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
+        movwf T1CON
         dcfsnz time_ds
         call beat_duration_reached
         return
@@ -191,6 +182,7 @@ beat_duration_reached:
 	
 	movlw 1
 	movwf rc1_light
+	movwf rc0_light
 	
 	movlw 0b00000011
 	movwf LATC
@@ -274,9 +266,6 @@ main:
 init:
     ; call timer0_interrupt ; reset timer to start value
 
-    ; configure_timer
-    call initialise_timer
-
     ; init values for metronome
     movlw BEAT_DURATION_DEFAULT
     movwf beat_duration_ds
@@ -309,18 +298,27 @@ init:
     call show_paused_RA0
     
     clrf LATC
+
+    ; configure_timer
+    call initialise_timer
     
     return
 
 initialise_timer:
-    movlw 0b10000000 ; enable timer0, 1:2 prescaler, 131.072 ms 0 -> 65,536
-    movwf T0CON
-    movlw 0b10101000
-    movwf INTCON
     movlw TIMER0_START_LOW
     movwf TMR0L
     movlw TIMER0_START_HIGH
     movwf TMR0H
+    movlw 0b10000000 ; enable timer0, 1:2 prescaler, 131.072 ms 0 -> 65,536
+    movwf T0CON
+    movlw TIMER1_START_LOW
+    movwf TMR1L
+    movlw TIMER1_START_HIGH
+    movwf TMR1H
+    movlw 0b10000000 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
+    movwf T1CON
+    movlw 0b10101000
+    movwf INTCON
     return
 
 main_loop:
