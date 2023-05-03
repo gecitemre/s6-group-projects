@@ -127,7 +127,7 @@ timer0_interrupt:
         movwf TMR1L
         movlw TIMER1_START_HIGH
         movwf TMR1H
-        movlw 0b10000000 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
+        movlw 0b00000001 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
         movwf T1CON
         dcfsnz time_ds
         call beat_duration_reached
@@ -315,7 +315,7 @@ initialise_timer:
     movwf TMR1L
     movlw TIMER1_START_HIGH
     movwf TMR1H
-    movlw 0b10000000 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
+    movlw 0b000000001 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
     movwf T1CON
     movlw 0b10101000
     movwf INTCON
