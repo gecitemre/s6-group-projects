@@ -21,9 +21,12 @@ CONFIG LVP = OFF        ; Single-Supply ICSP Enable bit (Single-Supply ICSP disa
 CONFIG XINST = OFF      ; Extended Instruction Set Enable bit (Instruction set extension and Indexed Addressing mode disabled (Legacy mode))
 
 ; timer macros
-#define TIMER_START 40536 ; 50ms (65536 - 25000)
-#define TIMER_START_LOW 0x58
-#define TIMER_START_HIGH 0x9e
+#define TIMER1_START 40536 ; 50ms (65536 - 25000)
+#define TIMER1_START_LOW 0x58
+#define TIMER1_START_HIGH 0x9e
+#define TIMER0_START 15536 ; 100ms (65536 - 55000)
+#define TIMER0_START_LOW 0xb0
+#define TIMER0_START_HIGH 0x3c
 #define BEAT_DURATION_DEFAULT 5
 #define BEAT_DURATION_HIGH 10 ; when speed = 1
 #define BEAT_DURATION_LOW 2   ; when speed = 9
@@ -101,14 +104,14 @@ interrupt_service_routine:
     retfie 1
 
 timer1_interrupt:
-    movlw TIMER_START_LOW
+    movlw TIMER1_START_LOW
     movwf TMR1L
-    movlw TIMER_START_HIGH
+    movlw TIMER1_START_HIGH
     movwf TMR1H
     bcf PORTC, 1
     bcf PORTC, 0
     bcf PIR1, 0
-        movlw 0b11111111 ; -1
+    movlw 0b11111111 ; -1
     setf rc0_light
     setf rc1_light
     clrf LATC
@@ -116,9 +119,9 @@ timer1_interrupt:
     return
 
 timer0_interrupt:
-    movlw TIMER_START_LOW
+    movlw TIMER0_START_LOW
     movwf TMR0L
-    movlw TIMER_START_HIGH
+    movlw TIMER0_START_HIGH
     movwf TMR0H
     bcf INTCON, 2 
     
@@ -128,28 +131,12 @@ timer0_interrupt:
     subwf pause, 0
     bnz quit_interrupt
 
-    ; if rc0_light is currently off, that means the incoming interrupt is for turning it on
-    ; and indicates that it is the end of the 2nd 50ms of the 100ms period, i.e. the beginning of the 1st 50ms
-    ; of the next beat.
-    ; therefore, we will decrease time_ds if rc0_light is off when the interrupt is received.
-    ; 
-    ; if rc0_light is currently on, that means the incoming interrupt is for turning it off
-    ; and indicates that it is the end 1st 50ms of the 100ms period.
-    ; we will turn off rc0_light and rc1_light but we will not decrease time_ds.
-    ; 
-    ; rc1_light does not indicate anything because it is only turned on at the beginning of the new bar.
-
-    movlw 0b11111111 ; -1
-
-    cpfseq rc0_light
-    return
-
     decrease_time_ds:
         movlw 0b10000000 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
         movwf T1CON
-        movlw TIMER_START_LOW
+        movlw TIMER1_START_LOW
         movwf TMR1L
-        movlw TIMER_START_HIGH
+        movlw TIMER1_START_HIGH
         movwf TMR1H
         dcfsnz time_ds
         call beat_duration_reached
@@ -330,9 +317,9 @@ initialise_timer:
     movwf T0CON
     movlw 0b10101000
     movwf INTCON
-    movlw TIMER_START_LOW
+    movlw TIMER0_START_LOW
     movwf TMR0L
-    movlw TIMER_START_HIGH
+    movlw TIMER0_START_HIGH
     movwf TMR0H
     return
 
