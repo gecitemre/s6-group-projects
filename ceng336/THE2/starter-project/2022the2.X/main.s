@@ -213,6 +213,9 @@ rb_interrupt: ; click handler
 rb4_pressed:
     comf pause
     call switch_display
+    btg T0CON, 7
+    btg T1CON, 0
+    btg T1CON, 4
     return
 
 rb5_pressed:
@@ -312,14 +315,24 @@ initialise_timer:
     movwf TMR0L
     movlw TIMER0_START_HIGH
     movwf TMR0H
-    movlw 0b10000000 ; enable timer0, 1:2 prescaler, 131.072 ms 0 -> 65,536
-    movwf T0CON
+
+    ; DEBUG
+    ; movlw 0b10000000 ; enable timer0, 1:2 prescaler, 131.072 ms 0 -> 65,536
+    ; movwf T0CON
+    clrf T0CON
+    ; DEBUG
+    
     movlw TIMER1_START_LOW
     movwf TMR1L
     movlw TIMER1_START_HIGH
     movwf TMR1H
-    movlw 0b00010001 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
-    movwf T1CON
+
+    ; DEBUG
+    ; movlw 0b00010001 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
+    ; movwf T1CON
+    clrf T1CON
+    ; DEBUG
+
     bsf PIE1, 0
     movlw 0b00000001
     movwf PIE1
