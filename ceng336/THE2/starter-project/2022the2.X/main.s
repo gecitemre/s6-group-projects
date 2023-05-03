@@ -213,6 +213,16 @@ rb_interrupt: ; click handler
 rb4_pressed:
     comf pause
     call switch_display
+
+
+    movlw TIMER0_START_LOW
+    movwf TMR0L
+    movlw TIMER0_START_HIGH
+    movwf TMR0H
+    movlw TIMER1_START_LOW
+    movwf TMR1L
+    movlw TIMER1_START_HIGH
+    movwf TMR1H
     btg T0CON, 7
     btg T1CON, 0
     btg T1CON, 4
