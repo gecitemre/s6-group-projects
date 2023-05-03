@@ -24,7 +24,7 @@ CONFIG XINST = OFF      ; Extended Instruction Set Enable bit (Instruction set e
 #define TIMER1_START 40536 ; 50ms (65536 - 25000)
 #define TIMER1_START_LOW 0x58
 #define TIMER1_START_HIGH 0x9e
-#define TIMER0_START 15536 ; 100ms (65536 - 55000)
+#define TIMER0_START 15536 ; 100ms (65536 - 50000)
 #define TIMER0_START_LOW 0xb0
 #define TIMER0_START_HIGH 0x3c
 #define BEAT_DURATION_DEFAULT 5
@@ -315,7 +315,7 @@ initialise_timer:
     movwf TMR1L
     movlw TIMER1_START_HIGH
     movwf TMR1H
-    movlw 0b000000001 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
+    movlw 0b00000001 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
     movwf T1CON
     movlw 0b10101000
     movwf INTCON
