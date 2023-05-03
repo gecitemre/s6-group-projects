@@ -235,7 +235,6 @@ rb4_pressed:
     movlw 0b00000011
     movwf LATC
 
-    call switch_display
     return
 
     paused_rb4:
