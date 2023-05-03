@@ -96,12 +96,29 @@ interrupt_service_routine:
     call timer0_interrupt
     btfsc INTCON, 0
     call rb_interrupt
+    btfsc PIR1, 0
+    call timer1_interrupt
     retfie 1
+
+timer1_interrupt:
+    movlw TIMER_START_LOW
+    movwf TMR1L
+    movlw TIMER_START_HIGH
+    movwf TMR1H
+    bcf PORTC, 1
+    bcf PORTC, 0
+    bcf PIR1, 0
+    setf rc0_light
+    setf rc1_light
+    clrf LATC
+    return
+
 timer0_interrupt:
     movlw TIMER_START_LOW
     movwf TMR0L
     movlw TIMER_START_HIGH
     movwf TMR0H
+    bcf INTCON, 2 
     
     ; if paused, turn the lights off, decrease time and do nothing else
     
@@ -123,27 +140,23 @@ timer0_interrupt:
     movlw 0b11111111 ; -1
 
     cpfseq rc0_light
-    goto turn_rc_lights_off ; if rc0 is on
+    goto enable_timer1
     goto decrease_time_ds  ; if rc0 is off
 
-    turn_rc_lights_off:
-        movlw 0b11111111 ; -1
-        movwf rc0_light
-        movwf rc1_light
-
-        movlw 0b00000000 ; 0
-        movwf LATC
-
+    enable_timer1:
+        movlw 0b10000000 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
+        movwf T1CON
+        movwf TMR1L
+        movlw TIMER_START_HIGH
+        movwf TMR1H
         return
 
     decrease_time_ds:
         dcfsnz time_ds
         call beat_duration_reached
-        bcf INTCON, 2 
         return
 	
     quit_interrupt:
-	call turn_rc_lights_off
 	call decrease_time_ds
 	return
 
@@ -284,8 +297,7 @@ init:
     movlw 1
     movwf current_beat_num
 
-    movlw 0b11111111 ; enable pause, any value except 0 will do
-    movwf pause
+    setf pause
 
     movlw BAR_LENGTH_DEFAULT
     movwf bar_length
@@ -318,9 +330,6 @@ initialise_timer:
     movlw 0b10101000
     movwf INTCON
     movlw TIMER_START_LOW
-    movwf TMR0L
-    movlw TIMER_START_HIGH
-    movwf TMR0H
     return
 
 main_loop:
