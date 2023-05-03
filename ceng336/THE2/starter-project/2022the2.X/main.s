@@ -9,7 +9,7 @@ CONFIG IESO = OFF       ; Internal/External Oscillator Switchover bit (Oscillato
 ; CONFIG2L
 CONFIG PWRT = ON        ; Power-up Timer Enable bit (PWRT enabled)
 CONFIG BOREN = OFF      ; Brown-out Reset Enable bits (Brown-out Reset disabled in hardware and software)
-CONFIG BORV = 3         ; Brown Out Reset Voltage bits (Minimum setting)p
+CONFIG BORV = 3         ; Brown Out Reset Voltage bits (Minimum setting)
 ; CONFIG2H
 CONFIG WDT = OFF        ; Watchdog Timer Enable bit (WDT disabled (control is placed on the SWDTEN bit))
 ; CONFIG3H
@@ -109,11 +109,9 @@ timer1_interrupt:
     bcf PORTC, 0
     bcf PIR1, 0
         movlw 0b11111111 ; -1
-        movwf rc0_light
-        movwf rc1_light
-
-        movlw 0b00000000 ; 0
-        movwf LATC
+    setf rc0_light
+    setf rc1_light
+    clrf LATC
     clrf T1CON
     return
 
