@@ -303,6 +303,7 @@ TSWLatexianTemp*
 
 # IDE Related
 **/.vscode/*
+**/.idea/*
 
 # Python
 **/__pycache__/*
