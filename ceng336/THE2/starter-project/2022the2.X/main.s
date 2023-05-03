@@ -55,6 +55,7 @@ GLOBAL current_display
 GLOBAL main_loop_inc
 GLOBAL current_beat_num
 GLOBAL rc0_light, rc1_light
+GLOBAL WREG_tmp
 
 ; Define space for the variables in RAM
 PSECT udata_acs
@@ -80,6 +81,8 @@ rc0_light:        ; 1 if RC0 is turned on, -1 if RC0 is turned off
     DS 1
 rc1_light:        ; 1 if RC1 is turned on, -1 if RC1 is turned off
     DS 1
+WREG_tmp:
+    DS 1
 
 PSECT CODE
 org 0x0000
@@ -99,6 +102,12 @@ timer0_interrupt:
     movwf TMR0L
     movlw TIMER_START_HIGH
     movwf TMR0H
+    
+    ; if paused, turn the lights off, decrease time and do nothing else
+    
+    clrf WREG
+    subwf pause, 0
+    bnz quit_interrupt
 
     ; if rc0_light is currently off, that means the incoming interrupt is for turning it on
     ; and indicates that it is the end of the 2nd 50ms of the 100ms period, i.e. the beginning of the 1st 50ms
@@ -132,12 +141,13 @@ timer0_interrupt:
         call beat_duration_reached
         bcf INTCON, 2 
         return
+	
+    quit_interrupt:
+	call turn_rc_lights_off
+	call decrease_time_ds
+	return
 
 beat_duration_reached:
-    ; turn rc0 on
-    movlw 1
-    movwf rc0_light
-
     movlw bar_length
     cpfseq current_beat_num
     goto not_on_the_beat   ; if bar_length == current_beat_num then its on the beat
@@ -147,38 +157,62 @@ beat_duration_reached:
         incf current_beat_num
     
         movff beat_duration_ds, time_ds
-
-        movlw 0b00000001 ; 1
-        movwf LATC
+	
+	clrf WREG
+	subwf pause, 0
+	bz turn_rc0_on
 
         return
 	
     on_the_beat:
         movlw 1
         movwf current_beat_num
-
-        ; turn rc1 on
-        movlw 1
-        movwf rc1_light
-
-        movlw 0b00000011 ; 2
-        movwf LATC
         
         movff beat_duration_ds, time_ds
+	
+	clrf WREG
+	subwf pause, 0
+	bz turn_both_rcs_on
+	
         return
+	
+    turn_rc0_on:
+	; turn rc0 on
+	movlw 1
+	movwf rc0_light
+
+        movlw 0b00000001 ; 1
+        movwf LATC
+	return
+	
+    turn_both_rcs_on:
+	call turn_rc0_on
+	
+	movlw 1
+	movwf rc1_light
+	
+	movlw 0b00000011
+	movwf LATC
+	
+	return
+	
+
 
 rb_interrupt: ; click handler
     movff PORTB, new_portb
     comf new_portb, W
     andwf last_portb, W
     movff new_portb, last_portb
-    btfsc WREG, 4
+    
+    movwf WREG_tmp
+    
+    btfsc WREG_tmp, 4
     call rb4_pressed
-    btfsc WREG, 5
+    btfsc WREG_tmp, 5
     call rb5_pressed
-    btfsc WREG, 6
+    btfsc WREG_tmp, 6
     call rb6_pressed
-    btfsc WREG, 7
+    btfsc WREG_tmp, 7
     call rb7_pressed
     bcf INTCON, 0
     return
