@@ -21,9 +21,12 @@ CONFIG LVP = OFF        ; Single-Supply ICSP Enable bit (Single-Supply ICSP disa
 CONFIG XINST = OFF      ; Extended Instruction Set Enable bit (Instruction set extension and Indexed Addressing mode disabled (Legacy mode))
 
 ; timer macros
-#define TIMER_START 40536 ; 50ms (65536 - 25000)
-#define TIMER_START_LOW 0x58
-#define TIMER_START_HIGH 0x9e
+#define TIMER1_START 40536 ; 50ms (65536 - 25000)
+#define TIMER1_START_LOW 0x58
+#define TIMER1_START_HIGH 0x9e
+#define TIMER0_START 15536 ; 100ms (65536 - 50000)
+#define TIMER0_START_LOW 0xb0
+#define TIMER0_START_HIGH 0x3c
 #define BEAT_DURATION_DEFAULT 5
 #define BEAT_DURATION_HIGH 10 ; when speed = 1
 #define BEAT_DURATION_LOW 2   ; when speed = 9
@@ -81,7 +84,7 @@ rc0_light:        ; 1 if RC0 is turned on, -1 if RC0 is turned off
     DS 1
 rc1_light:        ; 1 if RC1 is turned on, -1 if RC1 is turned off
     DS 1
-WREG_tmp:
+WREG_tmp:   
     DS 1
 
 PSECT CODE
@@ -89,18 +92,28 @@ org 0x0000
 goto main
 
 org 0x0008
-goto interrupt_service_routine
-  
 interrupt_service_routine:
+    btfsc PIR1, 0
+    call timer1_interrupt
     btfsc INTCON, 2
     call timer0_interrupt
     btfsc INTCON, 0
     call rb_interrupt
     retfie 1
+
+timer1_interrupt:
+    bcf PIR1, 0
+    setf rc0_light
+    setf rc1_light
+    clrf LATC
+    clrf T1CON
+    return
+
 timer0_interrupt:
-    movlw TIMER_START_LOW
+    bcf INTCON, 2 
+    movlw TIMER0_START_LOW
     movwf TMR0L
-    movlw TIMER_START_HIGH
+    movlw TIMER0_START_HIGH
     movwf TMR0H
     
     ; if paused, turn the lights off, decrease time and do nothing else
@@ -109,42 +122,22 @@ timer0_interrupt:
     subwf pause, 0
     bnz quit_interrupt
 
-    ; if rc0_light is currently off, that means the incoming interrupt is for turning it on
-    ; and indicates that it is the end of the 2nd 50ms of the 100ms period, i.e. the beginning of the 1st 50ms
-    ; of the next beat.
-    ; therefore, we will decrease time_ds if rc0_light is off when the interrupt is received.
-    ; 
-    ; if rc0_light is currently on, that means the incoming interrupt is for turning it off
-    ; and indicates that it is the end 1st 50ms of the 100ms period.
-    ; we will turn off rc0_light and rc1_light but we will not decrease time_ds.
-    ; 
-    ; rc1_light does not indicate anything because it is only turned on at the beginning of the new bar.
-
-    movlw 0b11111111 ; -1
-
-    cpfseq rc0_light
-    goto turn_rc_lights_off ; if rc0 is on
-    goto decrease_time_ds  ; if rc0 is off
-
-    turn_rc_lights_off:
-        movlw 0b11111111 ; -1
-        movwf rc0_light
-        movwf rc1_light
-
-        movlw 0b00000000 ; 0
-        movwf LATC
-
-        return
-
     decrease_time_ds:
+        movlw TIMER1_START_LOW
+        movwf TMR1L
+        movlw TIMER1_START_HIGH
+        movwf TMR1H
+        movlw 0b00010001 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
+        movwf T1CON
+	bsf PIE1, 0
         dcfsnz time_ds
         call beat_duration_reached
-        bcf INTCON, 2 
         return
 	
     quit_interrupt:
-	call turn_rc_lights_off
-	call decrease_time_ds
+    setf rc0_light
+    setf rc1_light
+    clrf LATC
 	return
 
 beat_duration_reached:
@@ -190,6 +183,7 @@ beat_duration_reached:
 	
 	movlw 1
 	movwf rc1_light
+	movwf rc0_light
 	
 	movlw 0b00000011
 	movwf LATC
@@ -218,8 +212,33 @@ rb_interrupt: ; click handler
     return
 rb4_pressed:
     comf pause
-    call switch_display
+
+
+    movlw TIMER0_START_LOW
+    movwf TMR0L
+    movlw TIMER0_START_HIGH
+    movwf TMR0H
+    movlw TIMER1_START_LOW
+    movwf TMR1L
+    movlw TIMER1_START_HIGH
+    movwf TMR1H
+    btg T0CON, 7
+    btg T1CON, 0
+    btg T1CON, 4
+
+    movlw 1
+    movwf current_beat_num
+
+    movf pause
+    bnz paused_rb4
+
+    movlw 0b00000011
+    movwf LATC
+
     return
+
+    paused_rb4:
+        return
 
 rb5_pressed:
     ;Increase button. Affects the speed level if paused, bar length if running.
@@ -273,9 +292,6 @@ main:
 init:
     ; call timer0_interrupt ; reset timer to start value
 
-    ; configure_timer
-    call initialise_timer
-
     ; init values for metronome
     movlw BEAT_DURATION_DEFAULT
     movwf beat_duration_ds
@@ -284,8 +300,7 @@ init:
     movlw 1
     movwf current_beat_num
 
-    movlw 0b11111111 ; enable pause, any value except 0 will do
-    movwf pause
+    setf pause
 
     movlw BAR_LENGTH_DEFAULT
     movwf bar_length
@@ -309,18 +324,42 @@ init:
     call show_paused_RA0
     
     clrf LATC
+
+    bsf INTCON2, 7
+    
+    ; configure_timer
+    call initialise_timer
     
     return
 
 initialise_timer:
-    movlw 0b10000000 ; enable timer0, 1:2 prescaler, 131.072 ms 0 -> 65,536
-    movwf T0CON
-    movlw 0b10101000
-    movwf INTCON
-    movlw TIMER_START_LOW
+    movlw TIMER0_START_LOW
     movwf TMR0L
-    movlw TIMER_START_HIGH
+    movlw TIMER0_START_HIGH
     movwf TMR0H
+
+    ; DEBUG
+    ; movlw 0b10000000 ; enable timer0, 1:2 prescaler, 131.072 ms 0 -> 65,536
+    ; movwf T0CON
+    clrf T0CON
+    ; DEBUG
+    
+    movlw TIMER1_START_LOW
+    movwf TMR1L
+    movlw TIMER1_START_HIGH
+    movwf TMR1H
+
+    ; DEBUG
+    ; movlw 0b00010001 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
+    ; movwf T1CON
+    clrf T1CON
+    ; DEBUG
+
+    bsf PIE1, 0
+    movlw 0b00000001
+    movwf PIE1
+    movlw 0b11101000
+    movwf INTCON
     return
 
 main_loop:
