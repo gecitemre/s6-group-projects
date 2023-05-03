@@ -111,6 +111,7 @@ timer1_interrupt:
     setf rc0_light
     setf rc1_light
     clrf LATC
+    clrf T1CON
     return
 
 timer0_interrupt:
