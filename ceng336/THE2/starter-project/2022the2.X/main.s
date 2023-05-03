@@ -93,12 +93,12 @@ goto main
 
 org 0x0008
 interrupt_service_routine:
+    btfsc PIR1, 0
+    call timer1_interrupt
     btfsc INTCON, 2
     call timer0_interrupt
     btfsc INTCON, 0
     call rb_interrupt
-    btfsc PIR1, 0
-    call timer1_interrupt
     retfie 1
 
 timer1_interrupt:
@@ -129,6 +129,7 @@ timer0_interrupt:
         movwf TMR1H
         movlw 0b00000001 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
         movwf T1CON
+	bsf PIE1, 0
         dcfsnz time_ds
         call beat_duration_reached
         return
@@ -317,6 +318,9 @@ initialise_timer:
     movwf TMR1H
     movlw 0b00000001 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
     movwf T1CON
+    bsf PIE1, 0
+    movlw 0b00000001
+    movwf PIE1
     movlw 0b10101000
     movwf INTCON
     return
