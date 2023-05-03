@@ -146,6 +146,7 @@ timer0_interrupt:
     enable_timer1:
         movlw 0b10000000 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
         movwf T1CON
+        movlw TIMER_START_LOW
         movwf TMR1L
         movlw TIMER_START_HIGH
         movwf TMR1H
