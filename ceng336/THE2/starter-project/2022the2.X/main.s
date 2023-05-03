@@ -22,8 +22,8 @@ CONFIG XINST = OFF      ; Extended Instruction Set Enable bit (Instruction set e
 
 ; timer macros
 #define TIMER1_START 40536 ; 50ms (65536 - 25000)
-#define TIMER1_START_LOW 0x58
-#define TIMER1_START_HIGH 0x9e
+#define TIMER1_START_LOW 0x2c ; 0x58
+#define TIMER1_START_HIGH 0xcf ; 0x9e
 #define TIMER0_START 15536 ; 100ms (65536 - 50000)
 #define TIMER0_START_LOW 0xb0
 #define TIMER0_START_HIGH 0x3c
@@ -127,7 +127,7 @@ timer0_interrupt:
         movwf TMR1L
         movlw TIMER1_START_HIGH
         movwf TMR1H
-        movlw 0b00000001 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
+        movlw 0b00010001 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
         movwf T1CON
 	bsf PIE1, 0
         dcfsnz time_ds
@@ -300,6 +300,8 @@ init:
     
     clrf LATC
 
+    bsf INTCON2, 7
+    
     ; configure_timer
     call initialise_timer
     
@@ -316,12 +318,12 @@ initialise_timer:
     movwf TMR1L
     movlw TIMER1_START_HIGH
     movwf TMR1H
-    movlw 0b00000001 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
+    movlw 0b00010001 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
     movwf T1CON
     bsf PIE1, 0
     movlw 0b00000001
     movwf PIE1
-    movlw 0b10101000
+    movlw 0b11101000
     movwf INTCON
     return
 
