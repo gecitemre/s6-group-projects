@@ -446,6 +446,10 @@ show_RA1:
 	movlw 2
 	subwf current_beat_num, 0
 	bz display_2
+
+    movlw 1
+    subwf current_beat_num, 0
+    bz display_1
     
 show_RA2:
     clrf WREG
