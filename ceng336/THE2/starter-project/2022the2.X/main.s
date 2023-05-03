@@ -148,7 +148,7 @@ timer0_interrupt:
 	return
 
 beat_duration_reached:
-    movlw bar_length
+    movff bar_length, WREG
     cpfseq current_beat_num
     goto not_on_the_beat   ; if bar_length == current_beat_num then its on the beat
     goto on_the_beat
@@ -158,9 +158,9 @@ beat_duration_reached:
     
         movff beat_duration_ds, time_ds
 	
-	clrf WREG
-	subwf pause, 0
-	bz turn_rc0_on
+        clrf WREG
+        subwf pause, 0
+        bz turn_rc0_on
 
         return
 	
@@ -170,9 +170,9 @@ beat_duration_reached:
         
         movff beat_duration_ds, time_ds
 	
-	clrf WREG
-	subwf pause, 0
-	bz turn_both_rcs_on
+        clrf WREG
+        subwf pause, 0
+        bz turn_both_rcs_on
 	
         return
 	
