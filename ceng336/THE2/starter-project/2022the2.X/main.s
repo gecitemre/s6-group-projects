@@ -149,9 +149,9 @@ timer0_interrupt:
 
 beat_duration_reached:
     movff bar_length, WREG
-    cpfseq current_beat_num
-    goto not_on_the_beat   ; if bar_length == current_beat_num then its on the beat
-    goto on_the_beat
+    cpfslt current_beat_num  ; if bar_length > current_beat_num then call not_on_the_beat
+    goto on_the_beat   
+    goto not_on_the_beat
     
     not_on_the_beat:
         incf current_beat_num
@@ -450,6 +450,8 @@ show_RA1:
     movlw 1
     subwf current_beat_num, 0
     bz display_1
+
+    return
     
 show_RA2:
     clrf WREG
