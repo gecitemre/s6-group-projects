@@ -212,7 +212,6 @@ rb_interrupt: ; click handler
     return
 rb4_pressed:
     comf pause
-    call switch_display
 
 
     movlw TIMER0_START_LOW
@@ -226,7 +225,21 @@ rb4_pressed:
     btg T0CON, 7
     btg T1CON, 0
     btg T1CON, 4
+
+    movlw 1
+    movwf current_beat_num
+
+    movf pause
+    bnz paused_rb4
+
+    movlw 0b00000011
+    movwf LATC
+
+    call switch_display
     return
+
+    paused_rb4:
+        return
 
 rb5_pressed:
     ;Increase button. Affects the speed level if paused, bar length if running.
