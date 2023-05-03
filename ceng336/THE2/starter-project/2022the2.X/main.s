@@ -9,7 +9,7 @@ CONFIG IESO = OFF       ; Internal/External Oscillator Switchover bit (Oscillato
 ; CONFIG2L
 CONFIG PWRT = ON        ; Power-up Timer Enable bit (PWRT enabled)
 CONFIG BOREN = OFF      ; Brown-out Reset Enable bits (Brown-out Reset disabled in hardware and software)
-CONFIG BORV = 3         ; Brown Out Reset Voltage bits (Minimum setting)
+CONFIG BORV = 3         ; Brown Out Reset Voltage bits (Minimum setting)p
 ; CONFIG2H
 CONFIG WDT = OFF        ; Watchdog Timer Enable bit (WDT disabled (control is placed on the SWDTEN bit))
 ; CONFIG3H
@@ -81,7 +81,7 @@ rc0_light:        ; 1 if RC0 is turned on, -1 if RC0 is turned off
     DS 1
 rc1_light:        ; 1 if RC1 is turned on, -1 if RC1 is turned off
     DS 1
-WREG_tmp:
+WREG_tmp:   
     DS 1
 
 PSECT CODE
@@ -108,9 +108,12 @@ timer1_interrupt:
     bcf PORTC, 1
     bcf PORTC, 0
     bcf PIR1, 0
-    setf rc0_light
-    setf rc1_light
-    clrf LATC
+        movlw 0b11111111 ; -1
+        movwf rc0_light
+        movwf rc1_light
+
+        movlw 0b00000000 ; 0
+        movwf LATC
     clrf T1CON
     return
 
@@ -141,25 +144,23 @@ timer0_interrupt:
     movlw 0b11111111 ; -1
 
     cpfseq rc0_light
-    goto enable_timer1
-    goto decrease_time_ds  ; if rc0 is off
+    return
 
-    enable_timer1:
+    decrease_time_ds:
         movlw 0b10000000 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
         movwf T1CON
         movlw TIMER_START_LOW
         movwf TMR1L
         movlw TIMER_START_HIGH
         movwf TMR1H
-        return
-
-    decrease_time_ds:
         dcfsnz time_ds
         call beat_duration_reached
         return
 	
     quit_interrupt:
-	call decrease_time_ds
+    setf rc0_light
+    setf rc1_light
+    clrf LATC
 	return
 
 beat_duration_reached:
@@ -332,6 +333,9 @@ initialise_timer:
     movlw 0b10101000
     movwf INTCON
     movlw TIMER_START_LOW
+    movwf TMR0L
+    movlw TIMER_START_HIGH
+    movwf TMR0H
     return
 
 main_loop:
