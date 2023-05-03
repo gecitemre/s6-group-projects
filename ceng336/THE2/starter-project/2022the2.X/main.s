@@ -360,20 +360,20 @@ switch_display:
 	movff PRODL, current_display
 	
 	movlw 0b00001000
-	subwf current_display, 0
-	bz turn_DIS4_on
+	cpfslt current_display
+	goto turn_DIS4_on
 	
 	movlw 0b00000100
-	subwf current_display, 0
-	bz turn_DIS3_on
+	cpfslt current_display
+	goto turn_DIS3_on
 	
 	movlw 0b00000010
-	subwf current_display, 0
-	bz turn_DIS2_on
+	cpfslt current_display
+	goto turn_DIS2_on
 	
 	movlw 0b00000001
-	subwf current_display, 0
-	bz turn_DIS1_on
+	cpfslt current_display
+	goto turn_DIS1_on
 	
 	return    
     
