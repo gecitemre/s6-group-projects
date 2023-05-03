@@ -213,6 +213,7 @@ rb_interrupt: ; click handler
 rb4_pressed:
     comf pause
 
+    movff beat_duration_ds, time_ds
 
     movlw TIMER0_START_LOW
     movwf TMR0L
