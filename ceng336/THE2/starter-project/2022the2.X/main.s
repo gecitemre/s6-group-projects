@@ -179,7 +179,6 @@ beat_duration_reached:
 	return
 	
     turn_both_rcs_on:
-	call turn_rc0_on
 	
 	movlw 1
 	movwf rc1_light
