@@ -238,6 +238,7 @@ rb4_pressed:
     return
 
     paused_rb4:
+        clrf LATC
         return
 
 rb5_pressed:
