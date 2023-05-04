@@ -62,7 +62,7 @@ GLOBAL WREG_tmp
 
 ; Define space for the variables in RAM
 PSECT udata_acs
-time_ds: ; time in deciseconds counting backwards, decrease every 100ms
+time_ds:          ; time in deciseconds counting backwards, decrease every 100ms
     DS 1
 new_portb:
     DS 1
@@ -72,9 +72,9 @@ beat_duration_ds: ; beat duration in ds.
     DS 1          ; beat_duration_ds = 11 - (speed)
 pause:            ; -1 (all ones) if paused, zero if not paused
     DS 1
-bar_length:
+bar_length:       ; bar length in beats
     DS 1
-current_display:  
+current_display:  ; current display number. either 1, 2, 4 or 8
     DS 1
 main_loop_inc:    ; to keep track of main_loop
     DS 1          ; will be useful in switching displays
@@ -84,7 +84,7 @@ rc0_light:        ; 1 if RC0 is turned on, -1 if RC0 is turned off
     DS 1
 rc1_light:        ; 1 if RC1 is turned on, -1 if RC1 is turned off
     DS 1
-WREG_tmp:   
+WREG_tmp:         ; temporary storage for WREG
     DS 1
 
 PSECT CODE
@@ -92,6 +92,10 @@ org 0x0000
 goto main
 
 org 0x0008
+
+; the main service routine for interrupts.
+; this is called every time an interrupt occurs.
+; it checks which interrupt has occurred and calls the appropriate subroutine.
 interrupt_service_routine:
     btfsc PIR1, 0
     call timer1_interrupt
@@ -101,14 +105,17 @@ interrupt_service_routine:
     call rb_interrupt
     retfie 1
 
+; handler function for timer0 interrupt
 timer1_interrupt:
     bcf PIR1, 0
+    ; turn the RC lights off
     setf rc0_light
     setf rc1_light
     clrf LATC
     clrf T1CON
     return
 
+; handler function for timer0 interrupt
 timer0_interrupt:
     bcf INTCON, 2 
     movlw TIMER0_START_LOW
@@ -129,7 +136,7 @@ timer0_interrupt:
         movwf TMR1H
         movlw 0b00010001 ; enable timer1, 1:2 prescaler, 131.072 ms 0 -> 65,536
         movwf T1CON
-	bsf PIE1, 0
+	    bsf PIE1, 0
         dcfsnz time_ds
         call beat_duration_reached
         return
@@ -137,12 +144,14 @@ timer0_interrupt:
     quit_interrupt:
 	return
 
+; the fubction that is called when the beat duration is reached.
 beat_duration_reached:
     movff bar_length, WREG
     cpfslt current_beat_num  ; if bar_length > current_beat_num then call not_on_the_beat
     goto on_the_beat   
     goto not_on_the_beat
     
+    ; if we are on a beat that is not the first one
     not_on_the_beat:
         incf current_beat_num
     
@@ -154,6 +163,7 @@ beat_duration_reached:
 
         return
 	
+    ; if we are on the first beat
     on_the_beat:
         movlw 1
         movwf current_beat_num
@@ -167,26 +177,27 @@ beat_duration_reached:
         return
 	
     turn_rc0_on:
-	; turn rc0 on
-	movlw 1
-	movwf rc0_light
+        movlw 1
+        movwf rc0_light
 
-    setf LATC, 0
-	return
+        setf LATC, 0
+        return
 	
     turn_both_rcs_on:
 	
-	movlw 1
-	movwf rc1_light
-	movwf rc0_light
-	
-    setf LATC, 0
-    setf LATC, 1
-	
-	return
+        movlw 1
+        movwf rc1_light
+        movwf rc0_light
+        
+        setf LATC, 0
+        setf LATC, 1
+        
+        return
 	
 
-
+; handler function for RB interrupts.
+; this is called every time an RB interrupt occurs.
+; it checks which RB interrupt has occurred and calls the appropriate subroutine.
 rb_interrupt: ; click handler
     movff PORTB, new_portb
     comf new_portb, W
@@ -323,7 +334,7 @@ init:
     clrf LATC
 
     bsf INTCON2, 7
-    
+
     ; configure_timer
     call initialise_timer
     
