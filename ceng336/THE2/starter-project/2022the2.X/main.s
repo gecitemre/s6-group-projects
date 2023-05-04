@@ -135,9 +135,6 @@ timer0_interrupt:
         return
 	
     quit_interrupt:
-    setf rc0_light
-    setf rc1_light
-    clrf LATC
 	return
 
 beat_duration_reached:
@@ -174,8 +171,7 @@ beat_duration_reached:
 	movlw 1
 	movwf rc0_light
 
-        movlw 0b00000001 ; 1
-        movwf LATC
+    setf LATC, 0
 	return
 	
     turn_both_rcs_on:
@@ -184,8 +180,8 @@ beat_duration_reached:
 	movwf rc1_light
 	movwf rc0_light
 	
-	movlw 0b00000011
-	movwf LATC
+    setf LATC, 0
+    setf LATC, 1
 	
 	return
 	
