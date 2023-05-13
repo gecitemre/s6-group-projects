@@ -40,7 +40,19 @@ Homework 3}
 
 \begin{enumerate}
 
-\item %write the solution of q1
+\item \begin{align*}
+    \int_{-\infty}^t x(s) ds &= \int_{-\infty}^{t} \sum_{k=-\infty}^{\infty} a_k e^{jk\omega_0 s} ds\\
+    &= \sum_{k=-\infty}^{\infty} (a_k \cdot \frac{e^{jkw_0t}}{jkw_0} \Big|_{-\infty}^{t})\\
+    &= \sum_{k=-\infty}^{\infty} (a_k \cdot \frac{e^{jkw_0t}}{jkw_0} - a_k \cdot \frac{e^{jkw_0 (-\infty)}}{jkw_0})\\
+    &= \sum_{k=-\infty}^{\infty} (a_k \cdot \frac{e^{jkw_0t}}{jkw_0} - a_k \cdot \frac{0}{jkw_0})\\
+    &= \sum_{k=-\infty}^{\infty} (a_k \cdot \frac{e^{jkw_0t}}{jkw_0})\\
+\end{align*}
+
+This equation is in the synthesis equation form where $a_k \frac{1}{jkw_0}$ is the Fourier series coefficients of the integrated signal.\\
+
+Since $w_0$ is the frequency of the signal, $w_0 = \frac{2\pi}{T}$ where $T$ is the period of the signal.\\
+
+Substituting $w_0$ in the equation above, we prove the integration property of the Fourier series.\\
 
 \item %write the solution of q2  
 	\begin{enumerate}
