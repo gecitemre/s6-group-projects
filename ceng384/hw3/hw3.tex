@@ -65,7 +65,20 @@ Substituting $w_0$ in the equation above, we prove the integration property of t
     \item $x(t+t_0) + x(t-t_0) \leftrightarrow a_k e^{jkw_0t_0} + a_{-k} e^{-jkw_0t_0} $ (Shifting and Linearity Properties)
     \end{enumerate}
 
-\item %write the solution of q3
+\item
+\[ x(t) = \begin{cases}
+        1 & x \in (0, 1) \\
+        0 & x \in (1, 2) \\
+        -1 & x \in (2, 3) \\
+        \text{Periodic} & x \notin (0, 3)
+\end{cases}\]
+\begin{align*}
+    a_k &= \frac{1}{T} \int_{0}^{T} x(t) e^{-jkw_0t} dt \\
+    &= \frac{1}{3} (\int_{0}^{1} e^{-jkw_0t} dt + \int_{1}^{2} 0 dt + \int_{2}^{3} -e^{-jkw_0t} dt) \\
+    &= \frac{1}{3} (\frac{e^{-jkw_0t}}{-jkw_0} \Big|_{0}^{1} + \frac{e^{-jkw_0t}}{-jkw_0} \Big|_{2}^{3}) \\
+    &= \frac{1}{3} (\frac{e^{-jkw_0}}{-jkw_0} - \frac{1}{-jkw_0} + \frac{e^{-3jkw_0}}{-jkw_0} - \frac{e^{-2jkw_0}}{-jkw_0}) \\
+    &= \frac{1}{-3jkw_0} (e^{-jkw_0} - 1 + e^{-3jkw_0} - e^{-2jkw_0}) \\
+\end{align*}
 
 \item %write the solution of q4
     \begin{enumerate}   
