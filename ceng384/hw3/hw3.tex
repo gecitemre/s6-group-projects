@@ -25,7 +25,7 @@
   \texttt{e2521581@ceng.metu.edu.tr}
   \and
   Yancı, Baran\\
-  \texttt{exxxxxxx@ceng.metu.edu.tr}
+  \texttt{e2449015@ceng.metu.edu.tr}
 }
 
 \title{CENG 384 - Signals and Systems for Computer Engineers \\
@@ -95,6 +95,55 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
     \begin{enumerate}   
     % Write your solutions in the following items.
     \item %write the solution of q4a
+    \begin{align*}
+        x(t) & = 1 + \sin(\omega_0t) + 2\cos(\omega_0t) + \cos(2\omega_0t + \frac{\pi}{4}) \\
+        & = 1 + \sin(\omega_0t) + 2\cos(\omega_0t) + \cos(2\omega_0t)\cos(\frac{\pi}{4}) - \sin(2\omega_0t)\sin(\frac{\pi}{4}) \\
+        & = 1 + \sin(\omega_0t) + 2\cos(\omega_0t) + \frac{\sqrt{2}}{2}\cos(2\omega_0t) - \frac{\sqrt{2}}{2}\sin(2\omega_0t) \\
+        % use euler's formula
+        & = 1 + \frac{e^{j\omega_0t} - e^{-j\omega_0t}}{2j} + 2\frac{e^{j\omega_0t} + e^{-j\omega_0t}}{2} + \frac{\sqrt{2}}{2}\frac{e^{j2\omega_0t} + e^{-j2\omega_0t}}{2} - \frac{\sqrt{2}}{2}\frac{e^{j2\omega_0t} - e^{-j2\omega_0t}}{2j} \\
+        % rearrange
+        & = 1 + \frac{1}{2j}e^{j\omega_0t} - \frac{1}{2j}e^{-j\omega_0t} + e^{j\omega_0t} + e^{-j\omega_0t} + \frac{\sqrt{2}}{4}e^{j2\omega_0t} + \frac{\sqrt{2}}{4}e^{-j2\omega_0t} - \frac{\sqrt{2}}{4j}e^{j2\omega_0t} + \frac{\sqrt{2}}{4j}e^{-j2\omega_0t} \\
+    \end{align*}
+    \begin{align*}
+        \alpha_0 & = 1 \\
+        \alpha_1 & = 1 + \frac{1}{2j}\\
+        \alpha_{-1} & = 1 - \frac{1}{2j}\\
+        \alpha_2 & = \frac{\sqrt{2}}{4} - \frac{\sqrt{2}}{4j}\\
+        \alpha_{-2} & = \frac{\sqrt{2}}{4} + \frac{\sqrt{2}}{4j}\\
+    \end{align*}
+
+    \begin{tikzpicture}
+        \begin{axis}[ 
+        /pgf/number format/fixed,
+        /pgf/number format/precision=3,
+        height=200,
+        xtick = {-2, -1, 0, 1, 2},
+        ytick=data,
+        xlabel=$k$, 
+        ylabel=$\theta_k$, 
+        axis x line=center, 
+        axis y line = center, 
+        xmin=-2.5, xmax=2.5, ymin=-2.5, ymax=2.5]
+        \addplot+[ycomb,mark=square] plot coordinates {(-2,1.57) (-1,-1.107) (0,1) (1,1.107) (2,-1.57)};
+        \end{axis}
+    \end{tikzpicture} \\
+
+    \begin{tikzpicture}
+        \begin{axis}[ 
+        /pgf/number format/fixed,
+        /pgf/number format/precision=3,
+        height=200,
+        xtick = {-2, -1, 0, 1, 2},
+        ytick=data,
+        xlabel=$k$, 
+        ylabel=$|a_k|$, 
+        axis x line=center, 
+        axis y line = center, 
+        xmin=-2.5, xmax=2.5, ymin=-0.3, ymax=2.5]
+        \addplot+[ycomb,mark=square] plot coordinates {(-2,0.5) (-1,1.118033989) (0,1) (1,1.118033989) (2,0.5)};
+        \end{axis}
+    \end{tikzpicture} \\
+
     \item %write the solution of q4b
 	\item %write the solution of q4c
     \item %write the solution of q4d
@@ -104,9 +153,53 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
     \begin{enumerate}
     % Write your solutions in the following items.
     \item %write the solution of q5a
+    % find the Fourier series coefficients of x[n] = sin ((pi/2) * n)
+    \begin{align*}
+        x[n] & = sin(\frac{\pi}{2}n) \\
+        & = \frac{e^{j\frac{\pi}{2}n} - e^{-j\frac{\pi}{2}n}}{2j} \\
+        & = \frac{1}{2j}e^{j\frac{\pi}{2}n} - \frac{1}{2j}e^{-j\frac{\pi}{2}n} \\
+        \alpha_1 & = \frac{1}{2j} \\
+        \alpha_{-1} & = -\frac{1}{2j} \\
+    \end{align*}
     \item %write the solution of q5b
+    % find the Fourier series coefficients of y[n] = 1 + cos((pi/2) * n)
+    \begin{align*}
+        y[n] & = 1 + cos(\frac{\pi}{2}n) \\
+        & = 1 + \frac{e^{j\frac{\pi}{2}n} + e^{-j\frac{\pi}{2}n}}{2} \\
+        & = 1 + \frac{1}{2}e^{j\frac{\pi}{2}n} + \frac{1}{2}e^{-j\frac{\pi}{2}n} \\
+        \alpha_0 & = 1 \\
+        \alpha_1 & = \frac{1}{2} \\
+        \alpha_{-1} & = \frac{1}{2} \\
+    \end{align*}
 	\item %write the solution of q5c
+    % Using the multiplication property of the discrete time Fourier series, find the Fourier series coefficients of x[n]×y[n].
+    \begin{align*}
+        x[n]y[n] & \leftrightarrow \alpha_k \ast \beta_k \\
+        & = \sum_{k=0}^{N - 1} \alpha_l \beta_{k - l} \\
+        & = \sum_{k=0}^{3} \alpha_l \beta_{k - l} \\
+        & = \alpha_0 \beta_{k - 0} + \alpha_1 \beta_{k - 1} + \alpha_2 \beta_{k - 2} + \alpha_3 \beta_{k - 3} \\
+        c_k & = \frac{1}{2} \beta_{k - 1} + \frac{1}{2} \beta_{k - 3} \\
+        &\\
+        c_1 & = 0 \\
+        c_2 & = \frac{-1}{2j}\\
+        c_3 & = 0 \\
+        c_4 & = \frac{1}{2j}\\
+    \end{align*}
 	\item %write the solution of q5d
+    % Using Fourier analysis equation (direct evaluation), find the Fourier series coefficients of x[n] × y[n]. Compare the
+    % result with the result of part c.
+    \begin{align*}
+        c_k & = \frac{1}{N} \sum_{n=0}^{N - 1} x[n]y[n]e^{-j\frac{2\pi}{N}kn} \\
+        & = \frac{1}{4} \sum_{n=0}^{3} x[n]y[n]e^{-j\frac{2\pi}{4}kn} \\
+        & = \frac{1}{4} (x[0]y[0]e^{-j\frac{2\pi}{4}k0} + x[1]y[1]e^{-j\frac{2\pi}{4}k1} + x[2]y[2]e^{-j\frac{2\pi}{4}k2} + x[3]y[3]e^{-j\frac{2\pi}{4}k3}) \\
+        & = \frac{1}{4} (0 \cdot 2 \cdot e^{-j\frac{2\pi}{4}k0} + 1 \cdot 1 \cdot e^{-j\frac{2\pi}{4}k1} + 0 \cdot 0 \cdot e^{-j\frac{2\pi}{4}k2} + (-1) \cdot 1 \cdot e^{-j\frac{2\pi}{4}k3}) \\
+        & = \frac{1}{4} (e^{-j\frac{2\pi}{4}k} - e^{-j\frac{2\pi}{4}k3}) \\
+        c_1 & = 0 \\
+        c_2 & = \frac{-1}{2j}\\
+        c_3 & = 0 \\
+        c_4 & = \frac{1}{2j}\\
+    \end{align*}
+    The results are the same.
     \end{enumerate}    
     
 \item %write the solution of q6
