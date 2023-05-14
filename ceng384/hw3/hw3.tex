@@ -206,7 +206,98 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
     \begin{enumerate}
     % Write your solutions in the following items.
     \item %write the solution of q6a
+    % Find and plot the spectral coefficients of the Fourier series representation for the following discrete time signal, x[n]
+    \begin{align*}
+        x[n] & = 1 - \cos(\frac{n\pi}{2}) \\
+        & = 1 - \frac{e^{j\frac{n\pi}{2}} + e^{-j\frac{n\pi}{2}}}{2} \\
+        & = 1 - \frac{1}{2}e^{j\frac{n\pi}{2}} - \frac{1}{2}e^{-j\frac{n\pi}{2}} \\
+        \alpha_0 & = 1 \\
+        \alpha_1 & = -\frac{1}{2} \\
+        \alpha_{-1} & = -\frac{1}{2} \\
+    \end{align*}
+
+    \begin{tikzpicture}
+        \begin{axis}[ 
+        /pgf/number format/fixed,
+        /pgf/number format/precision=3,
+        height=200,
+        xtick = {-1, 0, 1},
+        ytick=data,
+        xlabel=$k$, 
+        ylabel=$|a_k|$, 
+        axis x line=center, 
+        axis y line = center, 
+        xmin=-2.5, xmax=2.5, ymin=-2, ymax=1]
+        \addplot+[ycomb,mark=square] plot coordinates {(-1,-0.5) (0,1) (1,-0.5)};
+        \end{axis}
+    \end{tikzpicture} \\
+
+    \begin{tikzpicture}
+        \begin{axis}[ 
+        /pgf/number format/fixed,
+        /pgf/number format/precision=3,
+        height=200,
+        xtick = {-1, 0, 1},
+        ytick=data,
+        xlabel=$k$, 
+        ylabel=$\theta_k$, 
+        axis x line=center, 
+        axis y line = center, 
+        xmin=-2.5, xmax=2.5, ymin=-2, ymax=1]
+        \addplot+[ycomb,mark=square] plot coordinates {(-1,1) (0,1) (1,1)};
+        \end{axis}
+    \end{tikzpicture} \\
+
     \item %write the solution of q6b
+    \begin{enumerate}
+        \item
+        % Define y[n] in terms of x[n].
+        \begin{align*}
+            % TODO:
+        \end{align*}
+
+        \item \begin{align*}
+            y[n] & = 1 + \sin(\frac{n\pi}{2}) - \cos(\frac{n\pi}{2}) \\
+            & = 1 + \frac{e^{j\frac{n\pi}{2}} - e^{-j\frac{n\pi}{2}}}{2j} - \frac{e^{j\frac{n\pi}{2}} + e^{-j\frac{n\pi}{2}}}{2} \\
+            & = 1 + \frac{1}{2j}e^{j\frac{n\pi}{2}} - \frac{1}{2j}e^{-j\frac{n\pi}{2}} - \frac{1}{2}e^{j\frac{n\pi}{2}} - \frac{1}{2}e^{-j\frac{n\pi}{2}} \\
+            & = 1 - \frac{1}{2}e^{j\frac{n\pi}{2}} + \frac{1}{2j}e^{j\frac{n\pi}{2}} - \frac{1}{2j}e^{-j\frac{n\pi}{2}} - \frac{1}{2}e^{-j\frac{n\pi}{2}} \\
+            \alpha_0 & = 1 \\
+            \alpha_1 & = -\frac{1}{2} + \frac{1}{2j} \\
+            \alpha_{-1} & = -\frac{1}{2} - \frac{1}{2j} \\
+        \end{align*}
+
+    \begin{tikzpicture}
+        \begin{axis}[ 
+        /pgf/number format/fixed,
+        /pgf/number format/precision=3,
+        height=200,
+        xtick = {-1, 0, 1},
+        ytick=data,
+        xlabel=$k$, 
+        ylabel=$|a_k|$, 
+        axis x line=center, 
+        axis y line = center, 
+        xmin=-2.5, xmax=2.5, ymin=-1, ymax=2]
+        \addplot+[ycomb,mark=square] plot coordinates {(-1,1.414) (0,1) (1,1.414)};
+        \end{axis}
+    \end{tikzpicture} \\
+
+    \begin{tikzpicture}
+        \begin{axis}[ 
+        /pgf/number format/fixed,
+        /pgf/number format/precision=3,
+        height=200,
+        xtick = {-1, 0, 1},
+        ytick=data,
+        xlabel=$k$, 
+        ylabel=$\theta_k$, 
+        axis x line=center, 
+        axis y line = center, 
+        xmin=-2.5, xmax=2.5, ymin=-1, ymax=2]
+        \addplot+[ycomb,mark=square] plot coordinates {(-1,1.25) (0,1) (1,0.75)};
+        \end{axis}
+    \end{tikzpicture} \\
+    \end{enumerate}
     \end{enumerate}
     
 \item %write the solution of q7
