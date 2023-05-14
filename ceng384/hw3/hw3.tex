@@ -76,18 +76,17 @@ Substituting $w_0$ in the equation above, we prove the integration property of t
 \begin{align*}
     a_k &= \frac{1}{T} \int_{0}^{T} x(t) e^{-jkw_0t} dt \\
     &= \frac{1}{4} (\int_{0}^{1} 2e^{-jkw_0t} dt + \int_{1}^{2} 0 dt + \int_{2}^{3} -2 e^{-jkw_0t} dt + \int_{3}^{4} 0 dt) \\
-    &= \frac{1}{4} (2\frac{e^{-jkw_0t}}{-jkw_0} \Big|_{0}^{1} + 2\frac{e^{-jkw_0t}}{-jkw_0} \Big|_{2}^{3}) \\
-    &= \frac{1}{4} (2\frac{e^{-jkw_0}}{-jkw_0} - \frac{2}{-jkw_0} + 2\frac{e^{-3jkw_0}}{-jkw_0} - 2\frac{e^{-2jkw_0}}{-jkw_0}) \\
-    &= \frac{1}{-2jkw_0} (e^{-jkw_0} - 1 + e^{-3jkw_0} - e^{-2jkw_0}) \\
+    &= \frac{1}{4} (2\frac{e^{-jkw_0t}}{-jkw_0} \Big|_{0}^{1} - 2\frac{e^{-jkw_0t}}{-jkw_0} \Big|_{2}^{3}) \\
+    &= \frac{1}{4} (2\frac{e^{-jkw_0}}{-jkw_0} - \frac{2}{-jkw_0} - 2\frac{e^{-3jkw_0}}{-jkw_0} + 2\frac{e^{-2jkw_0}}{-jkw_0}) \\
+    &= \frac{1}{-2jkw_0} (e^{-jkw_0} - 1 - e^{-3jkw_0} + e^{-2jkw_0}) \\
 \end{align*}
 Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
 
 \begin{align*}
-    a_k &= \frac{1}{-2jk\frac{\pi}{2}} (e^{-jk\frac{\pi}{2}} - 1 + e^{-3jk\frac{\pi}{2}} - e^{-2jk\frac{\pi}{2}}) \\
-    &= \frac{1}{-jk\pi} (e^{-jk\frac{\pi}{2}} - 1 + e^{-3jk\frac{\pi}{2}} - e^{-jk\pi}) \\
-    &= \frac{1}{-jk\pi} (cos(-k\frac{\pi}{2}) + jsin(-k\frac{\pi}{2}) - 1 + cos(-3k\frac{\pi}{2}) + jsin(-3k\frac{\pi}{2}) - cos(-k\pi) - jsin(-k\pi)) \\
-    &= \frac{1}{-jk\pi} (2cos(k\frac{\pi}{2}) - 1 - cos(k\pi)) \\
-    &= \frac{1}{jk\pi} (1 - 2cos(k\frac{\pi}{2}) + cos(k\pi)) \\
+    a_k &= \frac{1}{-2jk\frac{\pi}{2}} (e^{-jk\frac{\pi}{2}} - 1 - e^{-3jk\frac{\pi}{2}} + e^{-2jk\frac{\pi}{2}}) \\
+    &= \frac{1}{-jk\pi} (e^{-jk\frac{\pi}{2}} - 1 - e^{-3jk\frac{\pi}{2}} + e^{-jk\pi}) \\
+    &= \frac{1}{-jk\pi} (cos(-k\frac{\pi}{2}) + jsin(-k\frac{\pi}{2}) - 1 - cos(-3k\frac{\pi}{2}) - jsin(-3k\frac{\pi}{2}) + cos(-k\pi) + jsin(-k\pi)) \\
+    &= \frac{1}{-jk\pi} (-2jsin(k\frac{\pi}{2}) - 1 + cos(-k\pi)) \\
 \end{align*}
 
 
