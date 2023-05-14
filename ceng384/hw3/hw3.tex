@@ -4,7 +4,7 @@
 \usepackage{amsthm}
 \usepackage{graphicx}
 \usepackage{float}
-
+\usepackage{minted}
 \usepackage{tkz-euclide}
 \usepackage{tikz}
 \usepackage{pgfplots}
@@ -301,15 +301,29 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
     
 \item %write the solution of q7
     \begin{enumerate}
-    % Write your solutions in the following items.
     \item %write the solution of q7a
     \item %write the solution of q7b
     \end{enumerate}    
 	
-\item %write the solution of q8	
-
+\item \begin{enumerate}
+    \item \begin{figure}[H]
+        \caption{Function for Spectral Coefficients}
+        \inputminted{python}{q8a.py}
+        \end{figure}
+    \item \begin{figure}[H]
+        \caption{Class for Approximating from Spectral Coefficients}
+        \inputminted{python}{q8b.py}
+    \end{figure}
+    \item \begin{figure}[H]
+        \caption{Code for Reconstructing the Square Wave}
+        \inputminted{python}{q8c.py}
+    \end{figure}
+    \item \begin{figure}[H]
+        \caption{Code for Reconstructing the Sawtooth Wave}
+        \inputminted{python}{q8d.py}
+    \end{figure}
+\end{enumerate}
 \end{enumerate}
 
 
 \end{document}
-
