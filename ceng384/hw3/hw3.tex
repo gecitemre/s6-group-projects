@@ -144,8 +144,28 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
     \end{tikzpicture} \\
 
     \item %write the solution of q4b
+    \begin{align*}
+        x(t) & = e^{j\omega_0t} \\
+        y(t) & = H(jk\omega_0)e^{jk\omega_0t} \\
+        y'(t) + y(t) & = x(t) \\
+        jk\omega_0H(jk\omega_0)e^{jk\omega_0t} & + H(jk\omega_0)e^{jk\omega_0t} = e^{jk\omega_0t} \\
+        H(jk\omega_0) & = \frac{1}{1 + jk\omega_0} \\
+    \end{align*}
 	\item %write the solution of q4c
+    \begin{align*}
+        y(t) = H(jk\omega_0)e^{jk\omega_0t} & = \frac{1}{1 + jk\omega_0}e^{jk\omega_0t} \\
+        b_k & = a_k\frac{1}{1 + jk\omega_0} \\ 
+        b_1 & = \frac{1 + \frac{1}{2j}}{1 + j\omega_0} \\
+        b_{-1} & = \frac{1 - \frac{1}{2j}}{1 - j\omega_0} \\
+        b_2 & = \frac{\frac{\sqrt{2}}{4} - \frac{\sqrt{2}}{4j}}{1 + 2j\omega_0} \\
+        b_{-2} & = \frac{\frac{\sqrt{2}}{4} + \frac{\sqrt{2}}{4j}}{1 - 2j\omega_0} \\
+    \end{align*}
     \item %write the solution of q4d
+    % Write the expression for y(t).
+    \begin{align*}
+        y(t) & = \sum_{k=-\infty}^{\infty} b_k e^{jk\omega_0t} \\
+        & = b_1 e^{j\omega_0t} + b_{-1} e^{-j\omega_0t} + b_2 e^{j2\omega_0t} + b_{-2} e^{-j2\omega_0t} \\
+    \end{align*}
     \end{enumerate}
 
 \item %write the solution of q5
