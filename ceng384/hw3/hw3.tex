@@ -8,6 +8,7 @@
 \usepackage{tkz-euclide}
 \usepackage{tikz}
 \usepackage{pgfplots}
+\usepackage{svg}
 \pgfplotsset{compat=1.13}
 
 \usepackage{geometry}
@@ -306,22 +307,61 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
     \end{enumerate}    
 	
 \item \begin{enumerate}
-    \item \begin{figure}[H]
-        \caption{Function for Spectral Coefficients}
-        \inputminted{python}{q8a.py}
-        \end{figure}
-    \item \begin{figure}[H]
-        \caption{Class for Approximating from Spectral Coefficients}
-        \inputminted{python}{q8b.py}
+    \item \inputminted{python}{q8a.py}
+    \item \inputminted{python}{q8b.py}
+    \item \inputminted{python}{q8c.py}
+    \begin{figure}[H]
+        \centering
+        \caption{Approximated Square Wave with 1 Spectral Coefficient}
+        \includesvg[inkscapelatex=false, width=0.5\textwidth]{figures/square_wave_1.svg}
     \end{figure}
-    \item \begin{figure}[H]
-        \caption{Code for Reconstructing the Square Wave}
-        \inputminted{python}{q8c.py}
+    \begin{figure}[H]
+        \centering
+        \caption{Approximated Square Wave with 5 Spectral Coefficients}
+        \includesvg[inkscapelatex=false, width=0.5\textwidth]{figures/square_wave_5.svg}
     \end{figure}
-    \item \begin{figure}[H]
-        \caption{Code for Reconstructing the Sawtooth Wave}
-        \inputminted{python}{q8d.py}
+    \begin{figure}[H]
+        \centering
+        \caption{Approximated Square Wave with 10 Spectral Coefficients}
+        \includesvg[inkscapelatex=false, width=0.5\textwidth]{figures/square_wave_10.svg}
     \end{figure}
+    \begin{figure}[H]
+        \centering
+        \caption{Approximated Square Wave with 50 Spectral Coefficients}
+        \includesvg[inkscapelatex=false, width=0.5\textwidth]{figures/square_wave_50.svg}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \caption{Approximated Square Wave with 100 Spectral Coefficients}
+        \includesvg[inkscapelatex=false, width=0.5\textwidth]{figures/square_wave_100.svg}
+    \end{figure}
+    \item \inputminted{python}{q8d.py}
+    \begin{figure}[H]
+        \centering
+        \caption{Approximated Sawtooth Wave with 1 Spectral Coefficient}
+        \includesvg[inkscapelatex=false, width=0.5\textwidth]{figures/sawtooth_wave_1.svg}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \caption{Approximated Sawtooth Wave with 5 Spectral Coefficients}
+        \includesvg[inkscapelatex=false, width=0.5\textwidth]{figures/sawtooth_wave_5.svg}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \caption{Approximated Sawtooth Wave with 10 Spectral Coefficients}
+        \includesvg[inkscapelatex=false, width=0.5\textwidth]{figures/sawtooth_wave_10.svg}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \caption{Approximated Sawtooth Wave with 50 Spectral Coefficients}
+        \includesvg[inkscapelatex=false, width=0.5\textwidth]{figures/sawtooth_wave_50.svg}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \caption{Approximated Sawtooth Wave with 100 Spectral Coefficients}
+        \includesvg[inkscapelatex=false, width=0.5\textwidth]{figures/sawtooth_wave_100.svg}
+    \end{figure}
+    Although, increasing the number of spectral coefficients increases the accuracy of the approximation, there is a scaling difference between the original and the approximated wave. This is because the number of coefficients used is far less than the number of points in the original wave. For an accurate approximation, the number of coefficients should be equal to the number of points in a period of the original wave.
 \end{enumerate}
 \end{enumerate}
 

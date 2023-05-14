@@ -1,11 +1,15 @@
 TEX=pdflatex
 TFLAGS=-shell-escape -interaction=nonstopmode -file-line-error
+FIGURES = $(wildcard figures/*.svg)
 
-hw3.pdf: hw3.tex q8c.py q8d.py
+hw3.pdf: hw3.tex $(FIGURES)
 	$(TEX) $(TFLAGS) $<
 
-q8c.py q8d.py: q8a.py q8b.py
-	python3 $<
+square_wave%: q8c.py
+	python3 q8c.py
+
+sawtooth_wave%: q8d.py
+	python3 q8d.py
 
 %.pdf: %.tex
 	$(TEX) $(TFLAGS) $<

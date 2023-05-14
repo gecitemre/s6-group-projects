@@ -1,7 +1,9 @@
 from matplotlib import pyplot
-from numpy import exp, pi
+from numpy import exp, pi, linspace
 
 SAVE_FOLDER = "figures"
+
+t = linspace(-0.5, 0.5, 1000)
 
 class SignalFromSpectralCoefficients:
     def __init__(self, coefficients, period):
@@ -21,8 +23,8 @@ class SignalFromSpectralCoefficients:
     def __len__(self):
         return self.period
     
-    def plot(self, title, save_path):
-        pyplot.title(title)
-        pyplot.plot(range(self.period), [abs(item) for item in self])
-        pyplot.savefig(SAVE_FOLDER + "/" + save_path)
+    def plot(self, name):
+        pyplot.plot(t, self, label="Reconstructed Signal")
+        pyplot.legend()
+        pyplot.savefig(SAVE_FOLDER + "/" + name + ".svg", format = "svg")
         pyplot.clf()
