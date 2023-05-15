@@ -10,6 +10,7 @@
 \usepackage{setspace}
 \usepackage{pdfpages}
 \usepackage{svg}
+\usepackage{lipsum}
 \graphicspath{ {figures/} }
 \usepackage[font=footnotesize,labelfont=bf]{caption}
 
@@ -44,649 +45,78 @@
     \newpage
 
     \section{Introduction}
-        This document is the Software Requirements Specification for the \textbf{Afet Bilgi} project, developed by a group of METU students to verify and deliver important information to fight against the "February 6, 2023, Pazarcık Earthquake".
-        \subsection{Purpose of the System}
-
-            The purpose of the system is to provide information to those who are affected by the earthquake.
-
-            \subsection{Scope}
-            \begin{itemize}
-                \item The system is used by two groups of people: the people who are affected by the earthquake and the people who want to help the people who are affected by the earthquake.
-                \item People affected by the earthquake can reach important phone numbers, or the locations of important places or services.
-                \item People who want to help the people affected by the earthquake can reach donation centers; such as blood, stem cells, money and so on. People can also create help points and share the locations of the help points, with the help of the system.
-                \item People can also help fight against the earthquake by providing information about the earthquake. Information reaches by email, gets verified by the system managers, and then gets published on the website.
-            \end{itemize}
-
-            \subsection{System Overview}
-
-                \subsubsection{System Perspective}
-
-                \begin{figure}
-                    \centering
-                    \fbox{\includesvg[inkscapelatex=false, width=\textwidth]{assets/ContextDiagram1-registered.svg}}
-                    \captionof{figure}{Context Diagram}
-                \end{figure}
-
-                The \verb*|afetbilgi.com| product is not an element of a larger system. The project is split into two main parts.
-                The first part is the front end of the website. The second part is the cloud services that are used to store and
-                process the data. The front end is a web application that is developed using TypeScript and the ReactJS framework.
-                The front end uses packages like MUI and is hosted on the static website \verb*|afetbilgi.com|. 
-                For the cloud services, the project uses Amazon Web Services (AWS) and the serverless framework. Alongside AWS,
-                GitHub Actions is used for continuous integration and continuous deployment (CI/CD). The cloud services process 
-                the data and store it in a database. The data comes from individuals who enter and/or validate the data. The data
-                is collected in Google Sheets and then processed by the cloud services. The cloud services are hosted on AWS.
-                GitHub actions are also responsible for generating PDF files including information about affected areas, from the
-                data in the database. The PDF files are then stored in the cloud services and can be accessed by the front end.
-
-                \subsubsection{System Functions}
-                
-                Functionalities of \verb*|afetbilgi.com| are summarized below. More detailed information about the functionalities can be found in \hyperlink{subsection.3.2}{Section 3.2}.
-
-                \begin{table}[H]
-                    \resizebox{\textwidth}{!}{%
-                    \begin{tabular}{|l|l|}
-                    \hline
-                    \textbf{Function}    & \textbf{Summary}                                                                                                                                                                                          \\ \hline
-                    \textbf{See PDF About a City}           & \begin{tabular}[c]{@{}l@{}}User can see a PDF about an affected city, that\\ includes important information about the city and the earthquake.\end{tabular}                                                                                             \\ \hline
-                    \textbf{Kızılay Donation Centers}      & \begin{tabular}[c]{@{}l@{}}User can see the locations of Kızılay donation\\ centers.\end{tabular}                                                                                                                                                                                                 \\ \hline
-                    \textbf{Generate PDF Documents}             & \begin{tabular}[c]{@{}l@{}}Automatic PDF generation. The PDF files\\include information about affected areas.\end{tabular}                                                                                                                                                                                       \\ \hline
-                    \textbf{Show Maps}    & Shows a map of useful locations in the affected area.                                                                                                                                                                     \\ \hline
-                    \textbf{Change Language}    & User can change the language of the website. \\ \hline
-                    \textbf{Reach to depremyardim.com} & User can click a link to reach depremyardim.com. \\ \hline
-                    \textbf{Reach to afetharita.com} & User can click a link to reach to afetharita.com. \\ \hline
-                    \textbf{Reach to deprem.io} & User can click a link to reach deprem.io. \\ \hline
-                    \textbf{Join the Discord Server} & User can join the Discord server using the website. \\ \hline
-                    \textbf{City Selection} & User can select a city to see the information about the city. \\ \hline
-                    \end{tabular}%
-                    }
-                    \captionof{table}{System Functions}
-                \end{table}
-                \vspace{1cm}
-
-                \subsubsection{Stakeholder Characteristics}
-
-                Stakeholders of the system can be divided into four main groups:
-                \begin{itemize}
-                    \item Victims of the disaster: People who are affected by the earthquake. They can reach information using the system.
-                    \item People who want to help: People who want to help the people who are affected by the earthquake. They can reach information using the system. They can also share the information of their help.
-                    \item Information providers: People who voluntarily provide information about the earthquake. They can reach out to the maintainers of the system to provide information.
-                    \item Maintainers / Developers: People who maintain and develop the system. They develop the software and maintain it by verifying new information and adding it to the system.
-                \end{itemize}
-
-                \subsubsection{Limitations}
-
-                The limitations of the system are listed below:
-                \begin{itemize}
-                    \item The system should be available on mobile devices, as mobile devices are the most used devices in disaster times.
-                    \item The system should not be demanding on the network as the network may be unavailable during disaster times.
-                    \item The system should respond quickly as the people who are affected by the earthquake may need the information quickly.
-                \end{itemize}
-
-            \subsection{Definitions}
-            \begin{itemize}
-                \item \textbf{Earthquake}: Refers to the earthquake that happened on 6th of February 2023, Kahramanmaraş, Turkey.
-                \item \textbf{Disaster}: For the time being, an earthquake is the only disaster that is considered in this project, although the system can be used for other disasters as well in the future.
-                \item \textbf{Victim}: A person who is affected by the disaster.
-            \end{itemize}
+    \subsection{Purpose and Objectives}
+    \lipsum[1-1]
+    \subsection{Scope}
+    \lipsum[1-1]
+    \subsection{Stakeholders and Concerns}
+    \lipsum[1-1]
 
     \section{References}
+    \lipsum[1-1]
 
-    This document is prepared with respect to \textbf{IEEE 29148-2018 standard}: \textit{Systems and software engineering — Life cycle processes — Requirements engineering}
+    \section{Glossary}
+    \lipsum[1-1]
 
-    \section{Specific Requirements}
-        \subsection{External Interfaces}
+    \section{Architectural Views}
+    \subsection{Context View}
+    \subsubsection{Stakeholders' Uses}
+    \lipsum[1-1]
+    \subsubsection{Context Diagram}
+    \lipsum[1-1]
+    \subsubsection{External Interfaces}
+    \lipsum[1-1]
+    \subsubsection{Interaction Scenarios}
+    \lipsum[1-1]
+    \subsection{Functional View}
+    \subsubsection{Stakeholders' Uses}
+    \lipsum[1-1]
+    \subsubsection{Component Diagram}
+    \subsubsection{Internal Interfaces}
+    \lipsum[1-1]
+    \subsubsection{Interaction Patterns}
+    \lipsum[1-1]
+    \subsection{Information View}
+    \subsubsection{Stakeholders' Uses}
+    \lipsum[1-1]
+    \subsubsection{Database Class Diagram}
+    \subsubsection{Operations on Data}
+    \lipsum[1-1]
+    \subsection{Deployment View}
+    \subsubsection{Stakeholders' Uses}
+    \lipsum[1-1]
+    \subsubsection{Deployment Diagram}
+    \subsection{Design Rationale}
+    \lipsum[1-1]
 
-        There is no external interface for the system. The system is a web application that is hosted on a static website.
-
-        \subsection{Functions}
-        % TODO: add use case diagram and other diagrams
-        \begin{figure}[H]
-            \centering
-        \includesvg[inkscapelatex=false, scale=0.5]{./assets/UseCaseDiagram1-registered.svg}
-        \captionof{figure}{Use Case Diagram}
-        \end{figure}
-
-        \begin{center}
-            \begin{table}[H]
-                \resizebox{\textwidth}{!}{%
-                \begin{tabular}{|l|l|}
-                \hline
-                \textbf{Use case name}    & See PDF About a City                                                                                                                                                                                           \\ \hline
-                \textbf{Actors}           & User, Static Website, PDF Viewer                                                                                                                                                                                           \\ \hline
-                \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}If a user wants to see the PDF document containing\\ information about a city, the city selection dialog is shown, then\\ the desired is picked on the dialog.\end{tabular} \\ \hline
-                \textbf{Data}             & PDF file about the city                                                                                                                                                                                           \\ \hline
-                \textbf{Preconditions}    & The PDF for the city file must be refreshed previously.                                                                                                                                                                     \\ \hline
-                \textbf{Stimulus}         & User clicks on the "PDF" button and picks a city                                                                                                                                                               \\ \hline
-                \textbf{Basic flow}       & \begin{tabular}[c]{@{}l@{}}Step 1: User clicks the "PDF" button\\ Step 2: The pop-up dialog is shown\\ Step 3: User picks the desired city on the city selection dialog\end{tabular}                                      \\ \hline
-                \textbf{Alternative flow} & -                                                                                                                                                                                                              \\ \hline
-                \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
-                \textbf{Post conditions}  & User is redirected to the PDF viewer                                                                                                                                                                           \\ \hline
-                \end{tabular}%
-                }
-                \captionof{table}{See PDF About City Function}
-            \end{table}
-            \vspace{1cm}
-
-            \begin{table}[H]
-                \resizebox{\textwidth}{!}{%
-                \begin{tabular}{|l|l|}
-                \hline
-                \textbf{Use case name}    & Kızılay Blood Donation Places                                                                                                                                                                                           \\ \hline
-                \textbf{Actors}           & User, Static Website, Kızılay Website                                                                                                                                                                                           \\ \hline
-                \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}The user wants to see the blood donation locations.\end{tabular} \\ \hline
-                \textbf{Data}             & Blood Donation Locations                                                                                                                                                                                          \\ \hline
-                \textbf{Preconditions}    & -                                                                                                                                                                     \\ \hline
-                \textbf{Stimulus}         & User clicks on the "Kızılay Blood Donation Places" button                                                                                                                                                           \\ \hline
-                \textbf{Basic flow}       & \begin{tabular}[c]{@{}l@{}}Step 1: User clicks the "Kızılay Blood Donation Places" button\end{tabular}                                  \\ \hline
-                \textbf{Alternative flow} & -                                                                                                                                                                                                              \\ \hline
-                \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
-                \textbf{Post conditions}  & User is redirected to the Kızılay website                                                                                                                                                                           \\ \hline
-                \end{tabular}%
-                }
-                \captionof{table}{Kızılay Blood Donation Places Function}
-            \end{table}
-            \vspace{1cm}
-
-            \begin{table}[H]
-                \resizebox{\textwidth}{!}{%
-                \begin{tabular}{|l|l|}
-                \hline
-                \textbf{Use case name}    & Generating PDF Documents                                                                                                                                                                                           \\ \hline
-                \textbf{Actors}           & GitHub Actions, automation code, Data Providers \& Validators                                                                                                                                                                                           \\ \hline
-                \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}The PDF files are generated by the automated code running \\ on GitHub Actions. Those PDF files include information about
-                                            \\evacuation points, food distribution centers, pharmacies, gas \\ stations and more, based on the districts of the given city.
-                                            \\ All the information comes from Google Sheets, which holds \\ the data coming from voluntary individuals. \end{tabular} \\ \hline
-                \textbf{Data}             & \begin{tabular}[c]{@{}l@{}}Open pharmacies, evacuation points, food distribution centers, \\gas stations, accommodation places, veterinarians.                   \end{tabular} \\ \hline  
-                \textbf{Preconditions}    & The information should be on Google Sheets before generation.                                                                                                                                                                     \\ \hline
-                \textbf{Stimulus}         & GitHub actions run this task periodically.                                                                                                                                                   \\ \hline
-                \textbf{Basic flow}       & \begin{tabular}[c]{@{}l@{}}Step 1: The data from sheets are fetched \\
-                                            Step 2: The PDF file is generated using the Python script \\
-                                            Step 3: The file is stored in AWS Cloud.\end{tabular}                                  \\ \hline
-                \textbf{Alternative flow} & -                                                                                                                                                                                                              \\ \hline
-                \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
-                \textbf{Post conditions}  & \begin{tabular}[c]{@{}l@{}}The updated PDF file is stored on the cloud, and is ready\\ to be seen on the front end.   \end{tabular}                                                                                                                                                                       \\ \hline
-                \end{tabular}%
-                }
-                \captionof{table}{Generating PDF Documents Function}
-            \end{table}
-            
-            \begin{figure}[H]
-                \centering
-                \includesvg[inkscapelatex=false, width=0.4\textwidth]{assets/ActivityDiagram1-registered.svg}
-                \captionof{figure}{Activity Diagram for Generating PDF Documents}
-            \end{figure}
-            \vspace{1cm}
-
-            \begin{table}[H]
-                \resizebox{\textwidth}{!}{%
-                \begin{tabular}{|l|l|}
-                \hline
-                \textbf{Use case name}    & Showing Maps                                                                                                                                                                                           \\ \hline
-                \textbf{Actors}           & Leaflet, Data Providers \& Validators                                                                                                                                                                                           \\ \hline
-                \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}The map is generated by the map provider Leaflet. \\ The map includes information about
-                                            donation centers,\\ temporary accommodation places, food distribution places, \\ pharmacies, gas stations and more, and where they are
-                                            \\ on the map. All the information comes from voluntary\\ individuals. \end{tabular} \\ \hline
-                \textbf{Data}             & \begin{tabular}[c]{@{}l@{}}Open pharmacies, evacuation points, food distribution centers, \\gas stations, accommodation places, veterinarians.                   \end{tabular} \\ \hline  
-                \textbf{Preconditions}    & The information should be available on the sources before generation.                                                                                                                                                                     \\ \hline
-                \textbf{Stimulus}         & User clicks the "map" button on the page.                                                                                                                                                   \\ \hline
-                \textbf{Basic flow}       & \begin{tabular}[c]{@{}l@{}}Step 1: The user clicks the "map" button \\
-                                            Step 2: The user is redirected to maps.afetbilgi.com \\
-                                            Step 3: The map is shown.\end{tabular}                                  \\ \hline
-                \textbf{Alternative flow} & Step 1: The user opens maps.afetbilgi.com.                                                                                                                                                                                                              \\ \hline
-                \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
-                \textbf{Post conditions}  & -                                                                                                                                                                    \\ \hline
-                \end{tabular}%
-                }
-                \captionof{table}{Showing Maps Function}
-            \end{table}
-            \vspace{1cm}
-            
-            \begin{table}[H]
-                \resizebox{\textwidth}{!}{%
-                \begin{tabular}{|l|l|}
-                \hline
-                \textbf{Use case name}    & Changing Language                                                                                                                                                                                         \\ \hline
-                \textbf{Actors}           & User, Static Website                                                                                                                                                                                           \\ \hline
-                \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}There are millions of people living in the affected \\ areas belonging to different ethnicities \\
-                                            and background,\\ and although the main language of the site is Turkish, \\ support for different languages is a must. \\
-                                            \\ The project comes in four different languages which the \\ users can choose from Turkish, English, Kurdish and Arabic. \end{tabular} \\ \hline
-                \textbf{Data}             & \begin{tabular}[c]{@{}l@{}}Visual messages                   \end{tabular} \\ \hline  
-                \textbf{Preconditions}    & The translations are done previously.                                                                                                                                                                     \\ \hline
-                \textbf{Stimulus}         & User clicks the language button on the site                                                                                                                                                 \\ \hline
-                \textbf{Basic flow}       & \begin{tabular}[c]{@{}l@{}}Step 1: The user clicks the language button \\
-                                            Step 2: A dropdown menu for language selection is shown \\
-                                            Step 3: The desired language is selected\end{tabular}                                  \\ \hline
-                \textbf{Alternative flow} & -                                                                                                                                                                                                            \\ \hline
-                \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
-                \textbf{Post conditions}  & The site is now in the desired language.                                                                                                                                                                    \\ \hline
-                \end{tabular}%
-                }
-                \captionof{table}{Changing Language Function} 
-            \end{table}
-            \vspace{1cm}
-
-            \begin{table}[H]
-                \resizebox{\textwidth}{!}{%
-                \begin{tabular}{|l|l|}
-                \hline
-                \textbf{Use case name}    & Reaching to depremyardim.com                                                                                                                                                                                        \\ \hline
-                \textbf{Actors}           & User, Static Website                                                                                                                                                                                           \\ \hline
-                \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}The user wants to help the people affected by the earthquake. \end{tabular} \\ \hline
-                \textbf{Data}            & \begin{tabular}[c]{@{}l@{}}URL of the website.                   \end{tabular} \\ \hline
-                \textbf{Preconditions}   & -                                                                                                                                                                     \\ \hline
-                \textbf{Stimulus}        & User clicks the related button.                                                                                                                                               \\ \hline
-                \textbf{Basic flow}     & \begin{tabular}[c]{@{}l@{}}Step 1: The user hovers over the button. \\
-                                            Step 2: A description of the website is shown. \\
-                                            Step 3: The user clicks the button. \\
-                                            Step 4: The user is redirected to depremyardim.com. \end{tabular}                                  \\ \hline
-                \textbf{Alternative flow} & The user opens depremyardim.com . \\ \hline
-                \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
-                \textbf{Post conditions}  & The user is redirected to depremyardim.com. \\ \hline
-                \end{tabular}%
-                }
-                \captionof{table}{Reaching to depremyardim.com Function}
-            \end{table}
-            \vspace{1cm}
-
-            \begin{table}[H]
-                \resizebox{\textwidth}{!}{
-                \begin{tabular}{|l|l|}
-                \hline
-                \textbf{Use case name}    & Reaching to afetharita.com                                                                                                                                                                                        \\ \hline
-                \textbf{Actors}           & User, Static Website                                                                                                                                                                                           \\ \hline
-                \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}Afetharita.com is a website that provides map based \\ information about the earthquake. \\
-                                            The map includes information about the earthquake, the aftershocks, \\the shelters, the hospitals, the schools and more. \end{tabular} \\ \hline
-                \textbf{Data}            & \begin{tabular}[c]{@{}l@{}}URL of the website.                   \end{tabular} \\ \hline
-                \textbf{Preconditions}   & -                                                                                                                                                                     \\ \hline
-                \textbf{Stimulus}        & User clicks the related button.                                                                                                                                               \\ \hline
-                \textbf{Basic flow}     & \begin{tabular}[c]{@{}l@{}}Step 1: The user hovers over the button. \\
-                                            Step 2: A description of the website is shown. \\
-                                            Step 3: The user clicks the button. \\
-                                            Step 4: The user is redirected to afetharita.com. \end{tabular}                                  \\ \hline
-                \textbf{Alternative flow} & The user opens afetharita.com . \\ \hline
-                \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
-                \textbf{Post conditions}  & The user is redirected to afetharita.com. \\ \hline
-                \end{tabular}%
-                }
-                
-                \captionof{table}{Reaching to afetharita.com Function}
-            \end{table}
-            \begin{figure}[H]
-                \centering
-                \includesvg[width=\textwidth, inkscapelatex=false]{assets/StateDiagram1-registered.svg}
-                \captionof{figure}{State Diagram of Reaching to afetharita.com}
-            \end{figure}
-            \vspace{1cm}
-
-            \begin{table}[H]
-                \resizebox{\textwidth}{!}{
-                \begin{tabular}{|l|l|}
-                \hline
-                \textbf{Use case name}    & Reaching to deprem.io                                                                                                                                                                                        \\ \hline
-                \textbf{Actors}           & User, Static Website                                                                                                                                                                                           \\ \hline
-                \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}Deprem.io is a website that users can use to help earthquake victims. \end{tabular} \\ \hline
-                \textbf{Data}            & \begin{tabular}[c]{@{}l@{}}URL of the website.                   \end{tabular} \\ \hline
-                \textbf{Preconditions}   & -                                                                                                                                                                     \\ \hline
-                \textbf{Stimulus}        & User clicks the related button.                                                                                                                                               \\ \hline
-                \textbf{Basic flow}     & \begin{tabular}[c]{@{}l@{}}Step 1: The user hovers over the button. \\
-                                            Step 2: A description of the website is shown. \\
-                                            Step 3: The user clicks the button. \\
-                                            Step 4: The user is redirected to deprem.io. \end{tabular}                                  \\ \hline
-                \textbf{Alternative flow} & The user opens deprem.io . \\ \hline
-                \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
-                \textbf{Post conditions}  & The user is redirected to deprem.io. \\ \hline
-                \end{tabular}%
-                }
-                \captionof{table}{Reaching to deprem.io Function}
-            \end{table}
-            \vspace{1cm}
-
-            \begin{table}[H]
-                \resizebox{\textwidth}{!}{
-                \begin{tabular}{|l|l|}
-                \hline
-                \textbf{Use case name}    & Join the Discord server                                                                                                                                                                                     \\ \hline
-                \textbf{Actors}           & User, Static Website                                                                                                                                                                                           \\ \hline
-                \textbf{Description}      & \begin{tabular}[c]{@{}l@{}} The Discord server is where the developers of the project\\ develop their projects and communicate. \\
-                                                    Users can join the Discord server. \end{tabular} \\ \hline
-                \textbf{Data}            & \begin{tabular}[c]{@{}l@{}}Link for the Discord server.                   \end{tabular} \\ \hline
-                \textbf{Preconditions}   & -                                                                                                                                                                     \\ \hline
-                \textbf{Stimulus}        & User clicks the button.                                                                                                                                               \\ \hline
-                \textbf{Basic flow}     & \begin{tabular}[c]{@{}l@{}}Step 1: The user hovers over the button. \\
-                                            Step 2: A description of the Discord server is shown. \\
-                                            Step 3: The user clicks the button. \\
-                                            Step 4: The user is redirected to join the Discord server. \end{tabular}                                  \\ \hline
-                \textbf{Alternative flow} & -                                                                                                                                                                                                            \\ \hline
-                \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
-                \textbf{Post conditions}  & The user can join the Discord server after being redirected. \\  \hline
-                \end{tabular}%
-                }
-                \captionof{table}{Join the Discord server Function}
-            \end{table}
-            \vspace{1cm}
-
-            \begin{table}[H]
-                \resizebox{\textwidth}{!}{
-                \begin{tabular}{|l|l|}
-                \hline
-                \textbf{Use case name}    & City Selection                                                                                                                                                                                     \\ \hline
-                \textbf{Actors}           & User, Static Website                                                                                                                                                                                           \\ \hline
-                \textbf{Description}      & \begin{tabular}[c]{@{}l@{}} Users may need information about only one city. \\
-                                                    To eliminate unnecessary information\\ about other cities and focus on the desired city\\
-                                                    could save time for users.  \end{tabular} \\ \hline
-                \textbf{Data}            & \begin{tabular}[c]{@{}l@{}}Information about the given city                   \end{tabular} \\ \hline
-                \textbf{Preconditions}   & Information should be available beforehand.                                                                                                                                                                     \\ \hline
-                \textbf{Stimulus}        & User interacts with the dropdown menu.                                                                                                                                               \\ \hline
-                \textbf{Basic flow}     & \begin{tabular}[c]{@{}l@{}}Step 1: The user clicks the "Select a city" button. \\
-                                            Step 2: A dropdown menu is shown. \\
-                                            Step 3: The user selects the desired city. \\
-                                            Step 4: The information is filtered for the selected city. \end{tabular}                                  \\ \hline
-                \textbf{Alternative flow} & -                                                                                                                                                                                                            \\ \hline
-                \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
-                \textbf{Post conditions}  & \begin{tabular}[c]{@{}l@{}} All the information shown on the home page is\\
-                                                    about the selected city. \end{tabular} \\  \hline
-                \end{tabular}%
-                }
-                \captionof{table}{City Selection Function}
-            \end{table}
-            \vspace{1cm}
-        \begin{figure}[H]
-            \centering
-            \includesvg[width=\textwidth, inkscapelatex=false]{assets/SequenceDiagram1-registered.svg}
-            \caption{Sequence Diagram for City Selection Function}
-        \end{figure}
-            
-        \end{center}
-
-        \subsection{Usability Requirements}
-
-        \begin{itemize}
-            \item A user shall use the system when a network connection is available.
-            \item A user shall be able to find the needed information in at most 3 steps.
-            \item All users shall be able to navigate through the system without basic computer knowledge.
-            \item A user shall be able to use the system on any device and any browser.
-            \item A user shall always be provided with the latest information.
-            \item afetbilgi.com shall be available 24/7.
-            \item afetbilgi.com shall be available in the 3 major languages spoken in Turkey plus English.
-        \end{itemize}
-
-        \subsection{Performance Requirements}
-
-        \begin{itemize}
-            \item All operations shall be completed in less than 3 seconds.
-            \item Web GUI shall use less than 100 MB memory to ensure that application can be run from the majority of modern devices.
-            \item Users shall be redirected to a required page such as another website or a form in 3 seconds after clicking a button.
-            \item The user interface shall be interactive for users while another action is being performed.
-            \item The GitHub actions workflow shall be able to continue functioning indefinitely (without any external factors) to ensure
-            that automated plugins can run without problems.
-        \end{itemize}
-
-        \subsection{Logical Database Requirements}
-
-        % TODO: Add database requirements
-
-        There is no database.
-
-        \subsection{Design Constraints}
-
-        System concerns to serve users in a free and reliable way therefore open source hardware designs
-        and open-source software development methods are chosen. Collaboration and contributions are
-        encouraged to improve the system.
-
-        \subsection{System Attributes}
-            \subsubsection{Reliability}
-            \begin{itemize}
-                \item The system shall be able to provide reliable information to users.
-                \item All of the hardware and software code of the system must be open-source.
-                \item All the data sources must be verified and reliable.
-            \end{itemize}
-
-            \subsubsection{Avaliability}
-            \begin{itemize}
-                \item The site should be available for all platforms.
-                \item The site should be available 24/7.
-                \item In case of a system restart, the whole system shall be available in less than 5 minutes.
-                \item The site should not consume big amounts of memory.
-            \end{itemize}
-            
-            \subsubsection{Security}
-            \begin{itemize}
-                \item The system shall not store any user information.
-                \item The system components shall be tested regularly to avoid zero-day attacks.
-            \end{itemize}
-
-            \subsubsection{Maintainability}
-            \begin{itemize}
-                \item Documentation shall be provided for all the components of the system.
-                \item The system shall be able to be maintained by a single person.
-                \item The tasks shall be divided into small and manageable parts.
-                \item The automated tests shall be able to run on all the components of the system.
-            \end{itemize}
-
-            \subsubsection{Portability}
-            \begin{itemize}
-                \item The system shall be able to be run on any device that has a web browser.
-                \item Programming language which is chosen for the development of the system shall not depend on OS.
-                \item Libraries that are used in the development shall be available for various programming languages.
-            \end{itemize}
-    \section{Suggestions for Future Work}
-
-    % TODO: we can add more suggestions here
-
-    This system can be improved and held ready for future earthquakes and any possible disasters.
-    New data sources can be added to the system. These data sources should better be verified and reliable. With reliable data sources and good programming interfaces, the need for manual data entry and human verification may be eliminated and
-    the system can be made more reliable and quick.
+    \section{Architectural Views for Suggestions to Improve the Existing System}
+    \subsection{Context View}
+    \subsubsection{Stakeholders' Uses}
+    \lipsum[1-1]
+    \subsubsection{Context Diagram}
+    \subsubsection{External Interfaces}
+    \lipsum[1-1]
+    \subsubsection{Interaction Scenarios}
+    \lipsum[1-1]
+    \subsection{Functional View}
+    \subsubsection{Stakeholders' Uses}
+    \lipsum[1-1]
+    \subsubsection{Component Diagram}
+    \subsubsection{Internal Interfaces}
+    \lipsum[1-1]
+    \subsubsection{Interaction Patterns}
+    \lipsum[1-1]
+    \subsection{Information View}
+    \subsubsection{Stakeholders' Uses}
+    \lipsum[1-1]
+    \subsubsection{Database Class Diagram}
+    \subsubsection{Operations on Data}
+    \lipsum[1-1]
+    \subsection{Deployment View}
+    \subsubsection{Stakeholders' Uses}
+    \lipsum[1-1]
+    \subsubsection{Deployment Diagram}
+    \subsection{Design Rationale}
+    \lipsum[1-1]
     
-        \subsection{System Perspective}
-    
-        There is no change in the system perspective with future suggestions.  
-        You can see \hyperlink{subsection.1.3}{System Perspective} for more information.
-
-        \subsection{External Interfaces}
-        There are no external interfaces.
-        
-
-        \subsection{Functions}
-        \begin{figure}[H]
-            \centering
-            \includesvg[scale=0.5, inkscapelatex=false]{assets/UseCaseDiagram2-registered.svg}
-            \caption{Use Case Diagram for Future Work}
-        \end{figure}
-        \begin{table}[H]
-            \resizebox{\textwidth}{!}{%
-            \begin{tabular}{|l|l|}
-            \hline
-            \textbf{Use case name}    & \begin{tabular}[c]{@{}l@{}}Get Data from Verified Information\\ Source\\ \end{tabular}                                                                                                                                                                                       \\ \hline
-            \textbf{Actors}           & User, Static Website, Data sources                                                                                                                                                                                           \\ \hline
-            \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}System fetches data from the verified\\information sources automatically. \end{tabular} \\ \hline
-            \textbf{Data}            & \begin{tabular}[c]{@{}l@{}}Information about gathering places, \\ food distribution locations, shelters, \\ gas stations etc.                   \end{tabular} \\ \hline
-            \textbf{Preconditions}   & -                                                                                                                                                                     \\ \hline
-            \textbf{Stimulus}        & -                                                                                                                                               \\ \hline
-            \textbf{Basic flow}     & \begin{tabular}[c]{@{}l@{}}
-                                        Step 1: System fetches data from the\\ verified information sources.
-                                        \end{tabular}                                  \\ \hline
-            \textbf{Alternative flow} & \begin{tabular}[c]{@{}l@{}}The user directly visits the sources\end{tabular} \\\hline
-            \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
-            \textbf{Post conditions}  & - \\ \hline
-            \end{tabular}%
-            }
-            \captionof{table}{Get Data from Verified Information Source Function}
-        \end{table}
-        \vspace{1cm}
-
-        \begin{table}[H]
-            \resizebox{\textwidth}{!}{%
-            \begin{tabular}{|l|l|}
-            \hline
-            \textbf{Use case name}    & \begin{tabular}[c]{@{}l@{}}Submit Information \end{tabular}                                                                                                                                                                                       \\ \hline
-            \textbf{Actors}           & User, Static Website                                                                                                                                                                                           \\ \hline
-            \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}System allows users to submit\\ information about the disaster situation. \end{tabular} \\ \hline
-            \textbf{Data}            & \begin{tabular}[c]{@{}l@{}}Information about gathering places, \\ food distribution locations, shelters, \\ gas stations etc.                   \end{tabular} \\ \hline
-            \textbf{Preconditions}   & \begin{tabular}[c]{@{}l@{}}User has significant information about the\\ disaster.                           \end{tabular}                                                                                                                                           \\ \hline
-            \textbf{Stimulus}        & -                                                                                                                                               \\ \hline
-            \textbf{Basic flow}     & \begin{tabular}[c]{@{}l@{}}
-                                        Step 1: The user clicks the submit information\\ button.\\
-                                        Step 2: The user enters the information.\\
-                                        Step 3: The user clicks the submit button.\\
-                                        Step 4: The system verifies the information.\\
-                                        \end{tabular}                                  \\ \hline
-            \textbf{Alternative flow} & \begin{tabular}[c]{@{}l@{}}The user submits info to\\ one of afetbilgi.com's sources\end{tabular} \\\hline
-            \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
-            \textbf{Post conditions}  & The information is submitted. \\ \hline
-            \end{tabular}%
-            }
-            \captionof{table}{Submit Information Function}
-        \end{table}
-        \begin{figure}[H]
-            \centering
-            \includesvg[width=\textwidth, inkscapelatex=false]{assets/StateDiagram2-registered.svg}
-            \caption{State Diagram for the Submit Information Function}
-        \end{figure}
-        \vspace{1cm}
-
-        \begin{table}[H]
-            \resizebox{\textwidth}{!}{%
-            \begin{tabular}{|l|l|}
-            \hline
-            \textbf{Use case name}    & \begin{tabular}[c]{@{}l@{}}Filter Information for Disaster \end{tabular}                                                                                                                                                                                       \\ \hline
-            \textbf{Actors}           & User, Static Website                                                                                                                                                                                           \\ \hline
-            \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}System filters the information according to\\a specific disaster. \end{tabular} \\ \hline
-            \textbf{Data}            & \begin{tabular}[c]{@{}l@{}}Information about gathering places, \\ food distribution locations, shelters, \\ gas stations etc.                   \end{tabular} \\ \hline
-            \textbf{Preconditions}   & \begin{tabular}[c]{@{}l@{}}User wants to learn about a given \\ disaster.                           \end{tabular}                                                                                                                                           \\ \hline
-            \textbf{Stimulus}        & -                                                                                                                                               \\ \hline
-            \textbf{Basic flow}     & \begin{tabular}[c]{@{}l@{}}
-                                        Step 1: The user clicks the filter information\\ button.\\
-                                        Step 2: The user picks the disaster.\\
-                                        Step 3: The user clicks the filter button.\\
-                                        Step 4: The system filters the information.\\
-                                        \end{tabular}                                  \\ \hline
-            \textbf{Alternative flow} & - \\\hline
-            \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
-            \textbf{Post conditions}  & The information is filtered. \\ \hline
-            \end{tabular}%
-            }
-            \captionof{table}{Filter Information Function}
-        \end{table}
-        \begin{figure}[H]
-            \centering
-            \includesvg[scale=0.8, inkscapelatex=false]{assets/SequenceDiagram2-registered.svg}
-            \caption{Sequence Diagram for the Filter Information Function}
-        \end{figure}
-        \vspace{1cm}
-
-        \begin{table}[H]
-            \resizebox{\textwidth}{!}{%
-            \begin{tabular}{|l|l|}
-            \hline
-            \textbf{Use case name}    & \begin{tabular}[c]{@{}l@{}}Information About What to Do \end{tabular}                                                                                                                                                                                       \\ \hline
-            \textbf{Actors}           & User, Static Website                                                                                                                                                                                           \\ \hline
-            \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}System provides information about what\\ to do in a disaster situation for \\ future disasters. \end{tabular} \\ \hline
-            \textbf{Data}            & \begin{tabular}[c]{@{}l@{}}Vital information about what should \\ a person do in a case of a disaster\\ such as an earthquake, flood etc.                   \end{tabular} \\ \hline
-            \textbf{Preconditions}   & \begin{tabular}[c]{@{}l@{}}User wants to learn what to do about \\ a given disaster.                           \end{tabular}                                                                                                                                           \\ \hline
-            \textbf{Stimulus}        & -                                                                                                                                               \\ \hline
-            \textbf{Basic flow}     & \begin{tabular}[c]{@{}l@{}}
-                                        Step 1: The user clicks the learn\\ button.\\
-                                        Step 2: The user is shown the info.\\
-                                        \end{tabular}                                  \\ \hline
-            \textbf{Alternative flow} & - \\\hline
-            \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
-            \textbf{Post conditions}  & The information is shown. \\ \hline
-            \end{tabular}%
-            }
-            \captionof{table}{Information About What to Do Function}
-        \end{table}
-        \vspace{1cm}
-
-        \begin{table}[H]
-            \resizebox{\textwidth}{!}{%
-            \begin{tabular}{|l|l|}
-            \hline
-            \textbf{Use case name}    & \begin{tabular}[c]{@{}l@{}}Heat Map \end{tabular}                                                                                                                                                                                       \\ \hline
-            \textbf{Actors}           & User, Static Website                                                                                                                                                                                           \\ \hline
-            \textbf{Description}      & \begin{tabular}[c]{@{}l@{}}System provides information a heat map\\ showing the density of people \\ who need help. \end{tabular} \\ \hline
-            \textbf{Data}            & \begin{tabular}[c]{@{}l@{}}Locations of people who need help.                   \end{tabular} \\ \hline
-            \textbf{Preconditions}   & \begin{tabular}[c]{@{}l@{}}A heat map is generated automatically.                          \end{tabular}                                                                                                                                           \\ \hline
-            \textbf{Stimulus}        & -                                                                                                                                               \\ \hline
-            \textbf{Basic flow}     & \begin{tabular}[c]{@{}l@{}}
-                                        Step 1: The user clicks the heat map\\ button.\\
-                                        Step 2: The user is shown the heat map.\\
-                                        \end{tabular}                                  \\ \hline
-            \textbf{Alternative flow} & - \\\hline
-            \textbf{Exception flow}   & -                                                                                                                                                                                                              \\ \hline
-            \textbf{Post conditions}  & The heat map is shown. \\ \hline
-            \end{tabular}%
-            }
-            \captionof{table}{Heat Map Function}
-        \end{table}
-        \begin{figure}[H]
-            \centering
-            \includesvg[scale=0.8, inkscapelatex=false]{assets/ActivityDiagram2-registered.svg}
-            \caption{Activity Diagram for the Heat Map Function}
-        \end{figure}
-        \vspace{1cm}
-
-        \subsection{Usability Requirements}
-    
-        \begin{itemize}
-            \item \textbf{User-friendly interface}: The system should have a better and more user-friendly interface. The interface should be easy to use and understand.
-            \item \textbf{Easy to use}: The system should be easy to use. The user should be able to use the system without any prior knowledge.
-            \item \textbf{Offline mode}: In disaster situations, the network can be down. The system should be able to work in offline mode. A PWA (Progressive Web App) can be used to make the system work offline. Native mobile apps can also be developed.
-        \end{itemize}
-        
-        \subsection{Performance Requirements}
-        
-        \begin{itemize}
-            \item \textbf{Low network usage}: The system should only transfer data when necessary. In disaster situations, the network may be restricted, the system should be able to work with limited network usage.
-            \item \textbf{Fast response time}: In disaster situations, time is a crucial factor. The system should be able to respond quickly to the user's requests.
-        \end{itemize}
-        
-        \subsection{Logical Database Requirements}
-
-            \begin{itemize}
-                \item \textbf{Database Schema}: The database schema should be designed in a way that is easy to maintain and extend.
-                \item \textbf{Database Security}: The database should be secure. The data should be encrypted and the database should be protected from unauthorized access.
-                \item \textbf{Database Backup}: The database should be backed up regularly. This will make the system more reliable.
-                \item \textbf{Database Migration}: The database should be able to be migrated to a different database system easily. This will make the system more reliable.
-                \item \textbf{Database Contents}: The database can be used to store the data that is fetched from the data sources. The database can also be used to store the data that is generated by the system.
-                Moreover, the database can be used to store the user's data.
-            \end{itemize}
-
-        \subsection{Design Constraints}
-
-        \begin{itemize}
-            \item \textbf{Different Repositories}: The source code of the system should be in different repositories. This will make the system more modular and easier to maintain.
-            \item \textbf{Continuous Integration}: The system should be able to be tested automatically. This will make the system more reliable.
-            \item \textbf{Used Packages}: The system should use packages that are well-maintained and have a good community.
-        \end{itemize}
-
-        \subsection{System Attributes}
-
-        \subsubsection{Reliability}
-            \begin{itemize}
-                \item The sources of the data should be verified and reliable. The system should be able to fetch data from these sources automatically.
-                \item All of the data sources must be shown to the user.
-                \item The process of filtering the data should be transparent to the user.
-            \end{itemize}
-
-            \subsubsection{Avaliability}
-            \begin{itemize}
-                \item The system should be able to work in offline mode, provided that the user has the app version of the system.
-            \end{itemize}
-            
-            \subsubsection{Security}
-            \begin{itemize}
-                \item The data should be encrypted before being sent to the server.
-            \end{itemize}
-
-            \subsubsection{Maintainability}
-            \begin{itemize}
-                \item Automation tools like dependabot can be used to keep the system up to date.
-            \end{itemize}
-
-            \subsubsection{Portability}
-            \begin{itemize}
-                \item The system can be provided as a mobile app. This will make the system more available to use in disaster situations.
-            \end{itemize}
-
-
 \end{document}
