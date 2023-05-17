@@ -113,10 +113,11 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
         \alpha_{-2} & = \frac{\sqrt{2}}{4} + \frac{\sqrt{2}}{4j}\\
     \end{align*}
 
-    \begin{center}
+    \begin{figure}
+        \centering
         \begin{tikzpicture}
             \begin{axis}[ 
-            /pgf/number format/fixed,
+                /pgf/number format/fixed,
             /pgf/number format/precision=3,
             height=200,
             xtick = {-2, -1, 0, 1, 2},
@@ -128,8 +129,11 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
             xmin=-2.5, xmax=2.5, ymin=-2.5, ymax=2.5]
             \addplot+[ycomb,mark=square] plot coordinates {(-2,1.57) (-1,-1.107) (0,1) (1,1.107) (2,-1.57)};
             \end{axis}
-        \end{tikzpicture} \\
-
+        \end{tikzpicture}
+        \caption{Graph of $\angle a_k$}
+    \end{figure}
+    \begin{figure}
+        \centering
         \begin{tikzpicture}
             \begin{axis}[ 
             /pgf/number format/fixed,
@@ -144,8 +148,9 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
             xmin=-2.5, xmax=2.5, ymin=-0.3, ymax=2.5]
             \addplot+[ycomb,mark=square] plot coordinates {(-2,0.5) (-1,1.118033989) (0,1) (1,1.118033989) (2,0.5)};
             \end{axis}
-        \end{tikzpicture} \\
-    \end{center} 
+        \end{tikzpicture}
+        \caption{Graph of $|a_k|$}
+    \end{figure}
     \item %write the solution of q4b
     \begin{align*}
         x(t) & = e^{jk2\pi t} \\
@@ -171,7 +176,8 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
 
     % sketch magnitude and phase of bk, i.e., sketch |bk| and\anglebk.
 
-    \begin{center}
+    \begin{figure}
+        \centering
         \begin{tikzpicture}
             \begin{axis}[ 
             /pgf/number format/fixed,
@@ -186,8 +192,12 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
             xmin=-2.5, xmax=2.5, ymin=-0.1, ymax=0.5]
             \addplot+[ycomb,mark=square] plot coordinates {(-2,0.03966) (-1,0.1757) (0,1) (1,0.1757) (2,0.03966)};
             \end{axis}
-        \end{tikzpicture} \\
+        \end{tikzpicture}
+        \caption{Graph of $|b_k|$}
+    \end{figure}
 
+    \begin{figure}
+        \centering
         \begin{tikzpicture}
             \begin{axis}[ 
             /pgf/number format/fixed,
@@ -202,8 +212,9 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
             xmin=-2.5, xmax=2.5, ymin=-2.5, ymax=2.5]
             \addplot+[ycomb,mark=square] plot coordinates {(-2,0.8468) (-1,-0.306) (0,1) (1,0.306) (2,-0.8468)};
             \end{axis}
-        \end{tikzpicture} \\
-    \end{center}
+        \end{tikzpicture}
+        \caption{Graph of $\angle b_k$}
+    \end{figure}
 
     \item %write the solution of q4d
     % Write the expression for y(t).
@@ -281,7 +292,8 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
         \alpha_{-1} & = -\frac{1}{2} \\
     \end{align*}
 
-    \begin{center}
+    \begin{figure}
+        \centering
         \begin{tikzpicture}
             \begin{axis}[ 
             /pgf/number format/fixed,
@@ -296,8 +308,12 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
             xmin=-2.5, xmax=2.5, ymin=-2, ymax=1]
             \addplot+[ycomb,mark=square] plot coordinates {(-1,-0.5) (0,1) (1,-0.5)};
             \end{axis}
-        \end{tikzpicture} \\
+        \end{tikzpicture}
+        \caption{Graph of $|a_k|$}
+    \end{figure}
 
+    \begin{figure}
+        \centering
         \begin{tikzpicture}
             \begin{axis}[ 
             /pgf/number format/fixed,
@@ -311,9 +327,10 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
             axis y line = center, 
             xmin=-2.5, xmax=2.5, ymin=-2, ymax=1]
             \addplot+[ycomb,mark=square] plot coordinates {(-1,1) (0,1) (1,1)};
-            \end{axis}
-        \end{tikzpicture} \\
-    \end{center}
+        \end{axis}
+    \end{tikzpicture} 
+    \caption{Graph of $\angle a_k$}
+\end{figure}
 
     \item %write the solution of q6b
     \begin{enumerate}
@@ -333,7 +350,8 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
             \alpha_{-1} & = -\frac{1}{2} - \frac{1}{2j} \\
         \end{align*}
 
-    \begin{center}
+    \begin{figure}
+        \centering
         \begin{tikzpicture}
             \begin{axis}[ 
             /pgf/number format/fixed,
@@ -348,8 +366,12 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
             xmin=-2.5, xmax=2.5, ymin=-1, ymax=2]
             \addplot+[ycomb,mark=square] plot coordinates {(-1,1.414) (0,1) (1,1.414)};
             \end{axis}
-        \end{tikzpicture} \\
+        \end{tikzpicture}
+        \caption{Graph of $|a_k|$}
+    \end{figure}
 
+    \begin{figure}
+        \centering
         \begin{tikzpicture}
             \begin{axis}[ 
             /pgf/number format/fixed,
@@ -364,8 +386,9 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
             xmin=-2.5, xmax=2.5, ymin=-1, ymax=2]
             \addplot+[ycomb,mark=square] plot coordinates {(-1,1.25) (0,1) (1,0.75)};
             \end{axis}
-        \end{tikzpicture} \\
-    \end{center}
+        \end{tikzpicture}
+        \caption{Graph of $\angle a_k$}
+    \end{figure}
     \end{enumerate}
     \end{enumerate}
     
