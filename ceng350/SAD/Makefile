@@ -15,4 +15,4 @@ group20.zip: $(TARGET).pdf diagrams/
 	zip -r group20.zip $(TARGET).pdf diagrams/
 
 clean:
-	rm	$(TARGET).pdf	$(TARGET).aux	$(TARGET).log	$(TARGET).out	$(TARGET).toc
+	rm $(TARGET).pdf $(TARGET).aux $(TARGET).log $(TARGET).out $(TARGET).toc $(TARGET).lof $(TARGET).lot
