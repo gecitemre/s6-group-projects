@@ -323,8 +323,17 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
     
 \item %write the solution of q7
     \begin{enumerate}
-    \item %write the solution of q7a
-    \item %write the solution of q7b
+    \item 
+    \begin{align*}
+        y(t) &= H(jk\omega_0) e^{jk\omega_0t} &&\text{Lecture Notes 6.8}\\
+        x(t) &= \sum_{k=-\infty}^{+\infty} a_k e^{jk\omega_0t} \Rightarrow y(t) = \sum_{k=-\infty}^{+\infty}H(jk\omega_0) a_k e^{jk\omega_0t} && \text{Linearity Property}\\
+        \omega_0 &= \frac{2\pi}{T} = \frac{2\pi}{\pi/K} = 2K\\
+        y(t) &= \sum_{k=-\infty}^{+\infty}H(j2Kk) a_k e^{jk2Kt} && \text{Substitute $\omega_0$}\\
+        y(t) &= \sum_{k=-40/K}^{+40/K} a_k e^{jk2Kt} && |\omega| \leq 80 \Rightarrow H(j\omega) = 1 \\
+        \sum_{k=-40/K}^{+40/K} a_k e^{jk2Kt} &= \sum_{k=-\infty}^{+\infty} a_k e^{jk2Kt} && \text{x(t) = y(t)}
+    \end{align*}
+    In conclusion, $a_k = 0$ for $k \notin [-40/K, 40/K]$.
+    \item Nothing can be concluded if $x(t) \neq y(t)$.
     \end{enumerate}    
 	
 \item \begin{enumerate}
