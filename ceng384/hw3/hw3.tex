@@ -42,7 +42,7 @@ Homework 3}
 \begin{enumerate}
 
 \item \begin{align*}
-    \int_{-\infty}^t x(s) ds &= \int_{-\infty}^{t} \sum_{k=-\infty}^{\infty} a_k e^{jk\omega_0 s} ds\\
+    \int_{-\infty}^t x(s) ds &= \int_{-\infty}^{t} \sum_{k=-\infty}^{\infty} a_k e^{jk2\pi  s} ds\\
     &= \sum_{k=-\infty}^{\infty} (a_k \cdot \frac{e^{jkw_0t}}{jkw_0} \Big|_{-\infty}^{t})\\
     &= \sum_{k=-\infty}^{\infty} (a_k \cdot \frac{e^{jkw_0t}}{jkw_0} - a_k \cdot \frac{e^{jkw_0 (-\infty)}}{jkw_0})\\
     &= \sum_{k=-\infty}^{\infty} (a_k \cdot \frac{e^{jkw_0t}}{jkw_0} - a_k \cdot \frac{0}{jkw_0})\\
@@ -96,13 +96,13 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
     % Write your solutions in the following items.
     \item %write the solution of q4a
     \begin{align*}
-        x(t) & = 1 + \sin(\omega_0t) + 2\cos(\omega_0t) + \cos(2\omega_0t + \frac{\pi}{4}) \\
-        & = 1 + \sin(\omega_0t) + 2\cos(\omega_0t) + \cos(2\omega_0t)\cos(\frac{\pi}{4}) - \sin(2\omega_0t)\sin(\frac{\pi}{4}) \\
-        & = 1 + \sin(\omega_0t) + 2\cos(\omega_0t) + \frac{\sqrt{2}}{2}\cos(2\omega_0t) - \frac{\sqrt{2}}{2}\sin(2\omega_0t) \\
+        x(t) & = 1 + \sin(2\pi t) + 2\cos(2\pi t) + \cos(4\pi  t + \frac{\pi}{4}) \\
+        & = 1 + \sin(2\pi t) + 2\cos(2\pi t) + \cos(4\pi  t)\cos(\frac{\pi}{4}) - \sin(4\pi  t)\sin(\frac{\pi}{4}) \\
+        & = 1 + \sin(2\pi t) + 2\cos(2\pi t) + \frac{\sqrt{2}}{2}\cos(4\pi  t) - \frac{\sqrt{2}}{2}\sin(4\pi  t) \\
         % use euler's formula
-        & = 1 + \frac{e^{j\omega_0t} - e^{-j\omega_0t}}{2j} + 2\frac{e^{j\omega_0t} + e^{-j\omega_0t}}{2} + \frac{\sqrt{2}}{2}\frac{e^{j2\omega_0t} + e^{-j2\omega_0t}}{2} - \frac{\sqrt{2}}{2}\frac{e^{j2\omega_0t} - e^{-j2\omega_0t}}{2j} \\
+        & = 1 + \frac{e^{j2\pi t} - e^{-j2\pi t}}{2j} + 2\frac{e^{j2\pi t} + e^{-j2\pi t}}{2} + \frac{\sqrt{2}}{2}\frac{e^{j4\pi  t} + e^{-j4\pi  t}}{2} - \frac{\sqrt{2}}{2}\frac{e^{j4\pi  t} - e^{-j4\pi  t}}{2j} \\
         % rearrange
-        & = 1 + \frac{1}{2j}e^{j\omega_0t} - \frac{1}{2j}e^{-j\omega_0t} + e^{j\omega_0t} + e^{-j\omega_0t} + \frac{\sqrt{2}}{4}e^{j2\omega_0t} + \frac{\sqrt{2}}{4}e^{-j2\omega_0t} - \frac{\sqrt{2}}{4j}e^{j2\omega_0t} + \frac{\sqrt{2}}{4j}e^{-j2\omega_0t} \\
+        & = 1 + \frac{1}{2j}e^{j2\pi t} - \frac{1}{2j}e^{-j2\pi t} + e^{j2\pi t} + e^{-j2\pi t} + \frac{\sqrt{2}}{4}e^{j4\pi  t} + \frac{\sqrt{2}}{4}e^{-j4\pi  t} - \frac{\sqrt{2}}{4j}e^{j4\pi  t} + \frac{\sqrt{2}}{4j}e^{-j4\pi  t} \\
     \end{align*}
     \begin{align*}
         \alpha_0 & = 1 \\
@@ -112,61 +112,105 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
         \alpha_{-2} & = \frac{\sqrt{2}}{4} + \frac{\sqrt{2}}{4j}\\
     \end{align*}
 
-    \begin{tikzpicture}
-        \begin{axis}[ 
-        /pgf/number format/fixed,
-        /pgf/number format/precision=3,
-        height=200,
-        xtick = {-2, -1, 0, 1, 2},
-        ytick=data,
-        xlabel=$k$, 
-        ylabel=$\theta_k$, 
-        axis x line=center, 
-        axis y line = center, 
-        xmin=-2.5, xmax=2.5, ymin=-2.5, ymax=2.5]
-        \addplot+[ycomb,mark=square] plot coordinates {(-2,1.57) (-1,-1.107) (0,1) (1,1.107) (2,-1.57)};
-        \end{axis}
-    \end{tikzpicture} \\
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[ 
+            /pgf/number format/fixed,
+            /pgf/number format/precision=3,
+            height=200,
+            xtick = {-2, -1, 0, 1, 2},
+            ytick=data,
+            xlabel=$k$, 
+            ylabel=$∠a_k$, 
+            axis x line=center, 
+            axis y line = center, 
+            xmin=-2.5, xmax=2.5, ymin=-2.5, ymax=2.5]
+            \addplot+[ycomb,mark=square] plot coordinates {(-2,1.57) (-1,-1.107) (0,1) (1,1.107) (2,-1.57)};
+            \end{axis}
+        \end{tikzpicture} \\
 
-    \begin{tikzpicture}
-        \begin{axis}[ 
-        /pgf/number format/fixed,
-        /pgf/number format/precision=3,
-        height=200,
-        xtick = {-2, -1, 0, 1, 2},
-        ytick=data,
-        xlabel=$k$, 
-        ylabel=$|a_k|$, 
-        axis x line=center, 
-        axis y line = center, 
-        xmin=-2.5, xmax=2.5, ymin=-0.3, ymax=2.5]
-        \addplot+[ycomb,mark=square] plot coordinates {(-2,0.5) (-1,1.118033989) (0,1) (1,1.118033989) (2,0.5)};
-        \end{axis}
-    \end{tikzpicture} \\
+        \begin{tikzpicture}
+            \begin{axis}[ 
+            /pgf/number format/fixed,
+            /pgf/number format/precision=3,
+            height=200,
+            xtick = {-2, -1, 0, 1, 2},
+            ytick=data,
+            xlabel=$k$, 
+            ylabel=$|a_k|$, 
+            axis x line=center, 
+            axis y line = center, 
+            xmin=-2.5, xmax=2.5, ymin=-0.3, ymax=2.5]
+            \addplot+[ycomb,mark=square] plot coordinates {(-2,0.5) (-1,1.118033989) (0,1) (1,1.118033989) (2,0.5)};
+            \end{axis}
+        \end{tikzpicture} \\
+    \end{center} 
 
     \item %write the solution of q4b
     \begin{align*}
-        x(t) & = e^{j\omega_0t} \\
-        y(t) & = H(jk\omega_0)e^{jk\omega_0t} \\
+        x(t) & = e^{jk2\pi t} \\
+        y(t) & = H(jk2\pi )e^{jk2\pi t} \\
         y'(t) + y(t) & = x(t) \\
-        jk\omega_0H(jk\omega_0)e^{jk\omega_0t} & + H(jk\omega_0)e^{jk\omega_0t} & = e^{jk\omega_0t} \\
-        H(jk\omega_0) & = \frac{1}{1 + jk\omega_0} \\
+        jk2\pi H(jk2\pi )e^{jk2\pi t} + H(jk2\pi )e^{jk2\pi t} & = e^{jk2\pi t} \\
+        H(jk2\pi ) & = \frac{1}{1 + jk2\pi } \\
     \end{align*}
+
+    Our transfer function is $H(jk2\pi )$ and our kth eigenvalue is $\frac{1}{1 + jk2\pi }$.\\
+
 	\item %write the solution of q4c
     \begin{align*}
-        y(t) = H(jk\omega_0)e^{jk\omega_0t} & = \frac{1}{1 + jk\omega_0}e^{jk\omega_0t} \\
-        b_k & = a_k\frac{1}{1 + jk\omega_0} \\ 
-        b_1 & = \frac{1 + \frac{1}{2j}}{1 + j\omega_0} \\
-        b_{-1} & = \frac{1 - \frac{1}{2j}}{1 - j\omega_0} \\
-        b_2 & = \frac{\frac{\sqrt{2}}{4} - \frac{\sqrt{2}}{4j}}{1 + 2j\omega_0} \\
-        b_{-2} & = \frac{\frac{\sqrt{2}}{4} + \frac{\sqrt{2}}{4j}}{1 - 2j\omega_0} \\
+        y(t) = H(jk2\pi )e^{jk2\pi t} & = \frac{1}{1 + jk2\pi }e^{jk2\pi t} \\
+        N & = 4 \\ 
+        b_k & = a_k\frac{1}{1 + jk2\pi } \\ 
+        b_0 & = 1 \\
+        b_1 & = \frac{1 + \frac{1}{2j}}{1 + j2\pi } \\
+        b_{-1} & = \frac{1 - \frac{1}{2j}}{1 - j2\pi } \\
+        b_2 & = \frac{\frac{\sqrt{2}}{4} - \frac{\sqrt{2}}{4j}}{1 + 4j\pi } \\
+        b_{-2} & = \frac{\frac{\sqrt{2}}{4} + \frac{\sqrt{2}}{4j}}{1 - 4j\pi } \\
     \end{align*}
+
+    % sketch magnitude and phase of bk, i.e., sketch |bk| and\anglebk.
+
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[ 
+            /pgf/number format/fixed,
+            /pgf/number format/precision=3,
+            height=200,
+            xtick = {-2, -1, 0, 1, 2},
+            ytick=data,
+            xlabel=$k$, 
+            ylabel=$|b_k|$, 
+            axis x line=center, 
+            axis y line = center, 
+            xmin=-2.5, xmax=2.5, ymin=-0.1, ymax=0.5]
+            \addplot+[ycomb,mark=square] plot coordinates {(-2,0.03966) (-1,0.1757) (0,1) (1,0.1757) (2,0.03966)};
+            \end{axis}
+        \end{tikzpicture} \\
+
+        \begin{tikzpicture}
+            \begin{axis}[ 
+            /pgf/number format/fixed,
+            /pgf/number format/precision=3,
+            height=200,
+            xtick = {-2, -1, 0, 1, 2},
+            ytick=data,
+            xlabel=$k$, 
+            ylabel=$\angle b_k$, 
+            axis x line=center, 
+            axis y line = center, 
+            xmin=-2.5, xmax=2.5, ymin=-2.5, ymax=2.5]
+            \addplot+[ycomb,mark=square] plot coordinates {(-2,0.8468) (-1,-0.306) (0,1) (1,0.306) (2,-0.8468)};
+            \end{axis}
+        \end{tikzpicture} \\
+    \end{center}
+
     \item %write the solution of q4d
     % Write the expression for y(t).
     \begin{align*}
-        y(t) & = \sum_{k=-\infty}^{\infty} b_k e^{jk\omega_0t} \\
-        & = b_1 e^{j\omega_0t} + b_{-1} e^{-j\omega_0t} + b_2 e^{j2\omega_0t} + b_{-2} e^{-j2\omega_0t} \\
-        & = \frac{1 + \frac{1}{2j}}{1 + j\omega_0} e^{j\omega_0t} + \frac{1 - \frac{1}{2j}}{1 - j\omega_0} e^{-j\omega_0t} + \frac{\frac{\sqrt{2}}{4} - \frac{\sqrt{2}}{4j}}{1 + 2j\omega_0} e^{j2\omega_0t} + \frac{\frac{\sqrt{2}}{4} + \frac{\sqrt{2}}{4j}}{1 - 2j\omega_0} e^{-j2\omega_0t} \\
+        y(t) & = \sum_{k=-\infty}^{\infty} b_k e^{jk2\pi t} \\
+        & = b_1 e^{j2\pi t} + b_{-1} e^{-j2\pi t} + b_2 e^{j4\pi  t} + b_{-2} e^{-j4\pi  t} \\
+        & = \frac{1 + \frac{1}{2j}}{1 + j2\pi } e^{j2\pi t} + \frac{1 - \frac{1}{2j}}{1 - j2\pi } e^{-j2\pi t} + \frac{\frac{\sqrt{2}}{4} - \frac{\sqrt{2}}{4j}}{1 + 4j\pi } e^{j4\pi  t} + \frac{\frac{\sqrt{2}}{4} + \frac{\sqrt{2}}{4j}}{1 - 4j\pi } e^{-j4\pi  t} \\
     \end{align*}
     \end{enumerate}
 
@@ -237,37 +281,39 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
         \alpha_{-1} & = -\frac{1}{2} \\
     \end{align*}
 
-    \begin{tikzpicture}
-        \begin{axis}[ 
-        /pgf/number format/fixed,
-        /pgf/number format/precision=3,
-        height=200,
-        xtick = {-1, 0, 1},
-        ytick=data,
-        xlabel=$k$, 
-        ylabel=$|a_k|$, 
-        axis x line=center, 
-        axis y line = center, 
-        xmin=-2.5, xmax=2.5, ymin=-2, ymax=1]
-        \addplot+[ycomb,mark=square] plot coordinates {(-1,-0.5) (0,1) (1,-0.5)};
-        \end{axis}
-    \end{tikzpicture} \\
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[ 
+            /pgf/number format/fixed,
+            /pgf/number format/precision=3,
+            height=200,
+            xtick = {-1, 0, 1},
+            ytick=data,
+            xlabel=$k$, 
+            ylabel=$|a_k|$, 
+            axis x line=center, 
+            axis y line = center, 
+            xmin=-2.5, xmax=2.5, ymin=-2, ymax=1]
+            \addplot+[ycomb,mark=square] plot coordinates {(-1,-0.5) (0,1) (1,-0.5)};
+            \end{axis}
+        \end{tikzpicture} \\
 
-    \begin{tikzpicture}
-        \begin{axis}[ 
-        /pgf/number format/fixed,
-        /pgf/number format/precision=3,
-        height=200,
-        xtick = {-1, 0, 1},
-        ytick=data,
-        xlabel=$k$, 
-        ylabel=$\theta_k$, 
-        axis x line=center, 
-        axis y line = center, 
-        xmin=-2.5, xmax=2.5, ymin=-2, ymax=1]
-        \addplot+[ycomb,mark=square] plot coordinates {(-1,1) (0,1) (1,1)};
-        \end{axis}
-    \end{tikzpicture} \\
+        \begin{tikzpicture}
+            \begin{axis}[ 
+            /pgf/number format/fixed,
+            /pgf/number format/precision=3,
+            height=200,
+            xtick = {-1, 0, 1},
+            ytick=data,
+            xlabel=$k$, 
+            ylabel=$\angle a_k$, 
+            axis x line=center, 
+            axis y line = center, 
+            xmin=-2.5, xmax=2.5, ymin=-2, ymax=1]
+            \addplot+[ycomb,mark=square] plot coordinates {(-1,1) (0,1) (1,1)};
+            \end{axis}
+        \end{tikzpicture} \\
+    \end{center}
 
     \item %write the solution of q6b
     \begin{enumerate}
@@ -287,37 +333,39 @@ Substitute $w_0 = \frac{2\pi}{T} = \frac{2\pi}{4} = \frac{\pi}{2}$\\
             \alpha_{-1} & = -\frac{1}{2} - \frac{1}{2j} \\
         \end{align*}
 
-    \begin{tikzpicture}
-        \begin{axis}[ 
-        /pgf/number format/fixed,
-        /pgf/number format/precision=3,
-        height=200,
-        xtick = {-1, 0, 1},
-        ytick=data,
-        xlabel=$k$, 
-        ylabel=$|a_k|$, 
-        axis x line=center, 
-        axis y line = center, 
-        xmin=-2.5, xmax=2.5, ymin=-1, ymax=2]
-        \addplot+[ycomb,mark=square] plot coordinates {(-1,1.414) (0,1) (1,1.414)};
-        \end{axis}
-    \end{tikzpicture} \\
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[ 
+            /pgf/number format/fixed,
+            /pgf/number format/precision=3,
+            height=200,
+            xtick = {-1, 0, 1},
+            ytick=data,
+            xlabel=$k$, 
+            ylabel=$|a_k|$, 
+            axis x line=center, 
+            axis y line = center, 
+            xmin=-2.5, xmax=2.5, ymin=-1, ymax=2]
+            \addplot+[ycomb,mark=square] plot coordinates {(-1,1.414) (0,1) (1,1.414)};
+            \end{axis}
+        \end{tikzpicture} \\
 
-    \begin{tikzpicture}
-        \begin{axis}[ 
-        /pgf/number format/fixed,
-        /pgf/number format/precision=3,
-        height=200,
-        xtick = {-1, 0, 1},
-        ytick=data,
-        xlabel=$k$, 
-        ylabel=$\theta_k$, 
-        axis x line=center, 
-        axis y line = center, 
-        xmin=-2.5, xmax=2.5, ymin=-1, ymax=2]
-        \addplot+[ycomb,mark=square] plot coordinates {(-1,1.25) (0,1) (1,0.75)};
-        \end{axis}
-    \end{tikzpicture} \\
+        \begin{tikzpicture}
+            \begin{axis}[ 
+            /pgf/number format/fixed,
+            /pgf/number format/precision=3,
+            height=200,
+            xtick = {-1, 0, 1},
+            ytick=data,
+            xlabel=$k$, 
+            ylabel=$\angle a_k$, 
+            axis x line=center, 
+            axis y line = center, 
+            xmin=-2.5, xmax=2.5, ymin=-1, ymax=2]
+            \addplot+[ycomb,mark=square] plot coordinates {(-1,1.25) (0,1) (1,0.75)};
+            \end{axis}
+        \end{tikzpicture} \\
+    \end{center}
     \end{enumerate}
     \end{enumerate}
     
