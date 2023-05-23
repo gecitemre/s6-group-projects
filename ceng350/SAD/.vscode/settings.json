@@ -13,7 +13,7 @@
             "command": "make",
             "args": [
                 "%DOCFILE%.pdf",
-                "-B"
+                "--always-make"
             ]
         },
     ],
