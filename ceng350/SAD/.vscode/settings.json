@@ -12,7 +12,8 @@
             "name": "make",
             "command": "make",
             "args": [
-                "%DOCFILE%.pdf"
+                "%DOCFILE%.pdf",
+                "-B"
             ]
         },
     ],
