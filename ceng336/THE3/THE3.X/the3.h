@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 #include <xc.h>
-
+#include "lcd.h"
 typedef enum special_character_index {
     TEAM_A_PLAYER_SCI,
     TEAM_B_PLAYER_SCI,
@@ -24,12 +24,68 @@ typedef enum special_character_index {
     FRISBEE_TARGET_SCI
 } special_character_index;
 
-struct character {
-    int x, y;
-    special_character_index sci;
-};
+typedef enum team_type {
+    TEAM_A, TEAM_B
+} team_type;
 
-typedef unsigned char byte;     // define byte here for readability and sanity.    
+typedef enum object_type {
+    PLAYER, FRISBEE
+} object_type;
+
+typedef enum bool {
+    FALSE = 0, TRUE = 255
+} bool;
+
+typedef struct object {
+    byte x, y;
+    object_type type;
+    union {
+        struct {
+            team_type team;
+            bool selected;
+        } player;
+        struct {
+            byte place_holder;
+        } frisbee;
+    } data;
+} object;
+
+void DisplayObject(object* c)
+{
+    switch (c->type) {
+        case PLAYER:
+            switch (c->data.player.team) {
+                case TEAM_A:
+                    LCDGoto(c->x, c->y);
+                    switch (c->data.player.selected) {
+                        case 0:
+                            LCDDat(TEAM_A_PLAYER_SCI);
+                            break;
+                        case 1:
+                            LCDDat(SELECTED_TEAM_A_PLAYER_SCI);
+                            break;
+                    }
+                    break;
+                case TEAM_B:
+                    LCDGoto(c->x, c->y);
+                    switch (c->data.player.selected) {
+                        case 0:
+                            LCDDat(TEAM_B_PLAYER_SCI);
+                            break;
+                        case 1:
+                            LCDDat(SELECTED_TEAM_B_PLAYER_SCI);
+                            break;
+                    }
+                    break;
+            }
+            break;
+        case FRISBEE:
+            // to be implemented
+            LCDGoto(c->x, c->y);
+            LCDDat(FRISBEE_SCI);
+    }
+}
+
     
 byte teamA_player[] = {
                   0b10001,
