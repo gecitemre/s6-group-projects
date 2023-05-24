@@ -13,7 +13,21 @@ extern "C" {
 #endif
 #include <xc.h>
 
-// YOU CAN CHANGE THE FUNCTION RETURN TYPES, ARGUMENTS, FUNCTION NAMES, VARIABLE NAMES, ANYTHING YOU WANT
+typedef enum special_character_index {
+    TEAM_A_PLAYER_SCI,
+    TEAM_B_PLAYER_SCI,
+    SELECTED_TEAM_A_PLAYER_SCI,
+    SELECTED_TEAM_B_PLAYER_SCI,
+    SELECTED_TEAM_A_PLAYER_WITH_FRISBEE_SCI,
+    SELECTED_TEAM_B_PLAYER_WITH_FRISBEE_SCI,
+    FRISBEE_SCI,
+    FRISBEE_TARGET_SCI
+} special_character_index;
+
+struct character {
+    int x, y;
+    special_character_index sci;
+};
 
 typedef unsigned char byte;     // define byte here for readability and sanity.    
     

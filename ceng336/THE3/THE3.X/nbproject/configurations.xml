@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>lcd.h</itemPath>
       <itemPath>the3.h</itemPath>
+      <itemPath>pragmas.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
