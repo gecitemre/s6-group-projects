@@ -138,14 +138,14 @@ void ConfigureTimer()
 
 void InitGame()
 {
-    LCDAddSpecialCharacterFromObjectData((object_data){0, 0, TEAM_A_PLAYER}, teamA_player);
-    LCDAddSpecialCharacterFromObjectData((object_data){0, 0, TEAM_B_PLAYER}, teamB_player);
-    LCDAddSpecialCharacterFromObjectData((object_data){1, 0, TEAM_A_PLAYER}, selected_teamA_player);
-    LCDAddSpecialCharacterFromObjectData((object_data){1, 0, TEAM_B_PLAYER}, selected_teamB_player);
-    LCDAddSpecialCharacterFromObjectData((object_data){1, 1, TEAM_A_PLAYER}, selected_teamA_player_with_frisbee);
-    LCDAddSpecialCharacterFromObjectData((object_data){1, 1, TEAM_B_PLAYER}, selected_teamB_player_with_frisbee);
-    LCDAddSpecialCharacterFromObjectData((object_data){0, 1, FRISBEE}, frisbee);
-    LCDAddSpecialCharacterFromObjectData((object_data){0, 1, FRISBEE_TARGET}, frisbee_target);
+    LCDAddSpecialCharacterFromObjectData(((object_data){0, 0, TEAM_A_PLAYER}), teamA_player);
+    LCDAddSpecialCharacterFromObjectData(((object_data){0, 0, TEAM_B_PLAYER}), teamB_player);
+    LCDAddSpecialCharacterFromObjectData(((object_data){1, 0, TEAM_A_PLAYER}), selected_teamA_player);
+    LCDAddSpecialCharacterFromObjectData(((object_data){1, 0, TEAM_B_PLAYER}), selected_teamB_player);
+    LCDAddSpecialCharacterFromObjectData(((object_data){1, 1, TEAM_A_PLAYER}), selected_teamA_player_with_frisbee);
+    LCDAddSpecialCharacterFromObjectData(((object_data){1, 1, TEAM_B_PLAYER}), selected_teamB_player_with_frisbee);
+    LCDAddSpecialCharacterFromObjectData(((object_data){0, 1, FRISBEE}), frisbee);
+    LCDAddSpecialCharacterFromObjectData(((object_data){0, 1, FRISBEE_TARGET}), frisbee_target);
 }
 
 void main(void)

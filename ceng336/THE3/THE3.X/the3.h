@@ -32,10 +32,8 @@ typedef struct {
     unsigned type : 1;
 } object_data;
 
-void LCDAddSpecialCharacterFromObjectData(object_data data, byte* character)
-{
-    LCDAddSpecialCharacter(*(byte*)(void*)&data, character);
-}
+
+#define LCDAddSpecialCharacterFromObjectData(data, character) LCDAddSpecialCharacter(*((byte*)(void*)&(data)), character)
 
 typedef struct {
     byte x, y;
