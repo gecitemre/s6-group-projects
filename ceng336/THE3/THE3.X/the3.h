@@ -32,7 +32,6 @@ typedef struct {
     unsigned type : 1;
 } object_data;
 
-
 #define LCDAddSpecialCharacterFromObjectData(data, character) LCDAddSpecialCharacter(*((byte*)(void*)&(data)), character)
 
 typedef struct {
@@ -44,13 +43,18 @@ typedef enum {
     INACTIVE_MODE, ACTIVE_MODE
 } game_mode;
 
+void ClearObject(object* c)
+{
+    LCDGoto(c->x, c->y);
+    LCDDat(' ');
+}
+
 void DisplayObject(object* c)
 {
     LCDGoto(c->x, c->y);
     LCDDat(*(unsigned*)(void*)&(c->data));
 }
 
-    
 byte teamA_player[] = {
                   0b10001,
                   0b10101,

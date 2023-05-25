@@ -65,43 +65,53 @@ void rb1_interrupt()
         objects[cursor].data.selected = 0;
         cursor = (cursor + 1) % 4; // do not take frisbee into consideration
         objects[cursor].data.selected = 1;
+        ClearObject(&objects[cursor]);
+        DisplayObject(&objects[cursor]);
     }
 }
 
 void rb4_interrupt()
 {
     // up
+    ClearObject(&objects[cursor]);
     if (mode == ACTIVE_MODE && objects[cursor].data.selected)
     {
-        objects[cursor].y = (objects[cursor].y) == 4 ? 4 : objects[cursor].y + 1;
+        objects[cursor].y = (objects[cursor].y) == 4 ? 4 : objects[cursor].y - 1;
     }
+    DisplayObject(&objects[cursor]);
 }
 
 void rb5_interrupt()
 {
     // right
+    ClearObject(&objects[cursor]);
     if (mode == ACTIVE_MODE && objects[cursor].data.selected)
     {
         objects[cursor].x = (objects[cursor].x) == 16 ? 16 : objects[cursor].x + 1;
     }
+    DisplayObject(&objects[cursor]);
 }
 
 void rb6_interrupt()
 {
     // down
+    ClearObject(&objects[cursor]);
     if (mode == ACTIVE_MODE && objects[cursor].data.selected)
     {
-        objects[cursor].y = (objects[cursor].y) == 1 ? 1 : objects[cursor].y - 1;
+        objects[cursor].y = (objects[cursor].y) == 1 ? 1 : objects[cursor].y + 1;
     }
+    DisplayObject(&objects[cursor]);
 }
 
 void rb7_interrupt()
 {
     // left
+    ClearObject(&objects[cursor]);
     if (mode == ACTIVE_MODE && objects[cursor].data.selected)
     {
         objects[cursor].x = (objects[cursor].x) == 1 ? 1 : objects[cursor].x - 1;
     }
+    DisplayObject(&objects[cursor]);
 }
 
 void __interrupt(high_priority) ISR()
@@ -201,12 +211,12 @@ void main(void)
     objects[2] = (object){14, 2, {0,0,  TEAM_B_PLAYER}};
     objects[3] = (object){14, 3, {0,0,  TEAM_B_PLAYER}};
     objects[FRISBEE_INDEX] = (object){9, 2, {0, 1, FRISBEE}};
+    for (int i = 0; i < 5; i++)
+    {
+        DisplayObject(&objects[i]);
+    }
     while (1)
     {
-        for (int i = 0; i < 5; i++)
-        {
-            DisplayObject(&objects[i]);
-        }
-        sleep(0.0001);
+
     }
 }
