@@ -138,14 +138,14 @@ void ConfigureTimer()
 
 void InitGame()
 {
-    LCDAddSpecialCharacter(TEAM_A_PLAYER_SCI, teamA_player);
-    LCDAddSpecialCharacter(TEAM_B_PLAYER_SCI, teamB_player);
-    LCDAddSpecialCharacter(SELECTED_TEAM_A_PLAYER_SCI, selected_teamA_player);
-    LCDAddSpecialCharacter(SELECTED_TEAM_B_PLAYER_SCI, selected_teamB_player);
-    LCDAddSpecialCharacter(SELECTED_TEAM_A_PLAYER_WITH_FRISBEE_SCI, selected_teamA_player_with_frisbee);
-    LCDAddSpecialCharacter(SELECTED_TEAM_B_PLAYER_WITH_FRISBEE_SCI, selected_teamB_player_with_frisbee);
-    LCDAddSpecialCharacter(FRISBEE_SCI, frisbee);
-    LCDAddSpecialCharacter(FRISBEE_TARGET_SCI, frisbee_target);
+    LCDAddSpecialCharacterFromObjectData((object_data){FALSE, FALSE, TEAM_A_PLAYER}, teamA_player);
+    LCDAddSpecialCharacterFromObjectData((object_data){FALSE, FALSE, TEAM_B_PLAYER}, teamB_player);
+    LCDAddSpecialCharacterFromObjectData((object_data){TRUE, FALSE, TEAM_A_PLAYER}, selected_teamA_player);
+    LCDAddSpecialCharacterFromObjectData((object_data){TRUE, FALSE, TEAM_B_PLAYER}, selected_teamB_player);
+    LCDAddSpecialCharacterFromObjectData((object_data){TRUE, TRUE, TEAM_A_PLAYER}, selected_teamA_player_with_frisbee);
+    LCDAddSpecialCharacterFromObjectData((object_data){TRUE, TRUE, TEAM_B_PLAYER}, selected_teamB_player_with_frisbee);
+    LCDAddSpecialCharacterFromObjectData((object_data){FALSE, TRUE, FRISBEE}, frisbee);
+    LCDAddSpecialCharacterFromObjectData((object_data){FALSE, TRUE, FRISBEE_TARGET}, frisbee_target);
 }
 
 void main(void)
@@ -155,11 +155,11 @@ void main(void)
     InitGame();
     ConfigureInterrupts();
     ConfigureTimer();
-    objects[0] = (object){3, 2, PLAYER, .data.player = {TEAM_A, 1}};
-    objects[1] = (object){3, 3, PLAYER, .data.player = {TEAM_A, 0}};
-    objects[2] = (object){14, 2, PLAYER, .data.player = {TEAM_B, 0}};
-    objects[3] = (object){14, 3, PLAYER, .data.player = {TEAM_B, 0}};
-    objects[4] = (object){9, 2, FRISBEE};
+    objects[0] = (object){3, 2, {TRUE,  FALSE, TEAM_A_PLAYER}};
+    objects[1] = (object){3, 3, {FALSE, FALSE, TEAM_A_PLAYER}};
+    objects[2] = (object){14, 2, {FALSE,FALSE,  TEAM_B_PLAYER}};
+    objects[3] = (object){14, 3, {FALSE,FALSE,  TEAM_B_PLAYER}};
+    objects[4] = (object){9, 2, {FALSE, TRUE, FRISBEE}};
     for (int i = 0; i < 5; i++)
     {
         DisplayObject(&objects[i]);

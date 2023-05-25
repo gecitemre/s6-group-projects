@@ -13,77 +13,39 @@ extern "C" {
 #endif
 #include <xc.h>
 #include "lcd.h"
-typedef enum special_character_index {
-    TEAM_A_PLAYER_SCI,
-    TEAM_B_PLAYER_SCI,
-    SELECTED_TEAM_A_PLAYER_SCI,
-    SELECTED_TEAM_B_PLAYER_SCI,
-    SELECTED_TEAM_A_PLAYER_WITH_FRISBEE_SCI,
-    SELECTED_TEAM_B_PLAYER_WITH_FRISBEE_SCI,
-    FRISBEE_SCI,
-    FRISBEE_TARGET_SCI
-} special_character_index;
 
-typedef enum team_type {
-    TEAM_A, TEAM_B
-} team_type;
+typedef enum {
+    TEAM_A_PLAYER, TEAM_B_PLAYER
+} player_type;
 
-typedef enum object_type {
-    PLAYER, FRISBEE
-} object_type;
-
-typedef enum bool {
+typedef enum {
     FALSE = 0, TRUE = 255
-} bool;
+} boolean; // 255 because ~0 = 255 (not FALSE = TRUE)
 
-typedef struct object {
+typedef enum {
+    FRISBEE, FRISBEE_TARGET
+} frisbee_type;
+
+typedef struct {
+    unsigned selected : 1;
+    unsigned frisbee : 1;
+    unsigned type : 1;
+} object_data;
+
+void LCDAddSpecialCharacterFromObjectData(object_data data, byte* character)
+{
+    LCDAddSpecialCharacter(*(byte*)(void*)&data, character);
+}
+
+typedef struct {
     byte x, y;
-    object_type type;
-    union {
-        struct {
-            team_type team;
-            bool selected;
-        } player;
-        struct {
-            byte place_holder;
-        } frisbee;
-    } data;
+    object_data data;
 } object;
 
 void DisplayObject(object* c)
 {
-    switch (c->type) {
-        case PLAYER:
-            switch (c->data.player.team) {
-                case TEAM_A:
-                    LCDGoto(c->x, c->y);
-                    switch (c->data.player.selected) {
-                        case 0:
-                            LCDDat(TEAM_A_PLAYER_SCI);
-                            break;
-                        case 1:
-                            LCDDat(SELECTED_TEAM_A_PLAYER_SCI);
-                            break;
-                    }
-                    break;
-                case TEAM_B:
-                    LCDGoto(c->x, c->y);
-                    switch (c->data.player.selected) {
-                        case 0:
-                            LCDDat(TEAM_B_PLAYER_SCI);
-                            break;
-                        case 1:
-                            LCDDat(SELECTED_TEAM_B_PLAYER_SCI);
-                            break;
-                    }
-                    break;
-            }
-            break;
-        case FRISBEE:
-            // to be implemented
-            LCDGoto(c->x, c->y);
-            LCDDat(FRISBEE_SCI);
-    }
+    LCDGoto(c->x, c->y);
+    LCDDat(*(unsigned*)(void*)&(c->data));
 }
 
     
