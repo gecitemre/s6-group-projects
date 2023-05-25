@@ -18,9 +18,9 @@ typedef enum {
     TEAM_A_PLAYER, TEAM_B_PLAYER
 } player_type;
 
-typedef enum {
-    FALSE = 0, TRUE = 255
-} boolean; // 255 because ~0 = 255 (not FALSE = TRUE)
+// typedef enum {
+//     FALSE = 0, TRUE = 255
+// } boolean; // 255 because ~0 = 255 (not FALSE = TRUE)
 
 typedef enum {
     FRISBEE, FRISBEE_TARGET
