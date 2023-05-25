@@ -53,6 +53,9 @@ void tmr0_interrupt()
         x = random_generator(16);
         y = random_generator(4);
 
+        if (objects[i].data.selected)
+            continue;
+
         for (int j = 0; j < 4; j++)
         {
             if (objects[j].x == x && objects[j].y == y)
