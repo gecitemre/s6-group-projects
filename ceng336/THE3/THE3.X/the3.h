@@ -234,10 +234,11 @@ unsigned short compute_frisbee_target_and_route(unsigned short current_fisbee_x_
 }
 
 unsigned short random_generator(unsigned short modulo) {
-    
-    // THE IMPLEMENTATION TOTALLY BELONGS TO YOU. You can follow the steps given in the3.pdf
-    // You can define different rotation amounts in bits for different types of needs for random integer
-    
+    unsigned randomTimerVal = TMR3L;
+
+    TMR3L = TMR3L >> 2;
+
+    return randomTimerVal % modulo;
 }
 
 #ifdef	__cplusplus
