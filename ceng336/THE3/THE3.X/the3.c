@@ -11,6 +11,7 @@
 #include "the3.h"
 
 #define TMR0_START 61629
+#define FRISBEE_INDEX 4
 
 /**
  * RB0 = throw
@@ -31,6 +32,7 @@ unsigned int teamB_score = 0;
 byte old_PORTB;
 object objects[5];
 byte cursor = 0;
+game_mode mode = INACTIVE_MODE;
 
 void tmr0_interrupt()
 {
@@ -44,7 +46,12 @@ void rb0_interrupt()
 
 void rb1_interrupt()
 {
-    // TODO
+    if (mode == INACTIVE_MODE && objects[cursor].data.frisbee)
+    {
+        objects[cursor].data.selected = 0;
+        cursor = (cursor + 1) % 4; // do not take frisbee into consideration
+        objects[cursor].data.selected = 1;
+    }
 }
 
 void rb4_interrupt()
@@ -163,12 +170,13 @@ void main(void)
     objects[1] = (object){3, 3, {0, 0, TEAM_A_PLAYER}};
     objects[2] = (object){14, 2, {0,0,  TEAM_B_PLAYER}};
     objects[3] = (object){14, 3, {0,0,  TEAM_B_PLAYER}};
-    objects[4] = (object){9, 2, {0, 1, FRISBEE}};
-    for (int i = 0; i < 5; i++)
-    {
-        DisplayObject(&objects[i]);
-    }
+    objects[FRISBEE_INDEX] = (object){9, 2, {0, 1, FRISBEE}};
     while (1)
     {
+        for (int i = 0; i < 5; i++)
+        {
+            DisplayObject(&objects[i]);
+        }
+        sleep(0.0001);
     }
 }

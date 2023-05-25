@@ -40,6 +40,10 @@ typedef struct {
     object_data data;
 } object;
 
+typedef enum {
+    INACTIVE_MODE, ACTIVE_MODE
+} game_mode;
+
 void DisplayObject(object* c)
 {
     LCDGoto(c->x, c->y);
