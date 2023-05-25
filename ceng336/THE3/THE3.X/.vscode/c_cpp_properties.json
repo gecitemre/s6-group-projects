@@ -1,0 +1,13 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [],
+            "compilerPath": "/opt/microchip/xc8/v2.30/bin/xc8-cc"
+        }
+    ],
+    "version": 4
+}
