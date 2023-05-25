@@ -128,12 +128,16 @@ void ConfigureInterrupts()
     INTCONbits.INT0IE = 1;
 }
 
-void ConfigureTimer()
+void ConfigureTimers()
 {
     // set the timer for 100ms
     T0CON = 0b101; // 1:64 prescaler
     TMR0 = TMR0_START;
     T0CONbits.TMR0ON = 1;
+
+    // set TIMER3 for random number generation
+    T3CON = 1;
+    T3CONbits.TMR3ON = 1;
 }
 
 void InitGame()
@@ -154,7 +158,7 @@ void main(void)
     InitLCD();
     InitGame();
     ConfigureInterrupts();
-    ConfigureTimer();
+    ConfigureTimers();
     objects[0] = (object){3, 2, {1,  0, TEAM_A_PLAYER}};
     objects[1] = (object){3, 3, {0, 0, TEAM_A_PLAYER}};
     objects[2] = (object){14, 2, {0,0,  TEAM_B_PLAYER}};
