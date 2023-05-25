@@ -70,22 +70,38 @@ void rb1_interrupt()
 
 void rb4_interrupt()
 {
-    // TODO
+    // up
+    if (mode == ACTIVE_MODE && objects[cursor].data.selected)
+    {
+        objects[cursor].y = (objects[cursor].y) == 4 ? 4 : objects[cursor].y + 1;
+    }
 }
 
 void rb5_interrupt()
 {
-    // TODO
+    // right
+    if (mode == ACTIVE_MODE && objects[cursor].data.selected)
+    {
+        objects[cursor].x = (objects[cursor].x) == 16 ? 16 : objects[cursor].x + 1;
+    }
 }
 
 void rb6_interrupt()
 {
-    // TODO
+    // down
+    if (mode == ACTIVE_MODE && objects[cursor].data.selected)
+    {
+        objects[cursor].y = (objects[cursor].y) == 1 ? 1 : objects[cursor].y - 1;
+    }
 }
 
 void rb7_interrupt()
 {
-    // TODO
+    // left
+    if (mode == ACTIVE_MODE && objects[cursor].data.selected)
+    {
+        objects[cursor].x = (objects[cursor].x) == 1 ? 1 : objects[cursor].x - 1;
+    }
 }
 
 void __interrupt(high_priority) ISR()
