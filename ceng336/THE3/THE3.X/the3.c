@@ -29,6 +29,7 @@
 
 unsigned int teamA_score = 0;
 unsigned int teamB_score = 0;
+unsigned int remaining_frisbee_moves = -1;
 byte old_PORTB;
 object objects[5];
 byte cursor = 0;
@@ -41,7 +42,20 @@ void tmr0_interrupt()
 
 void rb0_interrupt()
 {
-    // TODO
+    // denotes whether the player is in the same cell as the frisbee
+    unsigned int playerAndFrisbee = 0;
+
+    for (int i = 0; i < 5; i++)
+    {
+        if (objects[i].x == objects[FRISBEE_INDEX].x &&
+            objects[i].y == objects[FRISBEE_INDEX].y &&
+            mode == INACTIVE_MODE)
+        {
+            mode = ACTIVE_MODE;
+            remaining_frisbee_moves = compute_frisbee_target_and_route(objects[FRISBEE_INDEX].x, objects[FRISBEE_INDEX].y);
+            // instead of initiating player moves here, we will calculate them when timer interrupt occurs
+        }
+    }
 }
 
 void rb1_interrupt()
