@@ -38,6 +38,39 @@ game_mode mode = INACTIVE_MODE;
 void tmr0_interrupt()
 {
     TMR0 = TMR0_START;
+
+    if (remaining_frisbee_moves)
+    {
+        objects[FRISBEE_INDEX].x = frisbee_steps[remaining_frisbee_moves - 1][0];
+        objects[FRISBEE_INDEX].y = frisbee_steps[remaining_frisbee_moves - 1][1];
+        remaining_frisbee_moves--;
+        DisplayObject(&objects[FRISBEE_INDEX]);
+    }
+
+    for (int i = 0; i < 4; i++)
+    {
+        unsigned short x, y, conflict = 0;
+        x = random_generator(16);
+        y = random_generator(4);
+
+        for (int j = 0; j < 4; j++)
+        {
+            if (objects[j].x == x && objects[j].y == y)
+            {
+                conflict = 1;
+                break;
+            }
+        }
+
+        if (conflict)
+        {
+            DisplayObject(&objects[i]);
+            continue;
+        }
+        objects[i].x = x;
+        objects[i].y = y;
+        DisplayObject(&objects[i]);
+    }
 }
 
 void rb0_interrupt()
