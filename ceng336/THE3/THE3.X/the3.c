@@ -56,7 +56,7 @@ void tmr0_interrupt()
         if (objects[i].data.selected)
             continue;
 
-        for (int j = 0; j < 4; j++)
+        for (int j = 0; j < 5; j++)
         {
             if (objects[j].x == x && objects[j].y == y)
             {
