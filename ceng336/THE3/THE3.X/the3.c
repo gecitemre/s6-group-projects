@@ -110,7 +110,7 @@ void rb4_interrupt()
 {
     // up
     ClearObject(&objects[cursor]);
-    if (mode == ACTIVE_MODE && objects[cursor].data.selected)
+    if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee)
     {
         objects[cursor].y = (objects[cursor].y) == 4 ? 4 : objects[cursor].y - 1;
     }
@@ -121,7 +121,7 @@ void rb5_interrupt()
 {
     // right
     ClearObject(&objects[cursor]);
-    if (mode == ACTIVE_MODE && objects[cursor].data.selected)
+    if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee)
     {
         objects[cursor].x = (objects[cursor].x) == 16 ? 16 : objects[cursor].x + 1;
     }
@@ -132,7 +132,7 @@ void rb6_interrupt()
 {
     // down
     ClearObject(&objects[cursor]);
-    if (mode == ACTIVE_MODE && objects[cursor].data.selected)
+    if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee)
     {
         objects[cursor].y = (objects[cursor].y) == 1 ? 1 : objects[cursor].y + 1;
     }
@@ -143,7 +143,7 @@ void rb7_interrupt()
 {
     // left
     ClearObject(&objects[cursor]);
-    if (mode == ACTIVE_MODE && objects[cursor].data.selected)
+    if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee)
     {
         objects[cursor].x = (objects[cursor].x) == 1 ? 1 : objects[cursor].x - 1;
     }
