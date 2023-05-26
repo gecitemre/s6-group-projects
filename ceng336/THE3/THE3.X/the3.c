@@ -30,7 +30,7 @@
 
 unsigned int teamA_score = 0;
 unsigned int teamB_score = 0;
-unsigned int remaining_frisbee_moves = -1;
+unsigned int remaining_frisbee_moves = 0;
 unsigned int shouldDeleteTarget = 0;    // 1 if the target should be deleted in the next interrupt
 player_type last_thrower_team;
 byte old_PORTB;
