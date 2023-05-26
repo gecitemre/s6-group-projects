@@ -38,6 +38,19 @@ byte old_PORTB;
 object objects[6];
 byte cursor = 0;
 game_mode mode = ACTIVE_MODE;
+int *display_num_array = {
+    0b00111111,
+    0b00000110,
+    0b01011011,
+    0b01001111,
+    0b01100110,
+    0b01101101,
+    0b01111101,
+    0b00000111,
+    0b01111111,
+    0b01101111
+};
+int display_dash = 0b01000000;
 
 void tmr0_interrupt()
 {
@@ -372,8 +385,14 @@ void InitGame()
     LCDAddSpecialCharacterFromObjectData(((object_data){0, 1, FRISBEE_TARGET}), frisbee_target);
 }
 
+int determineScoreDisplay(unsigned score)
+{
+    return display_num_array[score > 9 ? 9 : score];
+}
 void main(void)
 {
+    // 0 = DISP2, 1 = DISP3, 2 = DISP4, 3 = LCD
+    int currentDisplay = 0;
     ConfigurePorts();
     InitLCD();
     InitGame();
@@ -384,9 +403,10 @@ void main(void)
     objects[2] = (object){14, 2, {0,0,  TEAM_B_PLAYER}};
     objects[3] = (object){14, 3, {0,0,  TEAM_B_PLAYER}};
     objects[FRISBEE_INDEX] = (object){9, 2, {0, 1, FRISBEE}};
-    objects[FRISBEE_TARGET_INDEX] = (object){1,1, {0,0,FRISBEE_TARGET}};
+    
     // there is also a frisbee target, which is not shown initially
-
+    objects[FRISBEE_TARGET_INDEX] = (object){1,1, {0,1,FRISBEE_TARGET}};
+    
     for (int i = 0; i < 5; i++)
     {
         DisplayObject(&objects[i]);
