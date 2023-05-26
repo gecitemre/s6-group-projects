@@ -60,12 +60,24 @@ void tmr0_interrupt()
 
     for (int i = 0; i < 4; i++)
     {
-        unsigned short x, y, conflict = 0;
-        x = random_generator(16);
-        y = random_generator(4);
+        unsigned short conflict = 0,
+            xChangeAmt = random_generator(1),
+            yChangeAmt = random_generator(1),
+            xChangeSign = random_generator(1),
+            yChangeSign = random_generator(1),
+            xCurrent = objects[i].x,
+            yCurrent = objects[i].y,
+            x = xCurrent + ((xChangeAmt - 1) * (xChangeSign ? 1 : -1)),
+            y = yCurrent + ((yChangeAmt - 1) * (yChangeSign ? 1 : -1));
 
         if (objects[i].data.selected)
             continue;
+
+        if (x < 1 || x > 16 || y < 1 || y > 4)
+        {
+            DisplayObject(&objects[i]);
+            continue;
+        }
 
         for (int j = 0; j < 5; j++)
         {
