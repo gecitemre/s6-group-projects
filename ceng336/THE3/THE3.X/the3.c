@@ -185,14 +185,14 @@ void rb1_interrupt()
 {
     if ((mode == INACTIVE_MODE || first_round) && !objects[cursor].data.frisbee)
     {
-        objects[cursor].data.selected = 0;
         ClearObject(&objects[cursor]);
+        objects[cursor].data.selected = 0;
         DisplayObject(&objects[cursor]);
         
         cursor = (cursor + 1) % 4; // do not take frisbee into consideration
         
-        objects[cursor].data.selected = 1;
         ClearObject(&objects[cursor]);
+        objects[cursor].data.selected = 1;
         DisplayObject(&objects[cursor]);
     }
 }
@@ -306,11 +306,19 @@ void __interrupt(high_priority) ISR()
         {
             rb0_interrupt();
         }
+        INTCONbits.INT0IF = 0;
+    }
+    if (INTCON3bits.INT1IF)
+    {
+        byte new_PORTB = PORTB;
+        WREG = ~new_PORTB & old_PORTB;
+        PORTBbits_t falling_edge = *(PORTBbits_t *)(void *)&WREG;
+        old_PORTB = new_PORTB;
         if (falling_edge.RB1)
         {
             rb1_interrupt();
         }
-        INTCONbits.INT0IF = 0;
+        INTCON3bits.INT1IF = 0;
     }
     if (INTCONbits.RBIF) {
         byte new_PORTB = PORTB;
@@ -353,6 +361,7 @@ void ConfigureInterrupts()
     INTCONbits.RBIE = 1;
     INTCONbits.TMR0IE = 1;
     INTCONbits.INT0IE = 1;
+    INTCON3bits.INT1IE = 1;
 }
 
 void ConfigureTimers()
