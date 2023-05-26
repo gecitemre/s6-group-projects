@@ -75,32 +75,10 @@ void TMR0Interrupt()
 
     if (remaining_frisbee_moves)
     {
-        unsigned int aPlayerHasFrisbee = 0;
-
         ClearObject(&objects[FRISBEE_INDEX]);
         objects[FRISBEE_INDEX].x = frisbee_steps[remaining_frisbee_moves - 1][0];
         objects[FRISBEE_INDEX].y = frisbee_steps[remaining_frisbee_moves - 1][1];
         remaining_frisbee_moves--;
-
-        // check if there are any players on the same cell as the frisbee.
-        // if there are, clear the frisbee and display it on the player.
-        // else, we will display the frisbee on the cell it is on and continue.
-        for (int i = 0; i < 4; i++)
-        {
-            if (objects[i].x == objects[FRISBEE_INDEX].x && objects[i].y == objects[FRISBEE_INDEX].y)
-            {
-                aPlayerHasFrisbee = 1;
-                ClearObject(&objects[FRISBEE_INDEX]);
-                objects[i].data.frisbee = 1;
-                break;
-            }
-        }
-
-        if (!aPlayerHasFrisbee)
-        {
-            DisplayObject(&objects[FRISBEE_INDEX]);
-        }
-
         DisplayObject(&objects[FRISBEE_INDEX]);
     }
     else {
@@ -169,7 +147,7 @@ void TMR0Interrupt()
                     teamB_score++;
                 }
                 ClearObject(&objects[i]);
-                objects[i].data.frisbee = 1;
+                objects[i].data.frisbee = 0;
                 DisplayObject(&objects[i]);
                 break;
             }
