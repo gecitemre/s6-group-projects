@@ -21,3 +21,4 @@ nbproject/Makefile-*
 disassembly/
 *.map
 *.i
+cmake-build-debug/
