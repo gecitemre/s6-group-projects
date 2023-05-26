@@ -59,6 +59,14 @@ void DisplayObject(object* c)
     LCDDat(*(unsigned*)(void*)&(c->data));
 }
 
+void MoveObject(object* c, byte x, byte y)
+{
+    ClearObject(c);
+    c->x = x;
+    c->y = y;
+    DisplayObject(c);
+}
+
 byte teamA_player[] = {
                   0b10001,
                   0b10101,
@@ -154,10 +162,10 @@ byte frisbee_target[] = {
 unsigned short frisbee_steps[15][2];                    // maximum 15 steps in x (horizontal) and y (vertical) directions
 
 // function declarations
-unsigned short compute_frisbee_target_and_route(unsigned short current_fisbee_x_position, unsigned short current_fisbee_y_position);   // a simple implementation is given below
-unsigned short random_generator(unsigned short modulo); // YOU SHOULD IMPLEMENT THIS FUNCTION ON YOUR OWN
+unsigned short ComputeFrisbeeTargetAndRoute(unsigned short current_fisbee_x_position, unsigned short current_fisbee_y_position);   // a simple implementation is given below
+unsigned short RandomGenerator(unsigned short modulo); // YOU SHOULD IMPLEMENT THIS FUNCTION ON YOUR OWN
 
-unsigned short compute_frisbee_target_and_route(unsigned short current_fisbee_x_position, unsigned short current_fisbee_y_position) {
+unsigned short ComputeFrisbeeTargetAndRoute(unsigned short current_fisbee_x_position, unsigned short current_fisbee_y_position) {
     
    // YOU CAN DO ANY NECESSARY CHANGES IN THIS FUNCTION //
     
@@ -171,8 +179,8 @@ unsigned short compute_frisbee_target_and_route(unsigned short current_fisbee_x_
     
     while(1) {  // loop until finding a valid position
         
-        target_x = random_generator(16) + 1; // find a random integer in [0, 15] + 1
-        target_y = random_generator(4) + 1;  // find a random integer in [0, 3] + 1
+        target_x = RandomGenerator(16) + 1; // find a random integer in [0, 15] + 1
+        target_y = RandomGenerator(4) + 1;  // find a random integer in [0, 3] + 1
         
         // how many cells are there in x-dimension (horizontal) between the target and current positions of the frisbee
         if (target_x < current_fisbee_x_position)
@@ -243,7 +251,7 @@ unsigned short compute_frisbee_target_and_route(unsigned short current_fisbee_x_
     return number_of_steps;
 }
 
-unsigned short random_generator(unsigned short modulo) {
+unsigned short RandomGenerator(unsigned short modulo) {
     unsigned randomTimerVal = TMR3L;
 
     TMR3L = TMR3L >> 2;

@@ -72,10 +72,10 @@ void TMR0Interrupt()
     for (int i = 0; i < 4; i++)
     {
         unsigned short conflict = 0,
-            xChangeAmt = random_generator(1),
-            yChangeAmt = random_generator(1),
-            xChangeSign = random_generator(1),
-            yChangeSign = random_generator(1),
+            xChangeAmt = RandomGenerator(1),
+            yChangeAmt = RandomGenerator(1),
+            xChangeSign = RandomGenerator(1),
+            yChangeSign = RandomGenerator(1),
             xCurrent = objects[i].x,
             yCurrent = objects[i].y,
             x = xCurrent + ((xChangeAmt - 1) * (xChangeSign ? 1 : -1)),
@@ -107,10 +107,7 @@ void TMR0Interrupt()
             continue;
         }
         
-        ClearObject(&objects[i]);
-        objects[i].x = x;
-        objects[i].y = y;
-        DisplayObject(&objects[i]);
+        MoveObject(&objects[i], x, y);
     }
 
     // if there are no remaining moves, we will check who has the frisbee.
@@ -173,7 +170,7 @@ void RB0Interrupt()
         last_thrower_team = objects[cursor].data.type;
         objects[cursor].data.frisbee = 0;
         mode = ACTIVE_MODE;
-        remaining_frisbee_moves = compute_frisbee_target_and_route(objects[FRISBEE_INDEX].x, objects[FRISBEE_INDEX].y);
+        remaining_frisbee_moves = ComputeFrisbeeTargetAndRoute(objects[FRISBEE_INDEX].x, objects[FRISBEE_INDEX].y);
         // instead of initiating player moves here, we will calculate them when timer interrupt occurs
 
         // show target
@@ -202,7 +199,6 @@ void RB1Interrupt()
 void RB4Interrupt()
 {
     // up
-    ClearObject(&objects[cursor]);
     if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee)
     {
         if (objects[cursor].y != 1) {
@@ -212,22 +208,18 @@ void RB4Interrupt()
                 if (objects[i].x == objects[cursor].x &&
                         objects[i].y == (objects[cursor].y - 1))
                 {
-                    DisplayObject(&objects[cursor]);
                     return;
                 }
             }
-            
-            objects[cursor].y--;
+            MoveObject(&objects[cursor], objects[cursor].x, objects[cursor].y - 1);
             CheckUserHasFrisbee();
         }
     }
-    DisplayObject(&objects[cursor]);
 }
 
 void RB5Interrupt()
 {
     // right
-    ClearObject(&objects[cursor]);
     if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee)
     {
         if (objects[cursor].x != 16) {
@@ -237,21 +229,18 @@ void RB5Interrupt()
                 if (objects[i].x == (objects[cursor].x + 1) &&
                         objects[i].y == (objects[cursor].y))
                 {
-                    DisplayObject(&objects[cursor]);
                     return;
                 }
             }
-            objects[cursor].x++;
+            MoveObject(&objects[cursor], objects[cursor].x + 1, objects[cursor].y);
             CheckUserHasFrisbee();
         }
     }
-    DisplayObject(&objects[cursor]);
 }
 
 void RB6Interrupt()
 {
     // down
-    ClearObject(&objects[cursor]);
     if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee)
     {
         if (objects[cursor].y != 4) {
@@ -265,17 +254,15 @@ void RB6Interrupt()
                     return;
                 }
             }
-            objects[cursor].y++;
+            MoveObject(&objects[cursor], objects[cursor].x, objects[cursor].y + 1);
             CheckUserHasFrisbee();
         }
     }
-    DisplayObject(&objects[cursor]);
 }
 
 void RB7Interrupt()
 {
     // left
-    ClearObject(&objects[cursor]);
     if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee)
     {
         if (objects[cursor].x != 1) {
@@ -285,11 +272,10 @@ void RB7Interrupt()
                 if (objects[i].x == (objects[cursor].x - 1) &&
                         objects[i].y == (objects[cursor].y))
                 {
-                    DisplayObject(&objects[cursor]);
                     return;
                 }
             }
-            objects[cursor].x--;
+            MoveObject(&objects[cursor], objects[cursor].x - 1, objects[cursor].y);
             CheckUserHasFrisbee();
         }
     }
