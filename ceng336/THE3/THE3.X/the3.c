@@ -73,39 +73,34 @@ void TMR0Interrupt()
 {
     TMR0 = TMR0_START;
 
-    if (remaining_frisbee_moves)
+    if (!remaining_frisbee_moves) return;
+    unsigned int aPlayerHasFrisbee = 0;
+
+    ClearObject(&objects[FRISBEE_INDEX]);
+    objects[FRISBEE_INDEX].x = frisbee_steps[remaining_frisbee_moves - 1][0];
+    objects[FRISBEE_INDEX].y = frisbee_steps[remaining_frisbee_moves - 1][1];
+    remaining_frisbee_moves--;
+
+    // check if there are any players on the same cell as the frisbee.
+    // if there are, clear the frisbee and display it on the player.
+    // else, we will display the frisbee on the cell it is on and continue.
+    for (int i = 0; i < 4; i++)
     {
-        unsigned int aPlayerHasFrisbee = 0;
-
-        ClearObject(&objects[FRISBEE_INDEX]);
-        objects[FRISBEE_INDEX].x = frisbee_steps[remaining_frisbee_moves - 1][0];
-        objects[FRISBEE_INDEX].y = frisbee_steps[remaining_frisbee_moves - 1][1];
-        remaining_frisbee_moves--;
-
-        // check if there are any players on the same cell as the frisbee.
-        // if there are, clear the frisbee and display it on the player.
-        // else, we will display the frisbee on the cell it is on and continue.
-        for (int i = 0; i < 4; i++)
+        if (objects[i].x == objects[FRISBEE_INDEX].x && objects[i].y == objects[FRISBEE_INDEX].y)
         {
-            if (objects[i].x == objects[FRISBEE_INDEX].x && objects[i].y == objects[FRISBEE_INDEX].y)
-            {
-                aPlayerHasFrisbee = 1;
-                ClearObject(&objects[FRISBEE_INDEX]);
-                objects[i].data.frisbee = 1;
-                break;
-            }
+            aPlayerHasFrisbee = 1;
+            ClearObject(&objects[FRISBEE_INDEX]);
+            objects[i].data.frisbee = 1;
+            break;
         }
+    }
 
-        if (!aPlayerHasFrisbee)
-        {
-            DisplayObject(&objects[FRISBEE_INDEX]);
-        }
-
+    if (!aPlayerHasFrisbee)
+    {
         DisplayObject(&objects[FRISBEE_INDEX]);
     }
-    else {
-        return;
-    }
+
+    DisplayObject(&objects[FRISBEE_INDEX]);
 
     for (int i = 0; i < 4; i++)
     {
@@ -121,8 +116,6 @@ void TMR0Interrupt()
 
         if (objects[i].data.selected)
         {
-            ClearObject(&objects[i]);
-            DisplayObject(&objects[i]);
             continue;
         }
 
@@ -228,80 +221,72 @@ void RB1Interrupt()
 void RB4Interrupt()
 {
     // up
-    if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee)
+    if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee && objects[cursor].y != 1)
     {
-        if (objects[cursor].y != 1) {
-            for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
+        {
+            if (i == cursor) continue;
+            if (objects[i].x == objects[cursor].x &&
+                    objects[i].y == (objects[cursor].y - 1))
             {
-                if (i == cursor) continue;
-                if (objects[i].x == objects[cursor].x &&
-                        objects[i].y == (objects[cursor].y - 1))
-                {
-                    return;
-                }
+                return;
             }
-            MoveObject(&objects[cursor], objects[cursor].x, objects[cursor].y - 1);
         }
+        MoveObject(&objects[cursor], objects[cursor].x, objects[cursor].y - 1);
     }
 }
 
 void RB5Interrupt()
 {
     // right
-    if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee)
+    if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee && objects[cursor].x != 16)
     {
-        if (objects[cursor].x != 16) {
-            for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
+        {
+            if (i == cursor) continue;
+            if (objects[i].x == (objects[cursor].x + 1) &&
+                    objects[i].y == (objects[cursor].y))
             {
-                if (i == cursor) continue;
-                if (objects[i].x == (objects[cursor].x + 1) &&
-                        objects[i].y == (objects[cursor].y))
-                {
-                    return;
-                }
+                return;
             }
-            MoveObject(&objects[cursor], objects[cursor].x + 1, objects[cursor].y);
         }
+        MoveObject(&objects[cursor], objects[cursor].x + 1, objects[cursor].y);
     }
 }
 
 void RB6Interrupt()
 {
     // down
-    if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee)
+    if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee && objects[cursor].y != 4)
     {
-        if (objects[cursor].y != 4) {
-            for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
+        {
+            if (i == cursor) continue;
+            if (objects[i].x == objects[cursor].x &&
+                    objects[i].y == (objects[cursor].y + 1))
             {
-                if (i == cursor) continue;
-                if (objects[i].x == objects[cursor].x &&
-                        objects[i].y == (objects[cursor].y + 1))
-                {
-                    return;
-                }
+                return;
             }
-            MoveObject(&objects[cursor], objects[cursor].x, objects[cursor].y + 1);
         }
+        MoveObject(&objects[cursor], objects[cursor].x, objects[cursor].y + 1);
     }
 }
 
 void RB7Interrupt()
 {
     // left
-    if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee)
+    if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee && objects[cursor].x != 1)
     {
-        if (objects[cursor].x != 1) {
-            for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
+        {
+            if (i == cursor) continue;
+            if (objects[i].x == (objects[cursor].x - 1) &&
+                    objects[i].y == (objects[cursor].y))
             {
-                if (i == cursor) continue;
-                if (objects[i].x == (objects[cursor].x - 1) &&
-                        objects[i].y == (objects[cursor].y))
-                {
-                    return;
-                }
+                return;
             }
-            MoveObject(&objects[cursor], objects[cursor].x - 1, objects[cursor].y);
         }
+        MoveObject(&objects[cursor], objects[cursor].x - 1, objects[cursor].y);
     }
     DisplayObject(&objects[cursor]);
 }

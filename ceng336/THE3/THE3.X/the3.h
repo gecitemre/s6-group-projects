@@ -154,10 +154,10 @@ byte frisbee_target[] = {
 unsigned short frisbee_steps[15][2];                    // maximum 15 steps in x (horizontal) and y (vertical) directions
 
 // function declarations
-unsigned short ComputeFrisbeeTargetAndRoute(unsigned short current_fisbee_x_position, unsigned short current_fisbee_y_position);   // a simple implementation is given below
+unsigned short ComputeFrisbeeTargetAndRoute(unsigned short current_frisbee_x_position, unsigned short current_frisbee_y_position);   // a simple implementation is given below
 unsigned short RandomGenerator(unsigned short modulo); // YOU SHOULD IMPLEMENT THIS FUNCTION ON YOUR OWN
 
-unsigned short ComputeFrisbeeTargetAndRoute(unsigned short current_fisbee_x_position, unsigned short current_fisbee_y_position) {
+unsigned short ComputeFrisbeeTargetAndRoute(unsigned short current_frisbee_x_position, unsigned short current_frisbee_y_position) {
     
    // YOU CAN DO ANY NECESSARY CHANGES IN THIS FUNCTION //
     
@@ -175,16 +175,16 @@ unsigned short ComputeFrisbeeTargetAndRoute(unsigned short current_fisbee_x_posi
         target_y = RandomGenerator(4) + 1;  // find a random integer in [0, 3] + 1
         
         // how many cells are there in x-dimension (horizontal) between the target and current positions of the frisbee
-        if (target_x < current_fisbee_x_position)
-            x_step_size = current_fisbee_x_position - target_x;
+        if (target_x < current_frisbee_x_position)
+            x_step_size = current_frisbee_x_position - target_x;
         else
-            x_step_size = target_x - current_fisbee_x_position;
+            x_step_size = target_x - current_frisbee_x_position;
         
         // how many cells are there in y-dimension (vertical) between the target and current positions of the frisbee
-        if (target_y < current_fisbee_y_position)
-            y_step_size = current_fisbee_y_position - target_y;
+        if (target_y < current_frisbee_y_position)
+            y_step_size = current_frisbee_y_position - target_y;
         else
-            y_step_size = target_y - current_fisbee_y_position;
+            y_step_size = target_y - current_frisbee_y_position;
         
         // a close target cell is not preferred much, so change the target if it is very close
         if (x_step_size <= 2 && y_step_size <= 2)
@@ -207,8 +207,8 @@ unsigned short ComputeFrisbeeTargetAndRoute(unsigned short current_fisbee_x_posi
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     
     // steps in x direction
-    unsigned short x = current_fisbee_x_position;
-    if (target_x < current_fisbee_x_position) {
+    unsigned short x = current_frisbee_x_position;
+    if (target_x < current_frisbee_x_position) {
         for (unsigned short i = 0; i < x_step_size; i++) {
             x = x - 1;                  // move in -x direction
             frisbee_steps[i][0] = x;    // the x-position at i^th step
@@ -224,8 +224,8 @@ unsigned short ComputeFrisbeeTargetAndRoute(unsigned short current_fisbee_x_posi
         frisbee_steps[i][0] = x;        // fill the rest of the steps as "no movement" in x direction 
     
     // steps in y direction
-    unsigned short y = current_fisbee_y_position;
-    if (target_y < current_fisbee_y_position) {
+    unsigned short y = current_frisbee_y_position;
+    if (target_y < current_frisbee_y_position) {
         for (unsigned short i = 0; i < y_step_size; i++) {
             y = y - 1;                  // move in -y direction
             frisbee_steps[i][1] = y;    // the y-position at i^th step

@@ -2,15 +2,14 @@
     "configurations": [
         {
             "name": "Linux",
-            "includePath": [
-                "${workspaceFolder}/**"
-            ],
-            "defines": [],
             "compilerPath": "/opt/microchip/xc8/v2.30/bin/xc8-cc",
             "includePath": [
-                "${workspaceFolder}/",
-                "/opt/microchip/xc8/v2.30/pic/include/",
-            ]
+                "${workspaceFolder}",
+                "/opt/microchip/xc8/v2.30/pic/include/**",
+                "/opt/microchip/xc8/v2.30/pic/include/proc/**"
+            ],
+            "intelliSenseMode": "gcc-x64",
+            "cStandard": "${default}"
         }
     ],
     "version": 4
