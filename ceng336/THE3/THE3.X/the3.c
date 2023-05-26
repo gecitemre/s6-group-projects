@@ -55,11 +55,11 @@ int display_dash = 0b01000000;
 // 0 = DISP2, 1 = DISP3, 2 = DISP4
 display_mode displayMode = DISP2;
 
-void MoveObject(object* c, byte x, byte y)
+void MoveObject(unsigned index, byte x, byte y)
 {
-    ClearObject(c);
-    c->x = x;
-    c->y = y;
+    ClearObject(&players[index]);
+    players[index].x = x;
+    players[index].y = y;
     if (players[cursor].x == frisbee_object.x &&
         players[cursor].y == frisbee_object.y &&
         mode == ACTIVE_MODE)
@@ -68,7 +68,7 @@ void MoveObject(object* c, byte x, byte y)
         players[cursor].data.frisbee = 1;
         mode = INACTIVE_MODE;
     }
-    DisplayObject(c);
+    DisplayObject(&players[index]);
 }
 
 void TMR0Interrupt()
@@ -143,7 +143,7 @@ void TMR0Interrupt()
             continue;
         }
         
-        MoveObject(&players[i], x, y);
+        MoveObject(i, x, y);
     }
 
     // if there are no remaining moves, we will check who has the frisbee.
@@ -237,7 +237,7 @@ void RB4Interrupt()
                 return;
             }
         }
-        MoveObject(&players[cursor], players[cursor].x, players[cursor].y - 1);
+        MoveObject(cursor, players[cursor].x, players[cursor].y - 1);
     }
 }
 
@@ -255,7 +255,7 @@ void RB5Interrupt()
                 return;
             }
         }
-        MoveObject(&players[cursor], players[cursor].x + 1, players[cursor].y);
+        MoveObject(cursor, players[cursor].x + 1, players[cursor].y);
     }
 }
 
@@ -273,7 +273,7 @@ void RB6Interrupt()
                 return;
             }
         }
-        MoveObject(&players[cursor], players[cursor].x, players[cursor].y + 1);
+        MoveObject(cursor, players[cursor].x, players[cursor].y + 1);
     }
 }
 
@@ -291,7 +291,7 @@ void RB7Interrupt()
                 return;
             }
         }
-        MoveObject(&players[cursor], players[cursor].x - 1, players[cursor].y);
+        MoveObject(cursor, players[cursor].x - 1, players[cursor].y);
     }
     DisplayObject(&players[cursor]);
 }
