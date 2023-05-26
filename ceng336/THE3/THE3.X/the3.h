@@ -43,6 +43,10 @@ typedef enum {
     INACTIVE_MODE, ACTIVE_MODE
 } game_mode;
 
+typedef enum {
+    DISP2, DISP3, DISP4, LCD
+} display_mode;
+
 void ClearObject(object* c)
 {
     LCDGoto(c->x, c->y);
