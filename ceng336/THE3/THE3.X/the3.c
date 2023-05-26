@@ -30,6 +30,7 @@
 unsigned int teamA_score = 0;
 unsigned int teamB_score = 0;
 unsigned int remaining_frisbee_moves = -1;
+player_type last_thrower_team;
 byte old_PORTB;
 object objects[5];
 byte cursor = 0;
@@ -45,6 +46,9 @@ void tmr0_interrupt()
         objects[FRISBEE_INDEX].y = frisbee_steps[remaining_frisbee_moves - 1][1];
         remaining_frisbee_moves--;
         DisplayObject(&objects[FRISBEE_INDEX]);
+    }
+    else {
+        return;
     }
 
     for (int i = 0; i < 4; i++)
@@ -74,23 +78,47 @@ void tmr0_interrupt()
         objects[i].y = y;
         DisplayObject(&objects[i]);
     }
+
+    // if there are no remaining moves, we will check who has the frisbee.
+    // we will set the game mode to INACTIVE_MODE.
+    // if team A has the frisbee, we will increment team A's score.
+    // if team B has the frisbee, we will increment team B's score.
+    // if no one has the frisbee, we will do nothing.
+    if (!remaining_frisbee_moves)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (objects[i].x == objects[FRISBEE_INDEX].x &&
+                objects[i].y == objects[FRISBEE_INDEX].y)
+            {
+                if (objects[i].data.type == TEAM_A_PLAYER)
+                {
+                    teamA_score++;
+                }
+                else if (objects[i].data.type == TEAM_B_PLAYER)
+                {
+                    teamB_score++;
+                }
+                objects[i].data.frisbee = 0;
+                break;
+            }
+        }
+
+        mode = INACTIVE_MODE;
+    }
 }
 
 void rb0_interrupt()
 {
-    // denotes whether the player is in the same cell as the frisbee
-    unsigned int playerAndFrisbee = 0;
-
-    for (int i = 0; i < 5; i++)
+    if (objects[cursor].x == objects[FRISBEE_INDEX].x &&
+        objects[cursor].y == objects[FRISBEE_INDEX].y &&
+        mode == INACTIVE_MODE)
     {
-        if (objects[i].x == objects[FRISBEE_INDEX].x &&
-            objects[i].y == objects[FRISBEE_INDEX].y &&
-            mode == INACTIVE_MODE)
-        {
-            mode = ACTIVE_MODE;
-            remaining_frisbee_moves = compute_frisbee_target_and_route(objects[FRISBEE_INDEX].x, objects[FRISBEE_INDEX].y);
-            // instead of initiating player moves here, we will calculate them when timer interrupt occurs
-        }
+        last_thrower_team = objects[cursor].data.type;
+        objects[cursor].data.frisbee = 0;
+        mode = ACTIVE_MODE;
+        remaining_frisbee_moves = compute_frisbee_target_and_route(objects[FRISBEE_INDEX].x, objects[FRISBEE_INDEX].y);
+        // instead of initiating player moves here, we will calculate them when timer interrupt occurs
     }
 }
 
