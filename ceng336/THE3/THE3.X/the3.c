@@ -79,7 +79,7 @@ void tmr0_interrupt()
             continue;
         }
 
-        for (int j = 0; j < 5; j++)
+        for (int j = 0; j < 5; j++) // including frisbee
         {
             if (objects[j].x == x && objects[j].y == y)
             {
@@ -124,7 +124,9 @@ void tmr0_interrupt()
         }
 
         shouldDeleteTarget = 1;
-        mode = INACTIVE_MODE;
+
+        // we will make the game mode inactive when the frisbee is caught by a player
+        // mode = INACTIVE_MODE;
     }
 }
 
@@ -252,6 +254,24 @@ void rb7_interrupt()
     DisplayObject(&objects[cursor]);
 }
 
+/**
+ * @brief Check if the user has the frisbee.
+ * if the user is in the same position as the frisbee, then the user has the frisbee.
+ * make the game mode inactive and set the frisbee to the user.
+ */
+void checkUserHasFrisbee()
+{
+    if (objects[cursor].x == objects[FRISBEE_INDEX].x &&
+        objects[cursor].y == objects[FRISBEE_INDEX].y &&
+        mode == ACTIVE_MODE)
+    {
+        objects[cursor].data.frisbee = 1;
+        mode = INACTIVE_MODE;
+        return 1;
+    }
+    return 0;
+}
+
 void __interrupt(high_priority) ISR()
 {
     if (INTCONbits.INT0IF)
@@ -291,6 +311,7 @@ void __interrupt(high_priority) ISR()
         {
             rb7_interrupt();
         }
+        checkUserHasFrisbee();
         INTCONbits.RBIF = 0;
     }
     if (INTCONbits.TMR0IF)
