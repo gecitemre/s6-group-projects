@@ -267,9 +267,7 @@ void checkUserHasFrisbee()
     {
         objects[cursor].data.frisbee = 1;
         mode = INACTIVE_MODE;
-        return 1;
     }
-    return 0;
 }
 
 void __interrupt(high_priority) ISR()
