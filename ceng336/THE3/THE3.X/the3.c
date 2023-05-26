@@ -74,33 +74,12 @@ void TMR0Interrupt()
     TMR0 = TMR0_START;
 
     if (!remaining_frisbee_moves) return;
-    unsigned int aPlayerHasFrisbee = 0;
-
     ClearObject(&objects[FRISBEE_INDEX]);
     objects[FRISBEE_INDEX].x = frisbee_steps[remaining_frisbee_moves - 1][0];
     objects[FRISBEE_INDEX].y = frisbee_steps[remaining_frisbee_moves - 1][1];
     remaining_frisbee_moves--;
-
-    // check if there are any players on the same cell as the frisbee.
-    // if there are, clear the frisbee and display it on the player.
-    // else, we will display the frisbee on the cell it is on and continue.
-    for (int i = 0; i < 4; i++)
-    {
-        if (objects[i].x == objects[FRISBEE_INDEX].x && objects[i].y == objects[FRISBEE_INDEX].y)
-        {
-            aPlayerHasFrisbee = 1;
-            ClearObject(&objects[FRISBEE_INDEX]);
-            objects[i].data.frisbee = 1;
-            break;
-        }
-    }
-
-    if (!aPlayerHasFrisbee)
-    {
-        DisplayObject(&objects[FRISBEE_INDEX]);
-    }
-
     DisplayObject(&objects[FRISBEE_INDEX]);
+
 
     for (int i = 0; i < 4; i++)
     {
@@ -112,7 +91,8 @@ void TMR0Interrupt()
             xCurrent = objects[i].x,
             yCurrent = objects[i].y,
             x = xCurrent + ((xChangeAmt - 1) * (xChangeSign ? 1 : -1)),
-            y = yCurrent + ((yChangeAmt - 1) * (yChangeSign ? 1 : -1));
+            y = yCurrent + ((yChangeAmt - 1) * (yChangeSign ? 1 : -1)),
+            k = 0;
 
         if (objects[i].data.selected)
         {
@@ -124,13 +104,31 @@ void TMR0Interrupt()
             continue;
         }
 
-        for (int j = 0; j < 5; j++) // including frisbee
+        while (k < 8)
         {
-            if (objects[j].x == x && objects[j].y == y)
+            for (int j = 0; j < 5; j++) // including frisbee
             {
-                conflict = 1;
+                if (objects[j].x == x && objects[j].y == y)
+                {
+                    conflict = 1;
+                    break;
+                }
+            }
+            if (conflict)
+            {
+                xChangeAmt = RandomGenerator(1),
+                yChangeAmt = RandomGenerator(1),
+                xChangeSign = RandomGenerator(1),
+                yChangeSign = RandomGenerator(1),
+                x = xCurrent + ((xChangeAmt - 1) * (xChangeSign ? 1 : -1)),
+                y = yCurrent + ((yChangeAmt - 1) * (yChangeSign ? 1 : -1)),
+            }
+            else
+            {
                 break;
             }
+
+            k++;
         }
 
         if (conflict)
@@ -162,7 +160,7 @@ void TMR0Interrupt()
                     teamB_score++;
                 }
                 ClearObject(&objects[i]);
-                objects[i].data.frisbee = 1;
+                objects[i].data.frisbee = 0;
                 DisplayObject(&objects[i]);
                 break;
             }
