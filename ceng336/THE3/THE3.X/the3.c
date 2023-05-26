@@ -32,7 +32,6 @@ unsigned int first_round = 1;
 unsigned int teamA_score = 0;
 unsigned int teamB_score = 0;
 unsigned int remaining_frisbee_moves = 0;
-unsigned int shouldDeleteTarget = 0;    // 1 if the target should be deleted in the next interrupt
 player_type last_thrower_team;
 byte old_PORTB;
 object objects[6];
@@ -65,11 +64,6 @@ void tmr0_interrupt()
         DisplayObject(&objects[FRISBEE_INDEX]);
     }
     else {
-        if (shouldDeleteTarget)
-        {
-            ClearObject(&objects[FRISBEE_TARGET_INDEX]);
-            shouldDeleteTarget = 0;
-        }
         return;
     }
 
@@ -144,7 +138,7 @@ void tmr0_interrupt()
             }
         }
 
-        shouldDeleteTarget = 1;
+        ClearObject(&objects[FRISBEE_TARGET_INDEX]);
 
         // we will make the game mode inactive when the frisbee is caught by a player
         // mode = INACTIVE_MODE;
