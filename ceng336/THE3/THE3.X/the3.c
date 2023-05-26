@@ -53,6 +53,22 @@ int display_dash = 0b01000000;
 // 0 = DISP2, 1 = DISP3, 2 = DISP4
 display_mode displayMode = DISP2;
 
+void MoveObject(object* c, byte x, byte y)
+{
+    ClearObject(c);
+    c->x = x;
+    c->y = y;
+    if (objects[cursor].x == objects[FRISBEE_INDEX].x &&
+        objects[cursor].y == objects[FRISBEE_INDEX].y &&
+        mode == ACTIVE_MODE)
+    {
+        first_round = 0;
+        objects[cursor].data.frisbee = 1;
+        mode = INACTIVE_MODE;
+    }
+    DisplayObject(c);
+}
+
 void TMR0Interrupt()
 {
     TMR0 = TMR0_START;
@@ -149,17 +165,6 @@ void TMR0Interrupt()
  * if the user is in the same position as the frisbee, then the user has the frisbee.
  * make the game mode inactive and set the frisbee to the user.
  */
-void CheckUserHasFrisbee()
-{
-    if (objects[cursor].x == objects[FRISBEE_INDEX].x &&
-        objects[cursor].y == objects[FRISBEE_INDEX].y &&
-        mode == ACTIVE_MODE)
-    {
-        first_round = 0;
-        objects[cursor].data.frisbee = 1;
-        mode = INACTIVE_MODE;
-    }
-}
 
 void RB0Interrupt()
 {
@@ -195,7 +200,6 @@ void RB1Interrupt()
         DisplayObject(&objects[cursor]);
     }
 }
-
 void RB4Interrupt()
 {
     // up
@@ -212,7 +216,6 @@ void RB4Interrupt()
                 }
             }
             MoveObject(&objects[cursor], objects[cursor].x, objects[cursor].y - 1);
-            CheckUserHasFrisbee();
         }
     }
 }
@@ -233,7 +236,6 @@ void RB5Interrupt()
                 }
             }
             MoveObject(&objects[cursor], objects[cursor].x + 1, objects[cursor].y);
-            CheckUserHasFrisbee();
         }
     }
 }
@@ -255,7 +257,6 @@ void RB6Interrupt()
                 }
             }
             MoveObject(&objects[cursor], objects[cursor].x, objects[cursor].y + 1);
-            CheckUserHasFrisbee();
         }
     }
 }
@@ -276,7 +277,6 @@ void RB7Interrupt()
                 }
             }
             MoveObject(&objects[cursor], objects[cursor].x - 1, objects[cursor].y);
-            CheckUserHasFrisbee();
         }
     }
     DisplayObject(&objects[cursor]);

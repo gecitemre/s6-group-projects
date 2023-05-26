@@ -59,14 +59,6 @@ void DisplayObject(object* c)
     LCDDat(*(unsigned*)(void*)&(c->data));
 }
 
-void MoveObject(object* c, byte x, byte y)
-{
-    ClearObject(c);
-    c->x = x;
-    c->y = y;
-    DisplayObject(c);
-}
-
 byte teamA_player[] = {
                   0b10001,
                   0b10101,
