@@ -28,7 +28,7 @@
                 "-mstack=compiled:auto:auto:auto"
             ],
             "includePath": [
-                "${workspaceFolder}/**",
+                "${workspaceFolder}/",
                 "/opt/microchip/xc8/v2.30/pic/include/**",
                 "/opt/microchip/xc8/v2.30/pic/include/proc/**"
             ],
