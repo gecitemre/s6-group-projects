@@ -12,6 +12,7 @@
 
 #define TMR0_START 61629
 #define FRISBEE_INDEX 4
+#define FRISBEE_TARGET_INDEX 5
 
 /**
  * RB0 = throw
@@ -30,9 +31,10 @@
 unsigned int teamA_score = 0;
 unsigned int teamB_score = 0;
 unsigned int remaining_frisbee_moves = -1;
+unsigned int shouldDeleteTarget = 0;    // 1 if the target should be deleted in the next interrupt
 player_type last_thrower_team;
 byte old_PORTB;
-object objects[5];
+object objects[6];
 byte cursor = 0;
 game_mode mode = INACTIVE_MODE;
 
@@ -48,6 +50,11 @@ void tmr0_interrupt()
         DisplayObject(&objects[FRISBEE_INDEX]);
     }
     else {
+        if (shouldDeleteTarget)
+        {
+            ClearObject(&objects[FRISBEE_TARGET_INDEX]);
+            shouldDeleteTarget = 0;
+        }
         return;
     }
 
@@ -104,6 +111,7 @@ void tmr0_interrupt()
             }
         }
 
+        shouldDeleteTarget = 1;
         mode = INACTIVE_MODE;
     }
 }
@@ -119,6 +127,11 @@ void rb0_interrupt()
         mode = ACTIVE_MODE;
         remaining_frisbee_moves = compute_frisbee_target_and_route(objects[FRISBEE_INDEX].x, objects[FRISBEE_INDEX].y);
         // instead of initiating player moves here, we will calculate them when timer interrupt occurs
+
+        // show target
+        objects[FRISBEE_INDEX + 1].x = frisbee_steps[remaining_frisbee_moves - 1][0];
+        objects[FRISBEE_INDEX + 1].y = frisbee_steps[remaining_frisbee_moves - 1][1];
+        DisplayObject(&objects[FRISBEE_INDEX + 1]);
     }
 }
 
@@ -275,6 +288,8 @@ void main(void)
     objects[2] = (object){14, 2, {0,0,  TEAM_B_PLAYER}};
     objects[3] = (object){14, 3, {0,0,  TEAM_B_PLAYER}};
     objects[FRISBEE_INDEX] = (object){9, 2, {0, 1, FRISBEE}};
+    // there is also a frisbee target, which is not shown initially
+
     for (int i = 0; i < 5; i++)
     {
         DisplayObject(&objects[i]);
