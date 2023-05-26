@@ -2,6 +2,8 @@
     "files.associations": {
         "*.s": "asm",
         "lcd.h": "c",
-        "the3.h": "c"
+        "the3.h": "c",
+        "pragmas.h": "c",
+        "xc.h": "c"
     }
 }

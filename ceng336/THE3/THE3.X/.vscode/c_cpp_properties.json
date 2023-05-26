@@ -29,8 +29,7 @@
             ],
             "includePath": [
                 "${workspaceFolder}/",
-                "/opt/microchip/xc8/v2.30/pic/include/**",
-                "/opt/microchip/xc8/v2.30/pic/include/proc/**"
+                "/opt/microchip/xc8/v2.30/pic/include/**"
             ],
             "intelliSenseMode": "gcc-x64"
         }
