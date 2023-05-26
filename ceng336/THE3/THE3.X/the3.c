@@ -28,6 +28,7 @@
  *      - DISP3 = '-'
  */
 
+unsigned int first_round = 1;
 unsigned int teamA_score = 0;
 unsigned int teamB_score = 0;
 unsigned int remaining_frisbee_moves = 0;
@@ -44,6 +45,7 @@ void tmr0_interrupt()
 
     if (remaining_frisbee_moves)
     {
+        ClearObject(&objects[FRISBEE_INDEX]);
         objects[FRISBEE_INDEX].x = frisbee_steps[remaining_frisbee_moves - 1][0];
         objects[FRISBEE_INDEX].y = frisbee_steps[remaining_frisbee_moves - 1][1];
         remaining_frisbee_moves--;
@@ -71,11 +73,14 @@ void tmr0_interrupt()
             y = yCurrent + ((yChangeAmt - 1) * (yChangeSign ? 1 : -1));
 
         if (objects[i].data.selected)
+        {
+            ClearObject(&objects[i]);
+            DisplayObject(&objects[i]);
             continue;
+        }
 
         if (x < 1 || x > 16 || y < 1 || y > 4)
         {
-            DisplayObject(&objects[i]);
             continue;
         }
 
@@ -90,9 +95,10 @@ void tmr0_interrupt()
 
         if (conflict)
         {
-            DisplayObject(&objects[i]);
             continue;
         }
+        
+        ClearObject(&objects[i]);
         objects[i].x = x;
         objects[i].y = y;
         DisplayObject(&objects[i]);
@@ -118,7 +124,9 @@ void tmr0_interrupt()
                 {
                     teamB_score++;
                 }
+                ClearObject(&objects[i]);
                 objects[i].data.frisbee = 0;
+                DisplayObject(&objects[i]);
                 break;
             }
         }
@@ -141,6 +149,7 @@ void checkUserHasFrisbee()
         objects[cursor].y == objects[FRISBEE_INDEX].y &&
         mode == ACTIVE_MODE)
     {
+        first_round = 0;
         objects[cursor].data.frisbee = 1;
         mode = INACTIVE_MODE;
     }
@@ -167,10 +176,14 @@ void rb0_interrupt()
 
 void rb1_interrupt()
 {
-    if (mode == INACTIVE_MODE && objects[cursor].data.frisbee)
+    if ((mode == INACTIVE_MODE || first_round) && !objects[cursor].data.frisbee)
     {
         objects[cursor].data.selected = 0;
+        ClearObject(&objects[cursor]);
+        DisplayObject(&objects[cursor]);
+        
         cursor = (cursor + 1) % 4; // do not take frisbee into consideration
+        
         objects[cursor].data.selected = 1;
         ClearObject(&objects[cursor]);
         DisplayObject(&objects[cursor]);
@@ -371,6 +384,7 @@ void main(void)
     objects[2] = (object){14, 2, {0,0,  TEAM_B_PLAYER}};
     objects[3] = (object){14, 3, {0,0,  TEAM_B_PLAYER}};
     objects[FRISBEE_INDEX] = (object){9, 2, {0, 1, FRISBEE}};
+    objects[FRISBEE_TARGET_INDEX] = (object){1,1, {0,0,FRISBEE_TARGET}};
     // there is also a frisbee target, which is not shown initially
 
     for (int i = 0; i < 5; i++)
