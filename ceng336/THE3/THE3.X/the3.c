@@ -53,7 +53,7 @@ int display_dash = 0b01000000;
 // 0 = DISP2, 1 = DISP3, 2 = DISP4
 display_mode displayMode = DISP2;
 
-void tmr0_interrupt()
+void TMR0Interrupt()
 {
     TMR0 = TMR0_START;
 
@@ -152,7 +152,7 @@ void tmr0_interrupt()
  * if the user is in the same position as the frisbee, then the user has the frisbee.
  * make the game mode inactive and set the frisbee to the user.
  */
-void checkUserHasFrisbee()
+void CheckUserHasFrisbee()
 {
     if (objects[cursor].x == objects[FRISBEE_INDEX].x &&
         objects[cursor].y == objects[FRISBEE_INDEX].y &&
@@ -164,7 +164,7 @@ void checkUserHasFrisbee()
     }
 }
 
-void rb0_interrupt()
+void RB0Interrupt()
 {
     if (objects[cursor].x == objects[FRISBEE_INDEX].x &&
         objects[cursor].y == objects[FRISBEE_INDEX].y &&
@@ -183,7 +183,7 @@ void rb0_interrupt()
     }
 }
 
-void rb1_interrupt()
+void RB1Interrupt()
 {
     if ((mode == INACTIVE_MODE || first_round) && !objects[cursor].data.frisbee)
     {
@@ -199,7 +199,7 @@ void rb1_interrupt()
     }
 }
 
-void rb4_interrupt()
+void RB4Interrupt()
 {
     // up
     ClearObject(&objects[cursor]);
@@ -218,13 +218,13 @@ void rb4_interrupt()
             }
             
             objects[cursor].y--;
-            checkUserHasFrisbee();
+            CheckUserHasFrisbee();
         }
     }
     DisplayObject(&objects[cursor]);
 }
 
-void rb5_interrupt()
+void RB5Interrupt()
 {
     // right
     ClearObject(&objects[cursor]);
@@ -242,13 +242,13 @@ void rb5_interrupt()
                 }
             }
             objects[cursor].x++;
-            checkUserHasFrisbee();
+            CheckUserHasFrisbee();
         }
     }
     DisplayObject(&objects[cursor]);
 }
 
-void rb6_interrupt()
+void RB6Interrupt()
 {
     // down
     ClearObject(&objects[cursor]);
@@ -266,13 +266,13 @@ void rb6_interrupt()
                 }
             }
             objects[cursor].y++;
-            checkUserHasFrisbee();
+            CheckUserHasFrisbee();
         }
     }
     DisplayObject(&objects[cursor]);
 }
 
-void rb7_interrupt()
+void RB7Interrupt()
 {
     // left
     ClearObject(&objects[cursor]);
@@ -290,7 +290,7 @@ void rb7_interrupt()
                 }
             }
             objects[cursor].x--;
-            checkUserHasFrisbee();
+            CheckUserHasFrisbee();
         }
     }
     DisplayObject(&objects[cursor]);
@@ -306,7 +306,7 @@ void __interrupt(high_priority) ISR()
         old_PORTB = new_PORTB;
         if (falling_edge.RB0)
         {
-            rb0_interrupt();
+            RB0Interrupt();
         }
         INTCONbits.INT0IF = 0;
     }
@@ -318,7 +318,7 @@ void __interrupt(high_priority) ISR()
         old_PORTB = new_PORTB;
         if (falling_edge.RB1)
         {
-            rb1_interrupt();
+            RB1Interrupt();
         }
         INTCON3bits.INT1IF = 0;
     }
@@ -329,25 +329,25 @@ void __interrupt(high_priority) ISR()
         old_PORTB = new_PORTB;
         if (falling_edge.RB4)
         {
-            rb4_interrupt();
+            RB4Interrupt();
         }
         if (falling_edge.RB5)
         {
-            rb5_interrupt();
+            RB5Interrupt();
         }
         if (falling_edge.RB6)
         {
-            rb6_interrupt();
+            RB6Interrupt();
         }
         if (falling_edge.RB7)
         {
-            rb7_interrupt();
+            RB7Interrupt();
         }
         INTCONbits.RBIF = 0;
     }
     if (INTCONbits.TMR0IF)
     {
-        tmr0_interrupt();
+        TMR0Interrupt();
         INTCONbits.TMR0IF = 0;
     }
 }
@@ -396,7 +396,7 @@ int determineScoreDisplay(unsigned score)
     return display_num_array[score % 10];
 }
 
-void switchDisplay()
+void SwitchDisplay()
 {
     displayMode = (displayMode + 1) % 3;
 
@@ -443,7 +443,7 @@ void main(void)
     {
         if (counter == 100)
         {
-            switchDisplay();
+            SwitchDisplay();
             counter = 0;
         }
         

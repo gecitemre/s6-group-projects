@@ -6,7 +6,12 @@
                 "${workspaceFolder}/**"
             ],
             "defines": [],
-            "compilerPath": "/opt/microchip/xc8/v2.30/bin/xc8-cc"
+            "compilerPath": "/opt/microchip/xc8/v2.30/bin/xc8-cc",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/opt/microchip/xc8/v2.30/pic/include/**",
+                "/opt/microchip/xc8/v2.30/pic/include/proc/**"
+            ]
         }
     ],
     "version": 4
