@@ -185,19 +185,22 @@ void RB0Interrupt()
     }
 }
 
+void SelectObject(unsigned index)
+{
+    ClearObject(&objects[cursor]);
+    objects[cursor].data.selected = 0;
+    DisplayObject(&objects[cursor]);
+    cursor = index;
+    ClearObject(&objects[cursor]);
+    objects[cursor].data.selected = 1;
+    DisplayObject(&objects[cursor]);
+}
+
 void RB1Interrupt()
 {
     if ((mode == INACTIVE_MODE || first_round) && !objects[cursor].data.frisbee)
     {
-        ClearObject(&objects[cursor]);
-        objects[cursor].data.selected = 0;
-        DisplayObject(&objects[cursor]);
-        
-        cursor = (cursor + 1) % 4; // do not take frisbee into consideration
-        
-        ClearObject(&objects[cursor]);
-        objects[cursor].data.selected = 1;
-        DisplayObject(&objects[cursor]);
+        SelectObject((cursor + 1) % 4);
     }
 }
 void RB4Interrupt()
@@ -252,7 +255,6 @@ void RB6Interrupt()
                 if (objects[i].x == objects[cursor].x &&
                         objects[i].y == (objects[cursor].y + 1))
                 {
-                    DisplayObject(&objects[cursor]);
                     return;
                 }
             }
