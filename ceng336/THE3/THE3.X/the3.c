@@ -50,8 +50,8 @@ int display_num_array [] = {
     0b01101111
 };
 int display_dash = 0b01000000;
-// 0 = DISP2, 1 = DISP3, 2 = DISP4, 3 = LCD
-display_mode displayMode = LCD;
+// 0 = DISP2, 1 = DISP3, 2 = DISP4
+display_mode displayMode = DISP2;
 
 void tmr0_interrupt()
 {
@@ -355,6 +355,7 @@ void __interrupt(high_priority) ISR()
 void ConfigurePorts()
 {
     // TRISB = 0b11111111; (default)
+    TRISA = 0;
 }
 
 void ConfigureInterrupts()
@@ -397,22 +398,22 @@ int determineScoreDisplay(unsigned score)
 
 void switchDisplay()
 {
-    displayMode = (displayMode + 1) % 4;
+    displayMode = (displayMode + 1) % 3;
 
     if (displayMode == DISP2)
     {
-        LATD = determineScoreDisplay(scoreA);
-        LATA = 0b00000010;
+        LATD = determineScoreDisplay(teamA_score);
+        LATA = 0b00001000;
     }
     else if (displayMode == DISP3)
     {
         LATD = display_dash;
-        LATA = 0b00000100;
+        LATA = 0b00010000;
     }
     else if (displayMode == DISP4)
     {
-        LATD = determineScoreDisplay(scoreB);
-        LATA = 0b00001000;
+        LATD = determineScoreDisplay(teamB_score);
+        LATA = 0b00100000;
     }
 }
 
@@ -445,5 +446,7 @@ void main(void)
             switchDisplay();
             counter = 0;
         }
+        
+        counter++;
     }
 }

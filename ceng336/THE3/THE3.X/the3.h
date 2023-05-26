@@ -44,7 +44,7 @@ typedef enum {
 } game_mode;
 
 typedef enum {
-    DISP2, DISP3, DISP4, LCD
+    DISP2, DISP3, DISP4 // LCD
 } display_mode;
 
 void ClearObject(object* c)
