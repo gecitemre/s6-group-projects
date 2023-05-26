@@ -101,13 +101,18 @@ void TMR0Interrupt()
             continue;
         }
 
-        if (x < 1 || x > 16 || y < 1 || y > 4)
-        {
-            continue;
-        }
-
         while (k < 8)
         {
+            if (x < 1 || x > 16 || y < 1 || y > 4)
+            {
+                xChangeAmt = RandomGenerator(1);
+                yChangeAmt = RandomGenerator(1);
+                xChangeSign = RandomGenerator(1);
+                yChangeSign = RandomGenerator(1);
+                x = xCurrent + ((xChangeAmt - 1) * (xChangeSign ? 1 : -1));
+                y = yCurrent + ((yChangeAmt - 1) * (yChangeSign ? 1 : -1));
+                continue;
+            }
             for (int j = 0; j < 5; j++) // including frisbee
             {
                 if (players[j].x == x && players[j].y == y)
@@ -118,11 +123,11 @@ void TMR0Interrupt()
             }
             if (conflict)
             {
-                xChangeAmt = RandomGenerator(1),
-                yChangeAmt = RandomGenerator(1),
-                xChangeSign = RandomGenerator(1),
-                yChangeSign = RandomGenerator(1),
-                x = xCurrent + ((xChangeAmt - 1) * (xChangeSign ? 1 : -1)),
+                xChangeAmt = RandomGenerator(1);
+                yChangeAmt = RandomGenerator(1);
+                xChangeSign = RandomGenerator(1);
+                yChangeSign = RandomGenerator(1);
+                x = xCurrent + ((xChangeAmt - 1) * (xChangeSign ? 1 : -1));
                 y = yCurrent + ((yChangeAmt - 1) * (yChangeSign ? 1 : -1));
             }
             else
