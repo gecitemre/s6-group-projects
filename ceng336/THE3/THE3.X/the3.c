@@ -37,7 +37,7 @@ byte old_PORTB;
 object objects[6];
 byte cursor = 0;
 game_mode mode = ACTIVE_MODE;
-int *display_num_array = {
+int display_num_array [] = {
     0b00111111,
     0b00000110,
     0b01011011,
@@ -50,6 +50,8 @@ int *display_num_array = {
     0b01101111
 };
 int display_dash = 0b01000000;
+// 0 = DISP2, 1 = DISP3, 2 = DISP4
+display_mode displayMode = DISP2;
 
 void tmr0_interrupt()
 {
@@ -353,6 +355,7 @@ void __interrupt(high_priority) ISR()
 void ConfigurePorts()
 {
     // TRISB = 0b11111111; (default)
+    TRISA = 0;
 }
 
 void ConfigureInterrupts()
@@ -390,12 +393,34 @@ void InitGame()
 
 int determineScoreDisplay(unsigned score)
 {
-    return display_num_array[score > 9 ? 9 : score];
+    return display_num_array[score % 10];
 }
+
+void switchDisplay()
+{
+    displayMode = (displayMode + 1) % 3;
+
+    if (displayMode == DISP2)
+    {
+        LATD = determineScoreDisplay(teamA_score);
+        LATA = 0b00001000;
+    }
+    else if (displayMode == DISP3)
+    {
+        LATD = display_dash;
+        LATA = 0b00010000;
+    }
+    else if (displayMode == DISP4)
+    {
+        LATD = determineScoreDisplay(teamB_score);
+        LATA = 0b00100000;
+    }
+}
+
 void main(void)
 {
-    // 0 = DISP2, 1 = DISP3, 2 = DISP4, 3 = LCD
-    int currentDisplay = 0;
+    int counter = 0;
+
     ConfigurePorts();
     InitLCD();
     InitGame();
@@ -416,6 +441,12 @@ void main(void)
     }
     while (1)
     {
-
+        if (counter == 100)
+        {
+            switchDisplay();
+            counter = 0;
+        }
+        
+        counter++;
     }
 }
