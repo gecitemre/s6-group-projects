@@ -11,8 +11,6 @@
 #include "the3.h"
 
 #define TMR0_START 61629
-#define FRISBEE_INDEX 4
-#define FRISBEE_TARGET_INDEX 5
 
 /**
  * RB0 = throw
@@ -34,8 +32,12 @@ unsigned int teamB_score = 0;
 unsigned int remaining_frisbee_moves = 0;
 player_type last_thrower_team;
 byte old_PORTB;
-object objects[6];
+object players[4];
+
+object frisbee_object = (object){9, 2, {0, 1, FRISBEE}};
+object frisbee_target_object = (object){1,1, {0,1,FRISBEE_TARGET}};
 byte cursor = 0;
+
 game_mode mode = ACTIVE_MODE;
 int display_num_array [] = {
     0b00111111,
@@ -58,12 +60,12 @@ void MoveObject(object* c, byte x, byte y)
     ClearObject(c);
     c->x = x;
     c->y = y;
-    if (objects[cursor].x == objects[FRISBEE_INDEX].x &&
-        objects[cursor].y == objects[FRISBEE_INDEX].y &&
+    if (players[cursor].x == frisbee_object.x &&
+        players[cursor].y == frisbee_object.y &&
         mode == ACTIVE_MODE)
     {
         first_round = 0;
-        objects[cursor].data.frisbee = 1;
+        players[cursor].data.frisbee = 1;
         mode = INACTIVE_MODE;
     }
     DisplayObject(c);
@@ -74,11 +76,11 @@ void TMR0Interrupt()
     TMR0 = TMR0_START;
 
     if (!remaining_frisbee_moves) return;
-    ClearObject(&objects[FRISBEE_INDEX]);
-    objects[FRISBEE_INDEX].x = frisbee_steps[remaining_frisbee_moves - 1][0];
-    objects[FRISBEE_INDEX].y = frisbee_steps[remaining_frisbee_moves - 1][1];
+    ClearObject(&frisbee_object);
+    frisbee_object.x = frisbee_steps[remaining_frisbee_moves - 1][0];
+    frisbee_object.y = frisbee_steps[remaining_frisbee_moves - 1][1];
     remaining_frisbee_moves--;
-    DisplayObject(&objects[FRISBEE_INDEX]);
+    DisplayObject(&frisbee_object);
 
 
     for (int i = 0; i < 4; i++)
@@ -88,13 +90,13 @@ void TMR0Interrupt()
             yChangeAmt = RandomGenerator(1),
             xChangeSign = RandomGenerator(1),
             yChangeSign = RandomGenerator(1),
-            xCurrent = objects[i].x,
-            yCurrent = objects[i].y,
+            xCurrent = players[i].x,
+            yCurrent = players[i].y,
             x = xCurrent + ((xChangeAmt - 1) * (xChangeSign ? 1 : -1)),
             y = yCurrent + ((yChangeAmt - 1) * (yChangeSign ? 1 : -1)),
             k = 0;
 
-        if (objects[i].data.selected)
+        if (players[i].data.selected)
         {
             continue;
         }
@@ -108,7 +110,7 @@ void TMR0Interrupt()
         {
             for (int j = 0; j < 5; j++) // including frisbee
             {
-                if (objects[j].x == x && objects[j].y == y)
+                if (players[j].x == x && players[j].y == y)
                 {
                     conflict = 1;
                     break;
@@ -136,7 +138,7 @@ void TMR0Interrupt()
             continue;
         }
         
-        MoveObject(&objects[i], x, y);
+        MoveObject(&players[i], x, y);
     }
 
     // if there are no remaining moves, we will check who has the frisbee.
@@ -148,25 +150,25 @@ void TMR0Interrupt()
     {
         for (int i = 0; i < 4; i++)
         {
-            if (objects[i].x == objects[FRISBEE_INDEX].x &&
-                objects[i].y == objects[FRISBEE_INDEX].y)
+            if (players[i].x == frisbee_object.x &&
+                players[i].y == frisbee_object.y)
             {
-                if (objects[i].data.type == TEAM_A_PLAYER)
+                if (players[i].data.type == TEAM_A_PLAYER)
                 {
                     teamA_score++;
                 }
-                else if (objects[i].data.type == TEAM_B_PLAYER)
+                else if (players[i].data.type == TEAM_B_PLAYER)
                 {
                     teamB_score++;
                 }
-                ClearObject(&objects[i]);
-                objects[i].data.frisbee = 0;
-                DisplayObject(&objects[i]);
+                ClearObject(&players[i]);
+                players[i].data.frisbee = 0;
+                DisplayObject(&players[i]);
                 break;
             }
         }
 
-        ClearObject(&objects[FRISBEE_TARGET_INDEX]);
+        ClearObject(&frisbee_target_object);
 
         // we will make the game mode inactive when the frisbee is caught by a player
         // mode = INACTIVE_MODE;
@@ -181,37 +183,37 @@ void TMR0Interrupt()
 
 void RB0Interrupt()
 {
-    if (objects[cursor].x == objects[FRISBEE_INDEX].x &&
-        objects[cursor].y == objects[FRISBEE_INDEX].y &&
+    if (players[cursor].x == frisbee_object.x &&
+        players[cursor].y == frisbee_object.y &&
         mode == INACTIVE_MODE)
     {
-        last_thrower_team = objects[cursor].data.type;
-        objects[cursor].data.frisbee = 0;
+        last_thrower_team = players[cursor].data.type;
+        players[cursor].data.frisbee = 0;
         mode = ACTIVE_MODE;
-        remaining_frisbee_moves = ComputeFrisbeeTargetAndRoute(objects[FRISBEE_INDEX].x, objects[FRISBEE_INDEX].y);
+        remaining_frisbee_moves = ComputeFrisbeeTargetAndRoute(frisbee_object.x, frisbee_object.y);
         // instead of initiating player moves here, we will calculate them when timer interrupt occurs
 
         // show target
-        objects[FRISBEE_INDEX + 1].x = frisbee_steps[remaining_frisbee_moves - 1][0];
-        objects[FRISBEE_INDEX + 1].y = frisbee_steps[remaining_frisbee_moves - 1][1];
-        DisplayObject(&objects[FRISBEE_INDEX + 1]);
+        frisbee_target_object.x = frisbee_steps[remaining_frisbee_moves - 1][0];
+        frisbee_target_object.y = frisbee_steps[remaining_frisbee_moves - 1][1];
+        DisplayObject(&frisbee_target_object);
     }
 }
 
 void SelectObject(unsigned index)
 {
-    ClearObject(&objects[cursor]);
-    objects[cursor].data.selected = 0;
-    DisplayObject(&objects[cursor]);
+    ClearObject(&players[cursor]);
+    players[cursor].data.selected = 0;
+    DisplayObject(&players[cursor]);
     cursor = index;
-    ClearObject(&objects[cursor]);
-    objects[cursor].data.selected = 1;
-    DisplayObject(&objects[cursor]);
+    ClearObject(&players[cursor]);
+    players[cursor].data.selected = 1;
+    DisplayObject(&players[cursor]);
 }
 
 void RB1Interrupt()
 {
-    if ((mode == INACTIVE_MODE || first_round) && !objects[cursor].data.frisbee)
+    if ((mode == INACTIVE_MODE || first_round) && !players[cursor].data.frisbee)
     {
         SelectObject((cursor + 1) % 4);
     }
@@ -219,74 +221,74 @@ void RB1Interrupt()
 void RB4Interrupt()
 {
     // up
-    if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee && objects[cursor].y != 1)
+    if (mode == ACTIVE_MODE && players[cursor].data.selected && !players[cursor].data.frisbee && players[cursor].y != 1)
     {
         for (int i = 0; i < 4; i++)
         {
             if (i == cursor) continue;
-            if (objects[i].x == objects[cursor].x &&
-                    objects[i].y == (objects[cursor].y - 1))
+            if (players[i].x == players[cursor].x &&
+                    players[i].y == (players[cursor].y - 1))
             {
                 return;
             }
         }
-        MoveObject(&objects[cursor], objects[cursor].x, objects[cursor].y - 1);
+        MoveObject(&players[cursor], players[cursor].x, players[cursor].y - 1);
     }
 }
 
 void RB5Interrupt()
 {
     // right
-    if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee && objects[cursor].x != 16)
+    if (mode == ACTIVE_MODE && players[cursor].data.selected && !players[cursor].data.frisbee && players[cursor].x != 16)
     {
         for (int i = 0; i < 4; i++)
         {
             if (i == cursor) continue;
-            if (objects[i].x == (objects[cursor].x + 1) &&
-                    objects[i].y == (objects[cursor].y))
+            if (players[i].x == (players[cursor].x + 1) &&
+                    players[i].y == (players[cursor].y))
             {
                 return;
             }
         }
-        MoveObject(&objects[cursor], objects[cursor].x + 1, objects[cursor].y);
+        MoveObject(&players[cursor], players[cursor].x + 1, players[cursor].y);
     }
 }
 
 void RB6Interrupt()
 {
     // down
-    if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee && objects[cursor].y != 4)
+    if (mode == ACTIVE_MODE && players[cursor].data.selected && !players[cursor].data.frisbee && players[cursor].y != 4)
     {
         for (int i = 0; i < 4; i++)
         {
             if (i == cursor) continue;
-            if (objects[i].x == objects[cursor].x &&
-                    objects[i].y == (objects[cursor].y + 1))
+            if (players[i].x == players[cursor].x &&
+                    players[i].y == (players[cursor].y + 1))
             {
                 return;
             }
         }
-        MoveObject(&objects[cursor], objects[cursor].x, objects[cursor].y + 1);
+        MoveObject(&players[cursor], players[cursor].x, players[cursor].y + 1);
     }
 }
 
 void RB7Interrupt()
 {
     // left
-    if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee && objects[cursor].x != 1)
+    if (mode == ACTIVE_MODE && players[cursor].data.selected && !players[cursor].data.frisbee && players[cursor].x != 1)
     {
         for (int i = 0; i < 4; i++)
         {
             if (i == cursor) continue;
-            if (objects[i].x == (objects[cursor].x - 1) &&
-                    objects[i].y == (objects[cursor].y))
+            if (players[i].x == (players[cursor].x - 1) &&
+                    players[i].y == (players[cursor].y))
             {
                 return;
             }
         }
-        MoveObject(&objects[cursor], objects[cursor].x - 1, objects[cursor].y);
+        MoveObject(&players[cursor], players[cursor].x - 1, players[cursor].y);
     }
-    DisplayObject(&objects[cursor]);
+    DisplayObject(&players[cursor]);
 }
 
 void __interrupt(high_priority) ISR()
@@ -419,19 +421,16 @@ void main(void)
     InitGame();
     ConfigureInterrupts();
     ConfigureTimers();
-    objects[0] = (object){3, 2, {1,  0, TEAM_A_PLAYER}};
-    objects[1] = (object){3, 3, {0, 0, TEAM_A_PLAYER}};
-    objects[2] = (object){14, 2, {0,0,  TEAM_B_PLAYER}};
-    objects[3] = (object){14, 3, {0,0,  TEAM_B_PLAYER}};
-    objects[FRISBEE_INDEX] = (object){9, 2, {0, 1, FRISBEE}};
+    players[0] = (object){3, 2, {1,  0, TEAM_A_PLAYER}};
+    players[1] = (object){3, 3, {0, 0, TEAM_A_PLAYER}};
+    players[2] = (object){14, 2, {0,0,  TEAM_B_PLAYER}};
+    players[3] = (object){14, 3, {0,0,  TEAM_B_PLAYER}};
     
-    // there is also a frisbee target, which is not shown initially
-    objects[FRISBEE_TARGET_INDEX] = (object){1,1, {0,1,FRISBEE_TARGET}};
-    
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 4; i++)
     {
-        DisplayObject(&objects[i]);
+        DisplayObject(&players[i]);
     }
+    DisplayObject(&frisbee_object);
     while (1)
     {
         if (counter == 100)
