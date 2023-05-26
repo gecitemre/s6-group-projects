@@ -36,7 +36,7 @@ player_type last_thrower_team;
 byte old_PORTB;
 object objects[6];
 byte cursor = 0;
-game_mode mode = INACTIVE_MODE;
+game_mode mode = ACTIVE_MODE;
 
 void tmr0_interrupt()
 {
@@ -166,6 +166,17 @@ void rb4_interrupt()
     if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee)
     {
         if (objects[cursor].y != 1) {
+            for (int i = 0; i < 4; i++)
+            {
+                if (i == cursor) continue;
+                if (objects[i].x == objects[cursor].x &&
+                        objects[i].y == (objects[cursor].y - 1))
+                {
+                    DisplayObject(&objects[cursor]);
+                    return;
+                }
+            }
+            
             objects[cursor].y--;
         }
     }
@@ -179,6 +190,16 @@ void rb5_interrupt()
     if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee)
     {
         if (objects[cursor].x != 16) {
+            for (int i = 0; i < 4; i++)
+            {
+                if (i == cursor) continue;
+                if (objects[i].x == (objects[cursor].x + 1) &&
+                        objects[i].y == (objects[cursor].y))
+                {
+                    DisplayObject(&objects[cursor]);
+                    return;
+                }
+            }
             objects[cursor].x++;
         }
     }
@@ -192,6 +213,16 @@ void rb6_interrupt()
     if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee)
     {
         if (objects[cursor].y != 4) {
+            for (int i = 0; i < 4; i++)
+            {
+                if (i == cursor) continue;
+                if (objects[i].x == objects[cursor].x &&
+                        objects[i].y == (objects[cursor].y + 1))
+                {
+                    DisplayObject(&objects[cursor]);
+                    return;
+                }
+            }
             objects[cursor].y++;
         }
     }
@@ -205,6 +236,16 @@ void rb7_interrupt()
     if (mode == ACTIVE_MODE && objects[cursor].data.selected && !objects[cursor].data.frisbee)
     {
         if (objects[cursor].x != 1) {
+            for (int i = 0; i < 4; i++)
+            {
+                if (i == cursor) continue;
+                if (objects[i].x == (objects[cursor].x - 1) &&
+                        objects[i].y == (objects[cursor].y))
+                {
+                    DisplayObject(&objects[cursor]);
+                    return;
+                }
+            }
             objects[cursor].x--;
         }
     }
