@@ -95,7 +95,8 @@ void TMR0Interrupt()
             xCurrent = objects[i].x,
             yCurrent = objects[i].y,
             x = xCurrent + ((xChangeAmt - 1) * (xChangeSign ? 1 : -1)),
-            y = yCurrent + ((yChangeAmt - 1) * (yChangeSign ? 1 : -1));
+            y = yCurrent + ((yChangeAmt - 1) * (yChangeSign ? 1 : -1)),
+            k = 0;
 
         if (objects[i].data.selected)
         {
@@ -109,13 +110,31 @@ void TMR0Interrupt()
             continue;
         }
 
-        for (int j = 0; j < 5; j++) // including frisbee
+        while (k < 8)
         {
-            if (objects[j].x == x && objects[j].y == y)
+            for (int j = 0; j < 5; j++) // including frisbee
             {
-                conflict = 1;
+                if (objects[j].x == x && objects[j].y == y)
+                {
+                    conflict = 1;
+                    break;
+                }
+            }
+            if (conflict)
+            {
+                xChangeAmt = RandomGenerator(1),
+                yChangeAmt = RandomGenerator(1),
+                xChangeSign = RandomGenerator(1),
+                yChangeSign = RandomGenerator(1),
+                x = xCurrent + ((xChangeAmt - 1) * (xChangeSign ? 1 : -1)),
+                y = yCurrent + ((yChangeAmt - 1) * (yChangeSign ? 1 : -1)),
+            }
+            else
+            {
                 break;
             }
+
+            k++;
         }
 
         if (conflict)
