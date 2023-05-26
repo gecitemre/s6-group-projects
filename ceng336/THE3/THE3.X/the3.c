@@ -121,7 +121,7 @@ void TMR0Interrupt()
                 xChangeSign = RandomGenerator(1),
                 yChangeSign = RandomGenerator(1),
                 x = xCurrent + ((xChangeAmt - 1) * (xChangeSign ? 1 : -1)),
-                y = yCurrent + ((yChangeAmt - 1) * (yChangeSign ? 1 : -1)),
+                y = yCurrent + ((yChangeAmt - 1) * (yChangeSign ? 1 : -1));
             }
             else
             {
