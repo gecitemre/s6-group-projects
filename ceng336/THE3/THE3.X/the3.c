@@ -130,6 +130,22 @@ void tmr0_interrupt()
     }
 }
 
+/**
+ * @brief Check if the user has the frisbee.
+ * if the user is in the same position as the frisbee, then the user has the frisbee.
+ * make the game mode inactive and set the frisbee to the user.
+ */
+void checkUserHasFrisbee()
+{
+    if (objects[cursor].x == objects[FRISBEE_INDEX].x &&
+        objects[cursor].y == objects[FRISBEE_INDEX].y &&
+        mode == ACTIVE_MODE)
+    {
+        objects[cursor].data.frisbee = 1;
+        mode = INACTIVE_MODE;
+    }
+}
+
 void rb0_interrupt()
 {
     if (objects[cursor].x == objects[FRISBEE_INDEX].x &&
@@ -180,6 +196,7 @@ void rb4_interrupt()
             }
             
             objects[cursor].y--;
+            checkUserHasFrisbee();
         }
     }
     DisplayObject(&objects[cursor]);
@@ -203,6 +220,7 @@ void rb5_interrupt()
                 }
             }
             objects[cursor].x++;
+            checkUserHasFrisbee();
         }
     }
     DisplayObject(&objects[cursor]);
@@ -226,6 +244,7 @@ void rb6_interrupt()
                 }
             }
             objects[cursor].y++;
+            checkUserHasFrisbee();
         }
     }
     DisplayObject(&objects[cursor]);
@@ -249,25 +268,10 @@ void rb7_interrupt()
                 }
             }
             objects[cursor].x--;
+            checkUserHasFrisbee();
         }
     }
     DisplayObject(&objects[cursor]);
-}
-
-/**
- * @brief Check if the user has the frisbee.
- * if the user is in the same position as the frisbee, then the user has the frisbee.
- * make the game mode inactive and set the frisbee to the user.
- */
-void checkUserHasFrisbee()
-{
-    if (objects[cursor].x == objects[FRISBEE_INDEX].x &&
-        objects[cursor].y == objects[FRISBEE_INDEX].y &&
-        mode == ACTIVE_MODE)
-    {
-        objects[cursor].data.frisbee = 1;
-        mode = INACTIVE_MODE;
-    }
 }
 
 void __interrupt(high_priority) ISR()
@@ -309,7 +313,6 @@ void __interrupt(high_priority) ISR()
         {
             rb7_interrupt();
         }
-        checkUserHasFrisbee();
         INTCONbits.RBIF = 0;
     }
     if (INTCONbits.TMR0IF)
