@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.s": "asm",
-        "lcd.h": "c"
+        "lcd.h": "c",
+        "the3.h": "c"
     }
 }
