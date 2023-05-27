@@ -127,7 +127,9 @@ void RB0Interrupt()
         mode == INACTIVE_MODE && right_to_throw == objects[cursor].data.type)
     {
         right_to_throw = 1 - objects[cursor].data.type;
+        ClearObject(&objects[cursor]);
         objects[cursor].data.frisbee = 0;
+        DisplayObject(&objects[cursor]);
         mode = ACTIVE_MODE;
         remaining_frisbee_moves = ComputeFrisbeeTargetAndRoute(objects[FRISBEE_INDEX].x, objects[FRISBEE_INDEX].y);
         // instead of initiating player moves here, we will calculate them when timer interrupt occurs
