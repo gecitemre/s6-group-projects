@@ -16,7 +16,7 @@ extern "C" {
 
 #define FRISBEE_INDEX 4
 typedef enum {
-    TEAM_A_PLAYER=0, TEAM_B_PLAYER=255
+    TEAM_A_PLAYER=0, TEAM_B_PLAYER=1
 } player_type;
 
 // typedef enum {
