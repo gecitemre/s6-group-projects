@@ -73,7 +73,46 @@ void TMR0Interrupt()
     remaining_frisbee_moves--;
     DisplayObject(&objects[FRISBEE_INDEX]);
 
+    // if there are no remaining moves, we will check who has the frisbee.
+    // we will set the game mode to INACTIVE_MODE.
+    // if team A has the frisbee, we will increment team A's score.
+    // if team B has the frisbee, we will increment team B's score.
+    // if no one has the frisbee, we will do nothing.
+    if (!remaining_frisbee_moves)
+    {
+        unsigned int frisbeeCaught = 0;
 
+        ClearObject(&frisbee_target_object);
+        
+        for (unsigned i = 0; i < 4; i++)
+        {
+            if (Collision(&objects[FRISBEE_INDEX], &objects[i]))
+            {
+                frisbeeCaught = 1;
+                
+                if (objects[i].data.type == TEAM_A_PLAYER)
+                {
+                    teamA_score++;
+                }
+                else if (objects[i].data.type == TEAM_B_PLAYER)
+                {
+                    teamB_score++;
+                }
+                
+                ClearObject(&objects[FRISBEE_INDEX]);
+                ClearObject(&objects[i]);
+                objects[i].data.frisbee = 1;
+                DisplayObject(&objects[i]);
+                break;
+            }
+        }
+        
+        if (!frisbeeCaught) DisplayObject(&objects[FRISBEE_INDEX]);
+
+        // we will make the game mode inactive when the frisbee is caught by a player
+        // mode = INACTIVE_MODE;
+    }
+    
     for (unsigned i = 0; i < 4; i++)
     {
         if (objects[i].data.selected)
@@ -106,45 +145,6 @@ try_different_movement:
         
         MovePlayer(i, horizontal, vertical);
     }
-
-    // if there are no remaining moves, we will check who has the frisbee.
-    // we will set the game mode to INACTIVE_MODE.
-    // if team A has the frisbee, we will increment team A's score.
-    // if team B has the frisbee, we will increment team B's score.
-    // if no one has the frisbee, we will do nothing.
-    if (!remaining_frisbee_moves)
-    {
-        unsigned int frisbeeCaught = 0;
-        
-        for (unsigned i = 0; i < 4; i++)
-        {
-            if (Collision(&objects[FRISBEE_INDEX], &objects[i]))
-            {
-                frisbeeCaught = 1;
-                
-                if (objects[i].data.type == TEAM_A_PLAYER)
-                {
-                    teamA_score++;
-                }
-                else if (objects[i].data.type == TEAM_B_PLAYER)
-                {
-                    teamB_score++;
-                }
-                ClearObject(&objects[i]);
-                objects[i].data.frisbee = 0;
-                DisplayObject(&objects[i]);
-                break;
-            }
-        }
-
-        ClearObject(&objects[FRISBEE_INDEX]);
-        ClearObject(&frisbee_target_object);
-        
-        if (!frisbeeCaught) DisplayObject(&objects[FRISBEE_INDEX]);
-
-        // we will make the game mode inactive when the frisbee is caught by a player
-        // mode = INACTIVE_MODE;
-    }
 }
 
 void RB0Interrupt()
@@ -153,7 +153,9 @@ void RB0Interrupt()
         mode == INACTIVE_MODE && right_to_throw == objects[cursor].data.type)
     {
         right_to_throw = 1 - objects[cursor].data.type;
+        ClearObject(&objects[cursor]);
         objects[cursor].data.frisbee = 0;
+        DisplayObject(&objects[cursor]);
         mode = ACTIVE_MODE;
         remaining_frisbee_moves = ComputeFrisbeeTargetAndRoute(objects[FRISBEE_INDEX].x, objects[FRISBEE_INDEX].y);
         // instead of initiating player moves here, we will calculate them when timer interrupt occurs
