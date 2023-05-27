@@ -295,6 +295,8 @@ void MoveCursorPlayer(byte x, byte y)
         }
     }
     ClearObject(&objects[cursor]);
+    objects[cursor].x = x;
+    objects[cursor].y = y;
     if (objects[cursor].data.frisbee)
     {
         objects[cursor].data.frisbee = 0;
@@ -307,8 +309,6 @@ void MoveCursorPlayer(byte x, byte y)
         objects[cursor].data.frisbee = 1;
         mode = INACTIVE_MODE;
     }
-    objects[cursor].x = x;
-    objects[cursor].y = y;
     DisplayObject(&objects[cursor]);
 }
 
