@@ -282,7 +282,7 @@ display_mode displayMode = DISP2;
 
 unsigned Collision(object *obj1, object *obj2)
 {
-    return obj1->x == obj2->x && obj1->y == obj2->y;
+    return (obj1->x == obj2->x) && (obj1->y == obj2->y);
 }
 
 // 0 = up, 1 = right, 2 = down, 3 = left
@@ -290,7 +290,7 @@ void MoveCursorPlayer(byte x, byte y)
 {
     for (unsigned i = 0; i < 4; i++)
     {
-        if (i != cursor && Collision(&objects[i], &objects[cursor]))
+        if ((i != cursor) && Collision(&objects[i], &objects[cursor]))
         {
             return;
         }

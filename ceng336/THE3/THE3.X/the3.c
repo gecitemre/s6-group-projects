@@ -41,6 +41,7 @@ void TMR0Interrupt()
 
     if (!remaining_frisbee_moves) return;
     ClearObject(&objects[FRISBEE_INDEX]);
+    DisplayObject(&objects[cursor]);
     objects[FRISBEE_INDEX].x = frisbee_steps[remaining_frisbee_moves - 1][0];
     objects[FRISBEE_INDEX].y = frisbee_steps[remaining_frisbee_moves - 1][1];
     remaining_frisbee_moves--;
@@ -54,14 +55,25 @@ void TMR0Interrupt()
             continue;
         }
         unsigned movement = Random(9);
-#define horizontal (movement % 3 - 1 + objects[i].x)
-#define vertical (movement / 3 - 1 + objects[i].y)
+        unsigned k = movement;
+#define horizontal (k % 3 - 1 + objects[i].x)
+#define vertical (k / 3 - 1 + objects[i].y)
 
-        for (unsigned j = 0; j < 5; j++) {
-            if (i == j) continue;
-            if (horizontal == objects[j].x && vertical == objects[j].y)
+        while(1) {
+            for (unsigned j = 0; j < 5; j++)
             {
-                movement = (movement + 1) % 9;
+                if (i == j) continue;
+                if (horizontal == objects[j].x && vertical == objects[j].y)
+                {
+                    goto try_different_movement;
+                }
+            }
+            break;
+try_different_movement:
+            k = (k + 1) % 9;
+            if (k == movement) {
+                k = 4;
+                break;
             }
         }
         
@@ -113,8 +125,8 @@ void RB0Interrupt()
         // instead of initiating player moves here, we will calculate them when timer interrupt occurs
 
         // show target
-        frisbee_target_object.x = frisbee_steps[remaining_frisbee_moves - 1][0];
-        frisbee_target_object.y = frisbee_steps[remaining_frisbee_moves - 1][1];
+        frisbee_target_object.x = 3;
+        frisbee_target_object.y = 3;
         DisplayObject(&frisbee_target_object);
     }
 }
@@ -268,7 +280,7 @@ void InitGame()
     LCDAddSpecialCharacterFromObjectData(((object_data){0, 1, FRISBEE_TARGET}), frisbee_target);
 }
 
-unsigned determineScoreDisplay(unsigned score)
+unsigned DetermineScoreDisplay(unsigned score)
 {
     return display_num_array[score % 10];
 }
@@ -279,7 +291,7 @@ void SwitchDisplay()
 
     if (displayMode == DISP2)
     {
-        LATD = determineScoreDisplay(teamA_score);
+        LATD = DetermineScoreDisplay(teamA_score);
         LATA = 0b00001000;
     }
     else if (displayMode == DISP3)
@@ -289,7 +301,7 @@ void SwitchDisplay()
     }
     else if (displayMode == DISP4)
     {
-        LATD = determineScoreDisplay(teamB_score);
+        LATD = DetermineScoreDisplay(teamB_score);
         LATA = 0b00100000;
     }
 }
