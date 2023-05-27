@@ -125,7 +125,7 @@ void RB0Interrupt()
     if (Collision(&objects[cursor], &objects[FRISBEE_INDEX]) &&
         mode == INACTIVE_MODE && right_to_throw == objects[cursor].data.type)
     {
-        right_to_throw = ~objects[cursor].data.type;
+        right_to_throw = 1 - objects[cursor].data.type;
         objects[cursor].data.frisbee = 0;
         mode = ACTIVE_MODE;
         remaining_frisbee_moves = ComputeFrisbeeTargetAndRoute(objects[FRISBEE_INDEX].x, objects[FRISBEE_INDEX].y);
