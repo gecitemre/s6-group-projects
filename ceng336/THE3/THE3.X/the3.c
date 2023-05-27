@@ -144,7 +144,7 @@ void SelectObject(unsigned index)
 
 void RB1Interrupt()
 {
-    if ((mode == INACTIVE_MODE || first_round) && !objects[cursor].data.frisbee)
+    if ((mode == ACTIVE_MODE || first_round) && !objects[cursor].data.frisbee)
     {
         SelectObject((cursor + 1) % 4);
     }
