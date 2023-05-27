@@ -107,10 +107,14 @@ void TMR0Interrupt()
             }
         }
         
-        if (!frisbeeCaught) DisplayObject(&objects[FRISBEE_INDEX]);
-
-        // we will make the game mode inactive when the frisbee is caught by a player
-        // mode = INACTIVE_MODE;
+        if (frisbeeCaught) {
+            mode = INACTIVE_MODE;
+            right_to_throw = objects[cursor].data.type;
+        }
+        else {
+            right_to_throw = !objects[cursor].data.type;
+            DisplayObject(&objects[FRISBEE_INDEX]);
+        }
     }
     
     for (unsigned i = 0; i < 4; i++)
@@ -152,7 +156,6 @@ void RB0Interrupt()
     if (Collision(&objects[cursor], &objects[FRISBEE_INDEX]) &&
         mode == INACTIVE_MODE && right_to_throw == objects[cursor].data.type)
     {
-        right_to_throw = 1 - objects[cursor].data.type;
         ClearObject(&objects[cursor]);
         objects[cursor].data.frisbee = 0;
         DisplayObject(&objects[cursor]);
