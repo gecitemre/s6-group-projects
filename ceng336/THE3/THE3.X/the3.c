@@ -42,8 +42,8 @@ void TMR0Interrupt()
     if (!remaining_frisbee_moves) return;
     ClearObject(&objects[FRISBEE_INDEX]);
     DisplayObject(&objects[cursor]);
-    objects[FRISBEE_INDEX].x = frisbee_steps[0][0];
-    objects[FRISBEE_INDEX].y = frisbee_steps[0][1];
+    objects[FRISBEE_INDEX].x = frisbee_steps[remaining_frisbee_moves - 1][0];
+    objects[FRISBEE_INDEX].y = frisbee_steps[remaining_frisbee_moves - 1][1];
     remaining_frisbee_moves--;
     DisplayObject(&objects[FRISBEE_INDEX]);
 
@@ -125,8 +125,8 @@ void RB0Interrupt()
         // instead of initiating player moves here, we will calculate them when timer interrupt occurs
 
         // show target
-        frisbee_target_object.x = 3;
-        frisbee_target_object.y = 3;
+        frisbee_target_object.x = frisbee_steps[0][0];
+        frisbee_target_object.y = frisbee_steps[0][1];
         DisplayObject(&frisbee_target_object);
     }
 }
@@ -304,6 +304,13 @@ void SwitchDisplay()
         LATD = DetermineScoreDisplay(teamB_score);
         LATA = 0b00100000;
     }
+}
+
+void InitADC()
+{
+    ADCON0 = 0b00000001;
+    ADCON1 = 0b00001110;
+    ADCON2 = 0b10101010;
 }
 
 void main(void)

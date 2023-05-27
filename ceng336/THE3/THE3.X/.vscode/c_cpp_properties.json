@@ -32,9 +32,14 @@
                     "${workspaceFolder}/",
                     "/opt/microchip/xc8/v2.30/pic/include/**"
                 ],
-                "limitSymbolsToIncludedHeaders": true,
+                "limitSymbolsToIncludedHeaders": false,
                 "databaseFilename": ""
-            }
+            },
+            "includePath": [
+                "${workspaceFolder}/",
+                "/opt/microchip/xc8/v2.30/pic/include/**",
+                "/opt/microchip/xc8/v2.30/pic/include/proc/**",
+            ]
         }
     ],
     "version": 4
