@@ -5,5 +5,7 @@
         "the3.h": "c",
         "pragmas.h": "c",
         "xc.h": "c"
-    }
+    },
+    "C_Cpp.default.compilerPath": "/opt/microchip/xc8/v2.30/bin/xc8-cc",
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
 }

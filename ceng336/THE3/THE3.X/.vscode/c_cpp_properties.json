@@ -2,36 +2,11 @@
     "configurations": [
         {
             "name": "Linux",
-            "compilerPath": "/opt/microchip/xc8/v2.30/bin/xc8-cc",
-            "compilerArgs": [
-                "-mcpu=18F4620",
-                "-c",
-                "-mdfp=/opt/microchip/mplabx/v5.45/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8",
-                "-fno-short-double",
-                "-fno-short-float",
-                "-memi=wordwrite",
-                "-O0",
-                "-fasmfile",
-                "-maddrqual=ignore",
-                "-xassembler-with-cpp",
-                "-mwarn=-3",
-                "-Wa,-a",
-                "-DXPRJ_default=default",
-                "-msummary=-psect,-class,+mem,-hex,-file",
-                "-ginhx032",
-                "-Wl,--data-init",
-                "-mno-keep-startup",
-                "-mno-download",
-                "-mdefault-config-bits",
-                "-std=c99",
-                "-gdwarf-3",
-                "-mstack=compiled:auto:auto:auto"
-            ],
+            "configurationProvider": "ms-vscode.cmake-tools",
             "includePath": [
                 "${workspaceFolder}/",
                 "/opt/microchip/xc8/v2.30/pic/include/**"
-            ],
-            "intelliSenseMode": "gcc-x64"
+            ]
         }
     ],
     "version": 4

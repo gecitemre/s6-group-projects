@@ -14,6 +14,7 @@ extern "C" {
 #include <xc.h>
 #include "lcd.h"
 
+#define FRISBEE_INDEX 4
 typedef enum {
     TEAM_A_PLAYER, TEAM_B_PLAYER
 } player_type;
@@ -155,7 +156,7 @@ unsigned short frisbee_steps[15][2];                    // maximum 15 steps in x
 
 // function declarations
 unsigned short ComputeFrisbeeTargetAndRoute(unsigned short current_frisbee_x_position, unsigned short current_frisbee_y_position);   // a simple implementation is given below
-unsigned short RandomGenerator(unsigned short modulo); // YOU SHOULD IMPLEMENT THIS FUNCTION ON YOUR OWN
+unsigned short Random(unsigned short modulo); // YOU SHOULD IMPLEMENT THIS FUNCTION ON YOUR OWN
 
 unsigned short ComputeFrisbeeTargetAndRoute(unsigned short current_frisbee_x_position, unsigned short current_frisbee_y_position) {
     
@@ -171,8 +172,8 @@ unsigned short ComputeFrisbeeTargetAndRoute(unsigned short current_frisbee_x_pos
     
     while(1) {  // loop until finding a valid position
         
-        target_x = RandomGenerator(16) + 1; // find a random integer in [0, 15] + 1
-        target_y = RandomGenerator(4) + 1;  // find a random integer in [0, 3] + 1
+        target_x = Random(16) + 1; // find a random integer in [0, 15] + 1
+        target_y = Random(4) + 1;  // find a random integer in [0, 3] + 1
         
         // how many cells are there in x-dimension (horizontal) between the target and current positions of the frisbee
         if (target_x < current_frisbee_x_position)
@@ -243,13 +244,75 @@ unsigned short ComputeFrisbeeTargetAndRoute(unsigned short current_frisbee_x_pos
     return number_of_steps;
 }
 
-unsigned short RandomGenerator(unsigned short modulo) {
+unsigned short Random(unsigned short modulo) {
     unsigned randomTimerVal = TMR3L;
 
     TMR3L = TMR3L >> 2;
 
     return randomTimerVal % modulo;
 }
+
+unsigned int first_round = 1;
+unsigned int teamA_score = 0;
+unsigned int teamB_score = 0;
+unsigned int remaining_frisbee_moves = 0;
+player_type last_thrower_team;
+byte old_PORTB;
+object objects[5];
+
+object frisbee_target_object = (object){1,1, {0,1,FRISBEE_TARGET}};
+byte cursor = 0;
+
+game_mode mode = ACTIVE_MODE;
+byte display_num_array [] = {
+    0b00111111,
+    0b00000110,
+    0b01011011,
+    0b01001111,
+    0b01100110,
+    0b01101101,
+    0b01111101,
+    0b00000111,
+    0b01111111,
+    0b01101111
+};
+byte display_dash = 0b01000000;
+// 0 = DISP2, 1 = DISP3, 2 = DISP4
+display_mode displayMode = DISP2;
+
+unsigned Collision(object *obj1, object *obj2)
+{
+    return obj1->x == obj2->x && obj1->y == obj2->y;
+}
+
+// 0 = up, 1 = right, 2 = down, 3 = left
+void MoveCursorPlayer(byte x, byte y)
+{
+    for (unsigned i = 0; i < 4; i++)
+    {
+        if (i != cursor && Collision(&objects[i], &objects[cursor]))
+        {
+            return;
+        }
+    }
+    ClearObject(&objects[cursor]);
+    if (objects[cursor].data.frisbee)
+    {
+        objects[cursor].data.frisbee = 0;
+        DisplayObject(&objects[FRISBEE_INDEX]);
+    }
+    objects[cursor].x = x;
+    objects[cursor].y = y;
+    if (Collision(&objects[cursor], &objects[FRISBEE_INDEX]) &&
+        mode == ACTIVE_MODE)
+    {
+        first_round = 0;
+        objects[cursor].data.frisbee = 1;
+        mode = INACTIVE_MODE;
+    }
+    DisplayObject(&objects[cursor]);
+}
+
 
 #ifdef	__cplusplus
 }
