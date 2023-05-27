@@ -87,10 +87,14 @@ try_different_movement:
     // if no one has the frisbee, we will do nothing.
     if (!remaining_frisbee_moves)
     {
+        unsigned int frisbeeCaught = 0;
+        
         for (unsigned i = 0; i < 4; i++)
         {
             if (Collision(&objects[FRISBEE_INDEX], &objects[i]))
             {
+                frisbeeCaught = 1;
+                
                 if (objects[i].data.type == TEAM_A_PLAYER)
                 {
                     teamA_score++;
@@ -106,7 +110,10 @@ try_different_movement:
             }
         }
 
+        ClearObject(&objects[FRISBEE_INDEX]);
         ClearObject(&frisbee_target_object);
+        
+        if (!frisbeeCaught) DisplayObject(&objects[FRISBEE_INDEX]);
 
         // we will make the game mode inactive when the frisbee is caught by a player
         // mode = INACTIVE_MODE;
