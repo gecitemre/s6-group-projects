@@ -307,7 +307,7 @@ void MoveCursorPlayer(byte x, byte y)
     {
         first_round = 0;
         objects[cursor].data.frisbee = 1;
-        mode = INACTIVE_MODE;
+        if (mode == ACTIVE_MODE) mode = INACTIVE_MODE;
     }
     DisplayObject(&objects[cursor]);
 }
