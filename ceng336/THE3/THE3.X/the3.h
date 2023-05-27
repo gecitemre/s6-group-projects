@@ -154,6 +154,13 @@ byte frisbee_target[] = {
 
 unsigned short frisbee_steps[15][2];                    // maximum 15 steps in x (horizontal) and y (vertical) directions
 
+unsigned int first_round = 1;
+unsigned int teamA_score = 0;
+unsigned int teamB_score = 0;
+unsigned int remaining_frisbee_moves = 0;
+byte old_PORTB;
+object objects[5];
+
 // function declarations
 unsigned short ComputeFrisbeeTargetAndRoute(unsigned short current_frisbee_x_position, unsigned short current_frisbee_y_position);   // a simple implementation is given below
 unsigned short Random(unsigned short modulo); // YOU SHOULD IMPLEMENT THIS FUNCTION ON YOUR OWN
@@ -171,9 +178,22 @@ unsigned short ComputeFrisbeeTargetAndRoute(unsigned short current_frisbee_x_pos
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     
     while(1) {  // loop until finding a valid position
+        unsigned int collidesWithAPlayer = 0;
         
         target_x = Random(16) + 1; // find a random integer in [0, 15] + 1
         target_y = Random(4) + 1;  // find a random integer in [0, 3] + 1
+        
+        // if the target collides with a player, recompute
+        for (int i = 0; i < 4; i++)
+        {
+            if (objects[i].x == target_x && objects[i].y == target_y)
+            {
+                collidesWithAPlayer = 1;
+                break;
+            }
+        }
+        
+        if (collidesWithAPlayer) continue;
         
         // how many cells are there in x-dimension (horizontal) between the target and current positions of the frisbee
         if (target_x < current_frisbee_x_position)
@@ -251,13 +271,6 @@ unsigned short Random(unsigned short modulo) {
 
     return randomTimerVal % modulo;
 }
-
-unsigned int first_round = 1;
-unsigned int teamA_score = 0;
-unsigned int teamB_score = 0;
-unsigned int remaining_frisbee_moves = 0;
-byte old_PORTB;
-object objects[5];
 
 object frisbee_target_object = (object){1,1, {0,1,FRISBEE_TARGET}};
 byte cursor = 0;
