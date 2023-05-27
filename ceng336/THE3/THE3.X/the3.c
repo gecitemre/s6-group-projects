@@ -324,7 +324,9 @@ void InitGame()
 void InitADC()
 {
     ADCON0bits.ADON = 1;
-    ADCON1 = 0b1110;
+    ADCON1 = 0b1110; // AN0 is analog, rest are digital (???)
+    ADCON3bits.ADFM = 1; // right justified, take the 2 most significant bits
+    // further configuration needed here !!
 }
 
 void main(void)
