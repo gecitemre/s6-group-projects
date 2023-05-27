@@ -35,9 +35,35 @@ void MovePlayer(unsigned index, unsigned x, unsigned y)
     DisplayObject(&objects[index]);
 }
 
+unsigned DetermineScoreDisplay(unsigned score)
+{
+    return display_num_array[score % 10];
+}
+
+void SwitchDisplay()
+{
+    displayMode = (displayMode + 1) % 3;
+
+    if (displayMode == DISP2)
+    {
+        LATD = DetermineScoreDisplay(teamA_score);
+        LATA = 0b00001000;
+    }
+    else if (displayMode == DISP3)
+    {
+        LATD = display_dash;
+        LATA = 0b00010000;
+    }
+    else if (displayMode == DISP4)
+    {
+        LATD = DetermineScoreDisplay(teamB_score);
+        LATA = 0b00100000;
+    }
+}
 void TMR0Interrupt()
 {
     TMR0 = TMR0_START;
+            
 
     if (!remaining_frisbee_moves) return;
     ClearObject(&objects[FRISBEE_INDEX]);
@@ -288,43 +314,16 @@ void InitGame()
     LCDAddSpecialCharacterFromObjectData(((object_data){0, 1, FRISBEE_TARGET}), frisbee_target);
 }
 
-unsigned DetermineScoreDisplay(unsigned score)
-{
-    return display_num_array[score % 10];
-}
 
-void SwitchDisplay()
-{
-    displayMode = (displayMode + 1) % 3;
-
-    if (displayMode == DISP2)
-    {
-        LATD = DetermineScoreDisplay(teamA_score);
-        LATA = 0b00001000;
-    }
-    else if (displayMode == DISP3)
-    {
-        LATD = display_dash;
-        LATA = 0b00010000;
-    }
-    else if (displayMode == DISP4)
-    {
-        LATD = DetermineScoreDisplay(teamB_score);
-        LATA = 0b00100000;
-    }
-}
 
 void InitADC()
 {
-    ADCON0 = 0b00000001;
-    ADCON1 = 0b00001110;
-    ADCON2 = 0b10101010;
+    ADCON0bits.ADON = 1;
+    ADCON1 = 0b1110;
 }
 
 void main(void)
 {
-    unsigned counter = 0;
-
     ConfigurePorts();
     InitLCD();
     InitGame();
@@ -342,12 +341,6 @@ void main(void)
 
     while (1)
     {
-        if (counter == 100)
-        {
-            SwitchDisplay();
-            counter = 0;
-        }
-        
-        counter++;
+        SwitchDisplay();
     }
 }

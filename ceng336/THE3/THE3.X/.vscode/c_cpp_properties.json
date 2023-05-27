@@ -31,7 +31,6 @@
                 "${workspaceFolder}/",
                 "/opt/microchip/xc8/v2.30/pic/include/**",
             ],
-            "intelliSenseMode": "gcc-x64",
             "browse": {
                 "path": [
                     "${workspaceFolder}/",
