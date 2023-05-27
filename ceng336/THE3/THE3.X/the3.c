@@ -63,7 +63,8 @@ void TMR0Interrupt()
             for (unsigned j = 0; j < 5; j++)
             {
                 if (i == j) continue;
-                if (horizontal == objects[j].x && vertical == objects[j].y)
+                if (horizontal == objects[j].x && vertical == objects[j].y ||
+                        (horizontal < 1 || horizontal > 16) || (vertical < 1 || vertical > 4))
                 {
                     goto try_different_movement;
                 }
