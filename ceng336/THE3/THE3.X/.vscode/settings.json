@@ -4,7 +4,8 @@
         "lcd.h": "c",
         "the3.h": "c",
         "pragmas.h": "c",
-        "xc.h": "c"
+        "xc.h": "c",
+        "cstddef": "c"
     },
     "C_Cpp.default.compilerPath": "/opt/microchip/xc8/v2.30/bin/xc8-cc",
 }

@@ -42,8 +42,8 @@ void TMR0Interrupt()
     if (!remaining_frisbee_moves) return;
     ClearObject(&objects[FRISBEE_INDEX]);
     DisplayObject(&objects[cursor]);
-    objects[FRISBEE_INDEX].x = frisbee_steps[remaining_frisbee_moves - 1][0];
-    objects[FRISBEE_INDEX].y = frisbee_steps[remaining_frisbee_moves - 1][1];
+    objects[FRISBEE_INDEX].x = frisbee_steps[0][0];
+    objects[FRISBEE_INDEX].y = frisbee_steps[0][1];
     remaining_frisbee_moves--;
     DisplayObject(&objects[FRISBEE_INDEX]);
 
@@ -116,9 +116,9 @@ try_different_movement:
 void RB0Interrupt()
 {
     if (Collision(&objects[cursor], &objects[FRISBEE_INDEX]) &&
-        mode == INACTIVE_MODE)
+        mode == INACTIVE_MODE && right_to_throw == objects[cursor].data.type)
     {
-        last_thrower_team = objects[cursor].data.type;
+        right_to_throw = ~objects[cursor].data.type;
         objects[cursor].data.frisbee = 0;
         mode = ACTIVE_MODE;
         remaining_frisbee_moves = ComputeFrisbeeTargetAndRoute(objects[FRISBEE_INDEX].x, objects[FRISBEE_INDEX].y);

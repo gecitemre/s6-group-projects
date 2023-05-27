@@ -16,7 +16,7 @@ extern "C" {
 
 #define FRISBEE_INDEX 4
 typedef enum {
-    TEAM_A_PLAYER, TEAM_B_PLAYER
+    TEAM_A_PLAYER=0, TEAM_B_PLAYER=255
 } player_type;
 
 // typedef enum {
@@ -256,7 +256,6 @@ unsigned int first_round = 1;
 unsigned int teamA_score = 0;
 unsigned int teamB_score = 0;
 unsigned int remaining_frisbee_moves = 0;
-player_type last_thrower_team;
 byte old_PORTB;
 object objects[5];
 
@@ -285,7 +284,7 @@ unsigned Collision(object *obj1, object *obj2)
     return (obj1->x == obj2->x) && (obj1->y == obj2->y);
 }
 
-// 0 = up, 1 = right, 2 = down, 3 = left
+player_type right_to_throw = TEAM_A_PLAYER;
 void MoveCursorPlayer(byte x, byte y)
 {
     for (unsigned i = 0; i < 4; i++)
@@ -301,15 +300,15 @@ void MoveCursorPlayer(byte x, byte y)
         objects[cursor].data.frisbee = 0;
         DisplayObject(&objects[FRISBEE_INDEX]);
     }
-    objects[cursor].x = x;
-    objects[cursor].y = y;
-    if (Collision(&objects[cursor], &objects[FRISBEE_INDEX]) &&
+    else if (Collision(&objects[cursor], &objects[FRISBEE_INDEX]) &&
         mode == ACTIVE_MODE)
     {
         first_round = 0;
         objects[cursor].data.frisbee = 1;
         mode = INACTIVE_MODE;
     }
+    objects[cursor].x = x;
+    objects[cursor].y = y;
     DisplayObject(&objects[cursor]);
 }
 
