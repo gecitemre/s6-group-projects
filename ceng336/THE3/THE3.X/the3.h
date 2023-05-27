@@ -302,7 +302,7 @@ void MoveCursorPlayer(byte x, byte y)
 {
     for (unsigned i = 0; i < 4; i++)
     {
-        if ((i != cursor) && Collision(&objects[i], &objects[cursor]))
+        if ((i != cursor) && objects[i].x == x && objects[i].y == y)
         {
             return;
         }
