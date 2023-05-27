@@ -107,17 +107,6 @@ try_different_movement:
         }
 
         ClearObject(&frisbee_target_object);
-        
-        if (right_to_throw != objects[cursor].data.type)
-        {
-            unsigned int newCursor = right_to_throw == TEAM_A_PLAYER ? 0 : 2;
-            ClearObject(&objects[cursor]);
-            ClearObject(&objects[newCursor]);
-            objects[cursor].data.selected = 0;
-            objects[newCursor].data.selected = 1;
-            DisplayObject(&objects[cursor]);
-            DisplayObject(&objects[newCursor]);
-        }
 
         // we will make the game mode inactive when the frisbee is caught by a player
         // mode = INACTIVE_MODE;
