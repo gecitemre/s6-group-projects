@@ -302,12 +302,11 @@ void MoveCursorPlayer(byte x, byte y)
         objects[cursor].data.frisbee = 0;
         DisplayObject(&objects[FRISBEE_INDEX]);
     }
-    else if (Collision(&objects[cursor], &objects[FRISBEE_INDEX]) &&
-        mode == ACTIVE_MODE)
+    else if (Collision(&objects[cursor], &objects[FRISBEE_INDEX]))
     {
         first_round = 0;
         objects[cursor].data.frisbee = 1;
-        mode = INACTIVE_MODE;
+        if (mode == ACTIVE_MODE) mode = INACTIVE_MODE;
     }
     DisplayObject(&objects[cursor]);
 }
