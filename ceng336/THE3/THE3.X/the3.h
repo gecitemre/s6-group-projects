@@ -47,16 +47,17 @@ typedef enum {
 typedef enum {
     DISP2, DISP3, DISP4 // LCD
 } display_mode;
-
 void ClearObject(object* c)
 {
     LCDGoto(c->x, c->y);
+    LATA = 0;
     LCDDat(' ');
 }
 
 void DisplayObject(object* c)
 {
     LCDGoto(c->x, c->y);
+    LATA = 0;
     LCDDat(*(unsigned*)(void*)&(c->data));
 }
 
@@ -289,8 +290,8 @@ byte display_num_array [] = {
     0b01101111
 };
 byte display_dash = 0b01000000;
-// 0 = DISP2, 1 = DISP3, 2 = DISP4
 display_mode displayMode = DISP2;
+
 
 unsigned Collision(object *obj1, object *obj2)
 {

@@ -27,6 +27,8 @@
  */
 
 
+unsigned frisbee_thrown = 0, frisbee_displayed = 0;
+
 void MovePlayer(unsigned index, unsigned x, unsigned y)
 {
     ClearObject(&objects[index]);
@@ -40,32 +42,41 @@ unsigned DetermineScoreDisplay(unsigned score)
     return display_num_array[score % 10];
 }
 
-void SwitchDisplay()
+void RefreshSevenSegment()
 {
-    displayMode = (displayMode + 1) % 3;
+    LATD = DetermineScoreDisplay(teamA_score);
+    LATA = 0b00001000;
+    
+    LATD = display_dash;
+    LATA = 0b00010000;
 
-    if (displayMode == DISP2)
-    {
-        LATD = DetermineScoreDisplay(teamA_score);
-        LATA = 0b00001000;
-    }
-    else if (displayMode == DISP3)
-    {
-        LATD = display_dash;
-        LATA = 0b00010000;
-    }
-    else if (displayMode == DISP4)
-    {
-        LATD = DetermineScoreDisplay(teamB_score);
-        LATA = 0b00100000;
-    }
+    LATD = DetermineScoreDisplay(teamB_score);
+    LATA = 0b00100000;
 }
+
+unsigned counter = 0;
+unsigned wait_ds = 4;
 void TMR0Interrupt()
 {
     TMR0 = TMR0_START;
             
-
+    if (frisbee_thrown) {
+        if (frisbee_displayed) {
+            frisbee_displayed = 0;
+            ClearObject(&frisbee_target_object);
+            DisplayObject(&objects[cursor]);
+        }
+        else {
+            frisbee_displayed = 1;
+            DisplayObject(&frisbee_target_object);
+        }
+    }
     if (!remaining_frisbee_moves) return;
+    if (counter < wait_ds) {
+        counter++;
+        return;
+    }
+    counter = 0;
     ClearObject(&objects[FRISBEE_INDEX]);
     DisplayObject(&objects[cursor]);
     objects[FRISBEE_INDEX].x = frisbee_steps[remaining_frisbee_moves - 1][0];
@@ -83,6 +94,8 @@ void TMR0Interrupt()
         unsigned int frisbeeCaught = 0;
 
         ClearObject(&frisbee_target_object);
+        frisbee_thrown = 0;
+        frisbee_displayed = 0;
         
         for (unsigned i = 0; i < 4; i++)
         {
@@ -167,6 +180,7 @@ void RB0Interrupt()
         frisbee_target_object.x = frisbee_steps[0][0];
         frisbee_target_object.y = frisbee_steps[0][1];
         DisplayObject(&frisbee_target_object);
+        frisbee_thrown = 1;
     }
 }
 
@@ -224,6 +238,10 @@ void RB7Interrupt()
     }
 }
 
+void ADCInterrupt() {
+    if (mode == INACTIVE_MODE) wait_ds = (ADRESH + 1) * 4;
+}
+
 void __interrupt(high_priority) ISR()
 {
     if (INTCONbits.INT0IF)
@@ -278,6 +296,11 @@ void __interrupt(high_priority) ISR()
         TMR0Interrupt();
         INTCONbits.TMR0IF = 0;
     }
+    if (PIR1bits.ADIF)
+    {
+        ADCInterrupt();
+        PIR1bits.ADIF = 0;
+    }
 }
 
 void ConfigurePorts()
@@ -293,6 +316,8 @@ void ConfigureInterrupts()
     INTCONbits.TMR0IE = 1;
     INTCONbits.INT0IE = 1;
     INTCON3bits.INT1IE = 1;
+    PIE1bits.ADIE = 1;
+    INTCONbits.PEIE = 1;
 }
 
 void ConfigureTimers()
@@ -323,11 +348,46 @@ void InitGame()
 
 void InitADC()
 {
-    ADCON0bits.ADON = 1;
-    ADCON1 = 0b1110; // AN0 is analog, rest are digital (???)
-    ADCON3bits.ADFM = 1; // right justified, take the 2 most significant bits
+    ADCON0 = 0;
+    ADCON1 = 0b1110; // RA0 is analog, rest are digital (???)
+    ADCON2bits.ADFM = 1; // right justified, take the 2 most significant bits
     // further configuration needed here !!
+
+    // ADCON2bits.ADCS2 = 0; // Tad (32xTOSC) -> 0.8us
+    // ADCON2bits.ADCS1 = 1;
+    // ADCON2bits.ADCS0 = 0;
+    
+    // ADCON2bits.ACQT2 = 0; // Acquisition time (4xTad) = 3.2 us
+    // ADCON2bits.ACQT1 = 1;
+    // ADCON2bits.ACQT0 = 0;
+
+    ADCON2 |= 0b00000010; // Tad (32xTOSC) -> 0.8us
+    ADCON2 |= 0b00010000; // Acquisition time (4xTad) = 3.2 us
+
+    ADCON0bits.ADON = 1;
 }
+
+void SwitchDisplay()
+{
+    displayMode = (displayMode + 1) % 3;
+
+    if (displayMode == DISP2)
+    {
+        LATD = DetermineScoreDisplay(teamA_score);
+        LATA = 0b00001000;
+    }
+    else if (displayMode == DISP3)
+    {
+        LATD = display_dash;
+        LATA = 0b00010000;
+    }
+    else if (displayMode == DISP4)
+    {
+        LATD = DetermineScoreDisplay(teamB_score);
+        LATA = 0b00100000;
+    }
+}
+
 
 void main(void)
 {
@@ -336,6 +396,7 @@ void main(void)
     InitGame();
     ConfigureInterrupts();
     ConfigureTimers();
+    InitADC();
     objects[0] = (object){3, 2, {1,  0, TEAM_A_PLAYER}};
     objects[1] = (object){3, 3, {0, 0, TEAM_A_PLAYER}};
     objects[2] = (object){14, 2, {0,0,  TEAM_B_PLAYER}};
@@ -349,5 +410,9 @@ void main(void)
     while (1)
     {
         SwitchDisplay();
+        if (ADCON0bits.NOT_DONE == 0)
+        {
+            ADCON0bits.GO = 1;
+        }
     }
 }
