@@ -51,6 +51,8 @@ void RefreshSevenSegment()
 
 unsigned counter = 0;
 unsigned wait_ds = 4;
+unsigned rb0_debouncer = 0, rb1_debouncer = 0, rb4_debouncer = 0, rb5_debouncer = 0, rb6_debouncer = 0, rb7_debouncer = 0;
+
 void TMR0Interrupt()
 {
     TMR0 = TMR0_START;
@@ -239,19 +241,20 @@ void ADCInterrupt() {
 
 void __interrupt(high_priority) ISR()
 {
-    if (INTCONbits.INT0IF)
+    if (INTCONbits.INT0IF && rb0_debouncer == 0)
     {
         byte new_PORTB = PORTB;
-        WREG = ~new_PORTB & old_PORTB;
-        PORTBbits_t falling_edge = *(PORTBbits_t *)(void *)&WREG;
+        WREG = new_PORTB & ~old_PORTB;
+        PORTBbits_t rising_edge = *(PORTBbits_t *)(void *)&WREG;
         old_PORTB = new_PORTB;
-        if (falling_edge.RB0)
+        if (rising_edge.RB0)
         {
             RB0Interrupt();
+            rb0_debouncer = 1;
         }
         INTCONbits.INT0IF = 0;
     }
-    if (INTCON3bits.INT1IF)
+    if (INTCON3bits.INT1IF && rb1_debouncer == 0)
     {
         byte new_PORTB = PORTB;
         WREG = ~new_PORTB & old_PORTB;
@@ -260,6 +263,7 @@ void __interrupt(high_priority) ISR()
         if (falling_edge.RB1)
         {
             RB1Interrupt();
+            rb1_debouncer = 1;
         }
         INTCON3bits.INT1IF = 0;
     }
@@ -268,26 +272,42 @@ void __interrupt(high_priority) ISR()
         WREG = ~new_PORTB & old_PORTB;
         PORTBbits_t falling_edge = *(PORTBbits_t *)(void *)&WREG;
         old_PORTB = new_PORTB;
-        if (falling_edge.RB4)
+        if (falling_edge.RB4 && rb4_debouncer == 0)
         {
             RB4Interrupt();
+            rb4_debouncer = 1;
         }
-        if (falling_edge.RB5)
+        if (falling_edge.RB5 && rb5_debouncer == 0)
         {
             RB5Interrupt();
+            rb5_debouncer = 1;
         }
-        if (falling_edge.RB6)
+        if (falling_edge.RB6 && rb6_debouncer == 0)
         {
             RB6Interrupt();
+            rb6_debouncer = 1;
         }
-        if (falling_edge.RB7)
+        if (falling_edge.RB7 && rb7_debouncer == 0)
         {
             RB7Interrupt();
+            rb7_debouncer = 1;
         }
         INTCONbits.RBIF = 0;
     }
     if (INTCONbits.TMR0IF)
     {
+        if (rb0_debouncer == 1) rb0_debouncer = 2;
+        else if (rb0_debouncer == 2) rb0_debouncer = 0;
+        if (rb1_debouncer == 1) rb1_debouncer = 2;
+        else if (rb1_debouncer == 2) rb1_debouncer = 0;
+        if (rb4_debouncer == 1) rb4_debouncer = 2;
+        else if (rb4_debouncer == 2) rb4_debouncer = 0;
+        if (rb5_debouncer == 1) rb5_debouncer = 2;
+        else if (rb5_debouncer == 2) rb5_debouncer = 0;
+        if (rb6_debouncer == 1) rb6_debouncer = 2;
+        else if (rb6_debouncer == 2) rb6_debouncer = 0;
+        if (rb7_debouncer == 1) rb7_debouncer = 2;
+        else if (rb7_debouncer == 2) rb7_debouncer = 0;
         TMR0Interrupt();
         INTCONbits.TMR0IF = 0;
     }
