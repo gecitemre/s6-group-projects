@@ -104,7 +104,8 @@ help: .help-post
 .help-post: .help-impl
 # Add your post 'help' code here...
 
-
+submission: the3.h the3.c lcd.h pragmas.h
+	tar -czf group20.zip the3.h the3.c lcd.h pragmas.h
 
 # include project implementation makefile
 include nbproject/Makefile-impl.mk

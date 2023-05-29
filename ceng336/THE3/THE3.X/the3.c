@@ -37,18 +37,6 @@ void MovePlayer(unsigned index, unsigned x, unsigned y)
     DisplayObject(&objects[index]);
 }
 
-void RefreshSevenSegment()
-{
-    LATD = DetermineScoreDisplay(teamA_score);
-    LATA = 0b00001000;
-    
-    LATD = display_dash;
-    LATA = 0b00010000;
-
-    LATD = DetermineScoreDisplay(teamB_score);
-    LATA = 0b00100000;
-}
-
 unsigned counter = 0;
 unsigned wait_ds = 4;
 unsigned rb0_debouncer = 0, rb1_debouncer = 0, rb4_debouncer = 0, rb5_debouncer = 0, rb6_debouncer = 0, rb7_debouncer = 0;
