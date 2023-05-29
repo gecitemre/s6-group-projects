@@ -140,6 +140,7 @@ unsigned short frisbee_steps[15][2];                    // maximum 15 steps in x
 
 unsigned int first_round = 1;
 unsigned int remaining_frisbee_moves = 0;
+unsigned int current_frisbee_move = 0;
 byte old_PORTB;
 object objects[5];
 

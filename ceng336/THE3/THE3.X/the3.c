@@ -66,7 +66,7 @@ void TMR0Interrupt()
             DisplayObject(&frisbee_target_object);
         }
     }
-    if (!remaining_frisbee_moves) return;
+    if (remaining_frisbee_moves == current_frisbee_move) return;
     if (counter < wait_ds) {
         counter++;
         return;
@@ -74,9 +74,9 @@ void TMR0Interrupt()
     counter = 0;
     ClearObject(&objects[FRISBEE_INDEX]);
     DisplayObject(&objects[cursor]);
-    objects[FRISBEE_INDEX].x = frisbee_steps[remaining_frisbee_moves - 1][0];
-    objects[FRISBEE_INDEX].y = frisbee_steps[remaining_frisbee_moves - 1][1];
-    remaining_frisbee_moves--;
+    objects[FRISBEE_INDEX].x = frisbee_steps[current_frisbee_move][0];
+    objects[FRISBEE_INDEX].y = frisbee_steps[current_frisbee_move][1];
+    current_frisbee_move++;
     DisplayObject(&objects[FRISBEE_INDEX]);
 
     // if there are no remaining moves, we will check who has the frisbee.
@@ -84,7 +84,7 @@ void TMR0Interrupt()
     // if team A has the frisbee, we will increment team A's score.
     // if team B has the frisbee, we will increment team B's score.
     // if no one has the frisbee, we will do nothing.
-    if (!remaining_frisbee_moves)
+    if (remaining_frisbee_moves == current_frisbee_move)
     {
         unsigned int frisbeeCaught = 0;
 
@@ -168,12 +168,13 @@ void RB0Interrupt()
         objects[cursor].data.frisbee = 0;
         DisplayObject(&objects[cursor]);
         mode = ACTIVE_MODE;
+        current_frisbee_move = 0;
         remaining_frisbee_moves = ComputeFrisbeeTargetAndRoute(objects[FRISBEE_INDEX].x, objects[FRISBEE_INDEX].y);
         // instead of initiating player moves here, we will calculate them when timer interrupt occurs
 
         // show target
-        frisbee_target_object.x = frisbee_steps[0][0];
-        frisbee_target_object.y = frisbee_steps[0][1];
+        frisbee_target_object.x = frisbee_steps[remaining_frisbee_moves - 1][0];
+        frisbee_target_object.y = frisbee_steps[remaining_frisbee_moves - 1][1];
         DisplayObject(&frisbee_target_object);
         frisbee_thrown = 1;
     }
