@@ -369,28 +369,39 @@ void InitADC()
 
 void SwitchDisplay()
 {
-    displayMode = (displayMode + 1) % 3;
+    SwitchDisplayTo(((displayMode + 1) % 3));
+}
 
-    if (displayMode == DISP2)
-    {
-        LATD = DetermineScoreDisplay(teamA_score);
-        LATA = 0b00001000;
-    }
-    else if (displayMode == DISP3)
-    {
-        LATD = display_dash;
-        LATA = 0b00010000;
-    }
-    else if (displayMode == DISP4)
-    {
-        LATD = DetermineScoreDisplay(teamB_score);
-        LATA = 0b00100000;
+void SwitchDisplayTo(unsigned short int mode)
+{
+    displayMode = mode;
+    
+    switch (mode){
+        case DISP2:
+            LATD = DetermineScoreDisplay(teamA_score);
+            LATA = 0b00001000;
+            break;
+        case DISP3:
+            LATD = display_dash;
+            LATA = 0b00010000;
+            break;
+        case DISP4:
+            LATD = DetermineScoreDisplay(teamB_score);
+            LATA = 0b00100000;
+            break;
+        case DISPLCD:
+            LATA = 0;
+            break;
+        default:
+            break;
     }
 }
 
 
 void main(void)
 {
+    unsigned short int counter = 0;
+    
     ConfigurePorts();
     InitLCD();
     InitGame();
@@ -409,10 +420,15 @@ void main(void)
 
     while (1)
     {
-        SwitchDisplay();
+        if (counter == 50)
+        {
+            SwitchDisplay();
+            counter = 0;
+        }
         if (ADCON0bits.NOT_DONE == 0)
         {
             ADCON0bits.GO = 1;
         }
+        counter++;
     }
 }
