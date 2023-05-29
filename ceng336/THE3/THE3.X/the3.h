@@ -44,10 +44,6 @@ typedef enum {
     INACTIVE_MODE, ACTIVE_MODE
 } game_mode;
 
-typedef enum {
-    DISP2, DISP3, DISP4, DISPLCD
-} display_mode;
-
 byte teamA_player[] = {
                   0b10001,
                   0b10101,
@@ -143,42 +139,24 @@ byte frisbee_target[] = {
 unsigned short frisbee_steps[15][2];                    // maximum 15 steps in x (horizontal) and y (vertical) directions
 
 unsigned int first_round = 1;
-unsigned int teamA_score = 0;
-unsigned int teamB_score = 0;
 unsigned int remaining_frisbee_moves = 0;
 byte old_PORTB;
 object objects[5];
-display_mode displayMode = DISP2;
 
 // function declarations
 unsigned short ComputeFrisbeeTargetAndRoute(unsigned short current_frisbee_x_position, unsigned short current_frisbee_y_position);   // a simple implementation is given below
 unsigned short Random(unsigned short modulo); // YOU SHOULD IMPLEMENT THIS FUNCTION ON YOUR OWN
 
-void SwitchDisplay();
-void SwitchDisplayTo(unsigned short int mode);
-
 void ClearObject(object* c)
 {
-    display_mode previous = displayMode;
-    
-    SwitchDisplayTo(DISPLCD);
-    
     LCDGoto(c->x, c->y);
     LCDDat(' ');
-    
-    SwitchDisplayTo( previous % 3);
 }
 
 void DisplayObject(object* c)
 {
-    display_mode previous = displayMode;
-    
-    SwitchDisplayTo(DISPLCD);
-    
     LCDGoto(c->x, c->y);
     LCDDat(*(unsigned*)(void*)&(c->data));
-    
-    SwitchDisplayTo( previous % 3);
 }
 
 unsigned short ComputeFrisbeeTargetAndRoute(unsigned short current_frisbee_x_position, unsigned short current_frisbee_y_position) {
@@ -292,20 +270,6 @@ object frisbee_target_object = (object){1,1, {0,1,FRISBEE_TARGET}};
 byte cursor = 0;
 
 game_mode mode = ACTIVE_MODE;
-byte display_num_array [] = {
-    0b00111111,
-    0b00000110,
-    0b01011011,
-    0b01001111,
-    0b01100110,
-    0b01101101,
-    0b01111101,
-    0b00000111,
-    0b01111111,
-    0b01101111
-};
-byte display_dash = 0b01000000;
-
 
 unsigned Collision(object *obj1, object *obj2)
 {

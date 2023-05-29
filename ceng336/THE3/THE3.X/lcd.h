@@ -36,33 +36,64 @@ typedef unsigned char byte;     // define byte here for readability and sanity.
 #define LCD_CURSOR_MOVE_LEFT 0x10
 #define LCD_CONTENT_MOVE_RIGHT 0x1C
 #define LCD_CONTENT_MOVE_LEFT 0x18
+
+typedef enum {
+    DISP2, DISP3, DISP4, DISPLCD
+} display_mode;
   
 byte lcd_x = 1, lcd_y = 1;  // indices start from 1
+display_mode displayMode = DISP2;
+byte display_num_array [] = {
+    0b00111111,
+    0b00000110,
+    0b01011011,
+    0b01001111,
+    0b01100110,
+    0b01101101,
+    0b01111101,
+    0b00000111,
+    0b01111111,
+    0b01101111
+};
+byte display_dash = 0b01000000;
+unsigned int teamA_score = 0;
+unsigned int teamB_score = 0;
   
 void InitLCD(void);
 void LCDCmd(unsigned char cmd);
 void LCDDat(unsigned char dat);
 void LCDStr(const char* str);
 void LCDAddSpecialCharacter(byte character_index, byte * data);
+void SwitchDisplay();
+void SwitchDisplayTo(unsigned short int mode);
+unsigned DetermineScoreDisplay(unsigned score);
 
 void LCDCmd(unsigned char cmd) {
+  display_mode previous = displayMode;
+    
   LCD_EN = 0;
   LCD_RS = 0;
+  SwitchDisplayTo(DISPLCD);
   LCD_PORT = cmd;
   LCD_EN = 1;
-  __delay_us(LCD_PULSE_TIME);
+  // __delay_us(LCD_PULSE_TIME);
   LCD_EN = 0;
-  __delay_us(LCD_PULSE_TIME);
+  SwitchDisplayTo(previous%3);
+  // __delay_us(LCD_PULSE_TIME);
 }
 
 void LCDDat(unsigned char dat) {
+  display_mode previous = displayMode;
+    
   LCD_EN = 0;
   LCD_RS = 1;
+  SwitchDisplayTo(DISPLCD);
   LCD_PORT = dat;
   LCD_EN = 1;
-  __delay_us(LCD_PULSE_TIME);
+  // __delay_us(LCD_PULSE_TIME);
   LCD_EN = 0;
-  __delay_us(LCD_PULSE_TIME);
+  SwitchDisplayTo(previous%3);
+  // __delay_us(LCD_PULSE_TIME);
   LCD_RS = 0;
 }
 
@@ -140,6 +171,42 @@ void LCDAddSpecialCharacter(byte character_index, byte * data) {
     //LCDGoto(lcd_x, lcd_y);
     
 }
+
+void SwitchDisplay()
+{
+    SwitchDisplayTo(((displayMode + 1) % 3));
+}
+
+void SwitchDisplayTo(unsigned short int mode)
+{
+    displayMode = mode;
+    
+    switch (mode){
+        case DISP2:
+            LATD = DetermineScoreDisplay(teamA_score);
+            LATA = 0b00001000;
+            break;
+        case DISP3:
+            LATD = display_dash;
+            LATA = 0b00010000;
+            break;
+        case DISP4:
+            LATD = DetermineScoreDisplay(teamB_score);
+            LATA = 0b00100000;
+            break;
+        case DISPLCD:
+            LATA = 0;
+            break;
+        default:
+            break;
+    }
+}
+
+unsigned DetermineScoreDisplay(unsigned score)
+{
+    return display_num_array[score % 10];
+}
+
 
 #ifdef	__cplusplus
 }

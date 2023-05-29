@@ -37,11 +37,6 @@ void MovePlayer(unsigned index, unsigned x, unsigned y)
     DisplayObject(&objects[index]);
 }
 
-unsigned DetermineScoreDisplay(unsigned score)
-{
-    return display_num_array[score % 10];
-}
-
 void RefreshSevenSegment()
 {
     LATD = DetermineScoreDisplay(teamA_score);
@@ -366,37 +361,6 @@ void InitADC()
 
     ADCON0bits.ADON = 1;
 }
-
-void SwitchDisplay()
-{
-    SwitchDisplayTo(((displayMode + 1) % 3));
-}
-
-void SwitchDisplayTo(unsigned short int mode)
-{
-    displayMode = mode;
-    
-    switch (mode){
-        case DISP2:
-            LATD = DetermineScoreDisplay(teamA_score);
-            LATA = 0b00001000;
-            break;
-        case DISP3:
-            LATD = display_dash;
-            LATA = 0b00010000;
-            break;
-        case DISP4:
-            LATD = DetermineScoreDisplay(teamB_score);
-            LATA = 0b00100000;
-            break;
-        case DISPLCD:
-            LATA = 0;
-            break;
-        default:
-            break;
-    }
-}
-
 
 void main(void)
 {
