@@ -138,7 +138,6 @@ byte frisbee_target[] = {
 
 unsigned short frisbee_steps[15][2];                    // maximum 15 steps in x (horizontal) and y (vertical) directions
 
-unsigned int first_round = 1;
 unsigned int remaining_frisbee_moves = 0;
 unsigned int current_frisbee_move = 0;
 byte old_PORTB;
@@ -270,7 +269,7 @@ unsigned short Random(unsigned short modulo) {
 object frisbee_target_object = (object){1,1, {0,1,FRISBEE_TARGET}};
 byte cursor = 0;
 
-game_mode mode = ACTIVE_MODE;
+game_mode mode = INACTIVE_MODE;
 
 unsigned Collision(object *obj1, object *obj2)
 {
@@ -294,13 +293,10 @@ void MoveCursorPlayer(byte x, byte y)
     {
         objects[cursor].data.frisbee = 0;
         DisplayObject(&objects[FRISBEE_INDEX]);
-        mode = ACTIVE_MODE;
     }
-    else if (Collision(&objects[cursor], &objects[FRISBEE_INDEX]))
+    else if (mode == INACTIVE_MODE && Collision(&objects[cursor], &objects[FRISBEE_INDEX]))
     {
-        first_round = 0;
         objects[cursor].data.frisbee = 1;
-        if (mode == ACTIVE_MODE && !remaining_frisbee_moves) mode = INACTIVE_MODE;
     }
     DisplayObject(&objects[cursor]);
 }

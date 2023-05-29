@@ -27,7 +27,7 @@
  */
 
 
-unsigned frisbee_thrown = 0, frisbee_displayed = 0;
+unsigned frisbee_displayed = 0;
 
 void MovePlayer(unsigned index, unsigned x, unsigned y)
 {
@@ -55,17 +55,18 @@ void TMR0Interrupt()
 {
     TMR0 = TMR0_START;
             
-    if (frisbee_thrown) {
-        if (frisbee_displayed) {
-            frisbee_displayed = 0;
-            ClearObject(&frisbee_target_object);
-            DisplayObject(&objects[cursor]);
-        }
-        else {
-            frisbee_displayed = 1;
-            DisplayObject(&frisbee_target_object);
-        }
+    if (mode == INACTIVE_MODE) return;
+
+    if (frisbee_displayed) {
+        frisbee_displayed = 0;
+        ClearObject(&frisbee_target_object);
+        DisplayObject(&objects[cursor]);
     }
+    else {
+        frisbee_displayed = 1;
+        DisplayObject(&frisbee_target_object);
+    }
+    
     if (remaining_frisbee_moves == current_frisbee_move) return;
     if (counter < wait_ds) {
         counter++;
@@ -89,7 +90,7 @@ void TMR0Interrupt()
         unsigned int frisbeeCaught = 0;
 
         ClearObject(&frisbee_target_object);
-        frisbee_thrown = 0;
+        mode = INACTIVE_MODE;
         frisbee_displayed = 0;
         
         for (unsigned i = 0; i < 4; i++)
@@ -116,7 +117,6 @@ void TMR0Interrupt()
         }
         
         if (frisbeeCaught) {
-            mode = INACTIVE_MODE;
             right_to_throw = objects[cursor].data.type;
         }
         else {
@@ -176,7 +176,6 @@ void RB0Interrupt()
         frisbee_target_object.x = frisbee_steps[remaining_frisbee_moves - 1][0];
         frisbee_target_object.y = frisbee_steps[remaining_frisbee_moves - 1][1];
         DisplayObject(&frisbee_target_object);
-        frisbee_thrown = 1;
     }
 }
 
@@ -193,7 +192,7 @@ void SelectObject(unsigned index)
 
 void RB1Interrupt()
 {
-    if ((mode == ACTIVE_MODE || first_round) && !objects[cursor].data.frisbee)
+    if (!objects[cursor].data.frisbee)
     {
         SelectObject((cursor + 1) % 4);
     }
