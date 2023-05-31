@@ -136,6 +136,36 @@
     \begin{figure}
     \includesvg[inkscapelatex=false, width=\textwidth ]{assets/ExternalInterfaces1-registered.svg}
     \caption{External Interfaces}
+
+    \begin{table}[H]
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Operation}    & \textbf{Description} \\ \hline
+        \textbf{registerInformation()}           & \begin{tabular}[c]{@{}l@{}}Data providers can register new pieces\\ of information to the Google Sheets-hosted\\ database.\end{tabular} \\ \hline
+        \textbf{push()}      & \begin{tabular}[c]{@{}l@{}}Collaborators can change the code\\ hosted in GitHub servers.\end{tabular}       \\ \hline
+        \textbf{pull()}             & \begin{tabular}[c]{@{}l@{}}Collaborators can fetch the latest version \\ of the source code hosted on GitHub servers.\end{tabular}       \\ \hline
+        \textbf{clone()}    & Collaborators can download and work on the code. \\ \hline
+        \textbf{commit()}    & Collaborators can submit their changes on the code. \\ \hline
+        \textbf{parseData()} & GitHub server parses the data stored on AWS. \\ \hline
+        \textbf{generatePDF()} & \begin{tabular}[c]{@{}l@{}} Automated scripts hosted on GitHub servers\\ generate PDF files based on the latest information. \\ \hline
+        \textbf{validateData()} & \begin{tabular}[c]{@{}l@{}} Automated scripts hosted on GitHub servers\\ validate the data stored on AWS.\end{tabular} \\ \hline
+        \textbf{storeData()} & \begin{tabular}[c]{@{}l@{}} Automated scripts hosted on GitHub servers\\ store the data on AWS.\end{tabular} \\ \hline
+        \textbf{sendData()} & \begin{tabular}[c]{@{}l@{}} Automated scripts hosted on GitHub servers\\ request data from AWS and AWS sends the data.\end{tabular} \\ \hline
+        \textbf{seeInformation()} & \begin{tabular}[c]{@{}l@{}} Information validators can see the information\\ stored on the Google Sheets.\end{tabular} \\ \hline
+        \textbf{editInformation()} & \begin{tabular}[c]{@{}l@{}} Information validators can edit the information\\ stored on the Google Sheets.\end{tabular} \\ \hline
+        \textbf{confirmInformation()} & \begin{tabular}[c]{@{}l@{}} Information validators can confirm the information\\ stored on the Google Sheets.\end{tabular} \\ \hline
+        \textbf{read()} & \begin{tabular}[c]{@{}l@{}} Users can read the information\\ stored on the Google Sheets.\end{tabular} \\ \hline
+        \textbf{write()} & \begin{tabular}[c]{@{}l@{}} Users can write the information\\ stored on the Google Sheets.\end{tabular} \\ \hline
+        \textbf{viewCode()} & \begin{tabular}[c]{@{}l@{}} Developers, and everyone else, can view the code\\ stored on the GitHub servers.\end{tabular} \\ \hline
+        \textbf{editCode()} & \begin{tabular}[c]{@{}l@{}} Developers can edit the code\\ stored on the GitHub servers.\end{tabular} \\ \hline
+        \textbf{editAutomations()} & \begin{tabular}[c]{@{}l@{}} Developers can edit the automations\\ stored on the GitHub servers.\end{tabular} \\ \hline
+        \end{tabular}%
+        }
+        \captionof{table}{Operations on External Interfaces}
+    \end{table}
+    \vspace{1cm}
+
     \subsubsection{Interaction Scenarios}
     \end{figure}
     \lipsum[1-1] % TODO: here
