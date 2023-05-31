@@ -106,6 +106,7 @@
         users, customers, and investors.
         \item \textbf{Viewpoint:} A perspective on the architecture of a system that emphasizes certain aspects or concerns.
         Examples include functional, data, and deployment viewpoints.
+        \item \textbf{AWS:} Amazon Web Services, a cloud computing platform that provides on-demand access to computing resources.
     \end{itemize}
 
     \section{Architectural Views}
@@ -189,6 +190,23 @@
         \includesvg[inkscapelatex=false, width=\textwidth ]{assets/ComponentDiagram1-registered.svg}
         \caption{Component Diagram}
     \end{figure}
+
+    Our system consists of two main subsystems: the Frontend and the PDF Generator.
+
+    \begin{itemize*}
+        \item GitHub is an external component that hosts the source code of the system. It is used by the developers to develop
+        and maintain the system. It is also responsible for generating PDF files based on the latest information. For this purpose,
+        it uses the PDF Generator subsystem via GitHub Actions.
+        \item The frontend is the main subsystem of the system. It is responsible for providing the main functionality of the
+        system to the users. It is also responsible for communicating with the AWS-hosted database.
+        \item The PDF Generator is a subsystem that is responsible for generating PDF files based on the latest information. It
+        is used by the GitHub server to generate PDF files based on the latest information.
+        \item Google Maps is an external component that is used by the frontend to display maps of affected areas and help users
+        locate nearby emergency resources.
+        \item AWS is an external component that is used by the frontend to store and retrieve data. It is also used by the PDF
+        Generator to store and retrieve data.
+    \end{itemize*}
+
     \subsubsection{Internal Interfaces}
     \lipsum[1-1] % TODO: here
     \subsubsection{Interaction Patterns}
