@@ -293,6 +293,18 @@
     changes are reflected. Programmers use it to understand how the system is deployed and how it reacts to changes to develop
     and maintain it.
     \subsubsection{Deployment Diagram}
+
+    \begin{figure}
+        \includesvg[inkscapelatex=false, width=\textwidth ]{assets/DeploymentDiagram1-registered.svg}
+        \caption{Deployment Diagram}
+    \end{figure}
+
+    In this Deployment diagram, the system’s deployment environment is shown. There are four main characters that play a role in
+    the deployment of the system. These are GitHub, AWS, cloudflare and afetbilgi.com. A series of actions are performed by these
+    characters to deploy the system. These actions are created by the developers and are hosted on GitHub. These actions interact
+    with AWS and cloudflare to deploy the system. The system is deployed on AWS and cloudflare. Finally, the system is deployed
+    on afetbilgi.com.
+
     \subsection{Design Rationale}
     \subsubsection{Context View}
     The rationale behind the context view is to provide a high-level overview of how afetbilgi.com interacts with its external
