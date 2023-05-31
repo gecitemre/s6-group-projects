@@ -295,7 +295,12 @@
     \section{Architectural Views for Suggestions to Improve the Existing System}
     \subsection{Context View}
     \subsubsection{Stakeholders' Uses}
-    There is no change in the stakeholders' uses.
+    There are four main stakeholders of the system: the users, emergency responders, information providers and the programmers.
+    The users use this view to understand how the system is deployed and how it reacts to changes, in other words, how dynamic it is.
+    The emergency responders use it to understand how the system is deployed and how it reacts to changes to plan their response
+    to the disaster. Information providers use it to understand how the system is deployed and how the data is processed and the
+    changes are reflected. Programmers use it to understand how the system is deployed and how it reacts to changes to develop
+    and maintain it.
     \subsubsection{Context Diagram}
     As shown in the diagram, users can access the website through a web browser or mobile device. They can view information about
     natural disasters, emergency response procedures, and other related content. Administrators have additional privileges and can
@@ -368,7 +373,10 @@
         \caption{Internal Interfaces}
     \end{figure}
     \subsubsection{Interaction Patterns}
-
+    \begin{figure}
+        \includesvg[inkscapelatex=false, width=\textwidth ]{assets/InteractionPatterns1a-registered.svg}
+        \caption{Sequence Diagram}
+    \end{figure}
     \subsection{Information View}
     \subsubsection{Stakeholders' Uses}
     There are four main stakeholders of the system for suggestions to improve the existing system: the users, emergency responders,
@@ -385,8 +393,10 @@
         \begin{tabular}{|l|l|}
         \hline
         \textbf{Operation}    & \textbf{Description} \\ \hline
+        \textbf{create()}     & Update data in the database \\ \hline
         \textbf{read()}       & Read data from the database \\ \hline
-        \textbf{write()}      & Write (or delete) data to the database \\ \hline
+        \textbf{update()}      & Update data in the database \\ \hline
+        \textbf{delete()}      & Delete data from the database \\ \hline
         \end{tabular}%
         }
         \captionof{table}{Operations on Data}
