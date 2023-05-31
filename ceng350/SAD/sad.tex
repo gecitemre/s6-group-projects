@@ -157,7 +157,7 @@
         \textbf{generatePDF()} & \begin{tabular}[c]{@{}l@{}} Automated scripts hosted on GitHub servers\\ generate PDF files based on the latest information.\end{tabular} \\ \hline
         \textbf{validateData()} & \begin{tabular}[c]{@{}l@{}} Automated scripts hosted on GitHub servers\\ validate the data stored on AWS.\end{tabular} \\ \hline
         \textbf{storeData()} & \begin{tabular}[c]{@{}l@{}} Automated scripts hosted on GitHub servers\\ store the data on AWS.\end{tabular} \\ \hline
-        \textbf{sendData()} & \begin{tabular}[c]{@{}l@{}} Automated scripts hosted on GitHub servers\\ request data from AWS and AWS sends the data.\end{tabular} \\ \hline
+        \textbf{sendData()} & \begin{tabular}[c]{@{}l@{}} Automated scripts hosted on GitHub servers \\ request data from AWS and AWS sends the data.\end{tabular} \\ \hline
         \textbf{read()} & \begin{tabular}[c]{@{}l@{}} Users can read the information\\ stored on the Google Sheets.\end{tabular} \\ \hline
         \textbf{write()} & \begin{tabular}[c]{@{}l@{}} Users can write the information\\ stored on the Google Sheets.\end{tabular} \\ \hline
         \end{tabular}%
@@ -208,7 +208,45 @@
     \end{itemize*}
 
     \subsubsection{Internal Interfaces}
-    \lipsum[1-1] % TODO: here
+    
+    \begin{figure}
+        \includesvg[inkscapelatex=false, width=\textwidth ]{assets/InternalInterfaces1-registered.svg}
+        \caption{Internal Interfaces}
+    \end{figure}
+
+    As it can be observed from the figure above, afetbilgi.com has multiple internal interfaces. Frontend, PDF Generator, Maps
+    and Data. The operations given in the diagram can be summarized as follows:
+
+    \begin{table}[H]
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Operation}    & \textbf{Description} \\ \hline
+        \textbf{redirectTo()}           & \begin{tabular}[c]{@{}l@{}}Users can access the website through a web browser\\ or mobile device.\end{tabular} \\ \hline
+        \textbf{citySelection()}      & \begin{tabular}[c]{@{}l@{}}Users can filter the information based on the city\\ they are in.\end{tabular}       \\ \hline
+        \textbf{sendRequest()}             & \begin{tabular}[c]{@{}l@{}}Users can send requests to the system to fetch pieces \\ of information.\end{tabular}       \\ \hline
+        \textbf{changeLanguage()}    & \begin{tabular}[c]{@{}l@{}}Users can change the language of the website.\end{tabular} \\ \hline
+        \textbf{parseData()}    & \begin{tabular}[c]{@{}l@{}} Automated scripts hosted on GitHub servers\\ parse the data stored on AWS.\end{tabular} \\ \hline
+        \textbf{parseMapData()} & \begin{tabular}[c]{@{}l@{}} Automated scripts hosted on GitHub servers\\ parse the map data stored on AWS.\end{tabular} \\ \hline
+        \textbf{readGoogleSheetsDoc()} & \begin{tabular}[c]{@{}l@{}} Automated scripts hosted on GitHub servers\\ read data from Google Sheets.\end{tabular} \\ \hline
+        \textbf{writeGoogleSheetsDoc()} & \begin{tabular}[c]{@{}l@{}} Automated scripts hosted on GitHub servers\\ write data to Google Sheets.\end{tabular} \\ \hline
+        \textbf{getCurrentPosition()}  & \begin{tabular}[c]{@{}l@{}} The system can get the current position of the user.\end{tabular} \\ \hline
+        \textbf{search()}   & \begin{tabular}[c]{@{}l@{}} The user can search for a keyword.\end{tabular} \\ \hline
+        \textbf{createLeafTemporaryAccomodationPDF()}   & \begin{tabular}[c]{@{}l@{}} The system can create a PDF file for temporary\\ accomodation.\end{tabular} \\ \hline
+        \textbf{createLeafSafeGatheringPlacesPDF()}  & \begin{tabular}[c]{@{}l@{}} The system can create a PDF file for safe\\ gathering places.\end{tabular} \\ \hline
+        \textbf{createLeafMealPDF()}    & \begin{tabular}[c]{@{}l@{}} The system can create a PDF file for meal\\ information.\end{tabular} \\ \hline
+        \textbf{createPhoneNumbersPDF()}    & \begin{tabular}[c]{@{}l@{}} The system can create a PDF file for phone\\ numbers.\end{tabular} \\ \hline
+        \textbf{createWebSitesPDF()}    & \begin{tabular}[c]{@{}l@{}} The system can create a PDF file for websites.\end{tabular} \\ \hline
+        \textbf{createArticlePDF()}     & \begin{tabular}[c]{@{}l@{}} The system can create a PDF file for articles.\end{tabular} \\ \hline
+        \textbf{createVeterinerPlacesPDF()}     & \begin{tabular}[c]{@{}l@{}} The system can create a PDF file for veteriner\\ places.\end{tabular} \\ \hline
+        \textbf{createHelpCentersPDF()}     & \begin{tabular}[c]{@{}l@{}} The system can create a PDF file for help\\ centers.\end{tabular} \\ \hline
+        \textbf{createStemCellsPDF()}   & \begin{tabular}[c]{@{}l@{}} The system can create a PDF file for stem\\ cells.\end{tabular} \\ \hline
+        \textbf{createPharmacyPDF()}    & \begin{tabular}[c]{@{}l@{}} The system can create a PDF file for pharmacies.\end{tabular} \\ \hline
+        \end{tabular}%
+        }
+        \captionof{table}{Operations on Internal Interfaces}
+    \end{table}
+
     \subsubsection{Interaction Patterns}
     \lipsum[1-1] % TODO: here
     \subsection{Information View}
