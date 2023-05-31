@@ -193,19 +193,13 @@
 
     Our system consists of two main subsystems: the Frontend and the PDF Generator.
 
-    \begin{itemize*}
-        \item GitHub is an external component that hosts the source code of the system. It is used by the developers to develop
-        and maintain the system. It is also responsible for generating PDF files based on the latest information. For this purpose,
-        it uses the PDF Generator subsystem via GitHub Actions.
-        \item The frontend is the main subsystem of the system. It is responsible for providing the main functionality of the
-        system to the users. It is also responsible for communicating with the AWS-hosted database.
-        \item The PDF Generator is a subsystem that is responsible for generating PDF files based on the latest information. It
-        is used by the GitHub server to generate PDF files based on the latest information.
-        \item Google Maps is an external component that is used by the frontend to display maps of affected areas and help users
-        locate nearby emergency resources.
-        \item AWS is an external component that is used by the frontend to store and retrieve data. It is also used by the PDF
-        Generator to store and retrieve data.
-    \end{itemize*}
+    % \begin{itemize*}
+    %     \item GitHub is an external component that hosts the source code of the system. It is used by the developers to develop and maintain the system. It is also responsible for generating PDF files based on the latest information. For this purpose, it uses the PDF Generator subsystem via GitHub Actions.
+    %     \item The frontend is the main subsystem of the system. It is responsible for providing the main functionality of the system to the users. It is also responsible for communicating with the AWS-hosted database.
+    %     \item The PDF Generator is a subsystem that is responsible for generating PDF files based on the latest information. It is used by the GitHub server to generate PDF files based on the latest information.
+    %     \item Google Maps is an external component that is used by the frontend to display maps of affected areas and help users locate nearby emergency resources.
+    %     \item AWS is an external component that is used by the frontend to store and retrieve data. It is also used by the PDF Generator to store and retrieve data.
+    % \end{itemize*}
 
     \subsubsection{Internal Interfaces}
     \lipsum[1-1] % TODO: here
@@ -244,32 +238,117 @@
     \subsubsection{Deployment View}
     The rationale behind the deployment view is to provide a detailed description of how the system is deployed and how it reacts
     to changes. This information is useful for understanding how dynamic the system is.
+
     \section{Architectural Views for Suggestions to Improve the Existing System}
     \subsection{Context View}
     \subsubsection{Stakeholders' Uses}
-    \lipsum[1-1] % TODO: here
-    \subsubsection{Context Diagram}
+    There is no change in the stakeholders' uses.
+    \subsubsection{Context Diagram} % TODO
+    \begin{figure}
+    \includesvg[inkscapelatex=false, width=\textwidth ]{assets/ContextDiagram1-registered.svg}
+    \caption{Context Diagram}
+    \end{figure}
+        As shown in the diagram, users can access the website through a web browser or mobile device. They can view information about
+        natural disasters, emergency response procedures, and other related content. Administrators have additional privileges and can
+        manage user accounts, update content on the website, and monitor site analytics.
+
+        Third-party services are also used to provide additional functionality on the website. For example, a map API is used to
+        display maps of affected areas and help users locate nearby emergency resources.
+
+        Overall, the Context Diagram provides a high-level overview of how afetbilgi.com interacts with its external environment and
+        stakeholders. This information is useful for understanding the scope of the system and identifying potential risks or
+        dependencies that may impact its operation.
+
     \subsubsection{External Interfaces}
-    \lipsum[1-1] % TODO: here
+    \begin{figure}
+    \includesvg[inkscapelatex=false, width=\textwidth ]{assets/ExternalInterfaces1-registered.svg}
+    \caption{External Interfaces}
+    \end{figure}
+
+    As it can be observed from the figure above, afetbilgi.com has multiple external interfaces. GitHub, Information Provider,
+    Information Validator, Developer, Google Sheets, and AWS.
+    The operations given in the diagram can be summarized as follows:
+
+    \begin{table}[H]
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Operation}    & \textbf{Description} \\ \hline
+        \textbf{registerInformation()}           & \begin{tabular}[c]{@{}l@{}}Data providers can register new pieces\\ of information to the Google Sheets-hosted\\ database.\end{tabular} \\ \hline
+        \textbf{push()}      & \begin{tabular}[c]{@{}l@{}}Collaborators can change the code\\ hosted in GitHub servers.\end{tabular}       \\ \hline
+        \textbf{pull()}             & \begin{tabular}[c]{@{}l@{}}Collaborators can fetch the latest version \\ of the source code hosted on GitHub servers.\end{tabular}       \\ \hline
+        \textbf{clone()}    & Collaborators can download and work on the code. \\ \hline
+        \textbf{commit()}    & Collaborators can submit their changes on the code. \\ \hline
+        \textbf{parseData()} & GitHub server parses the data stored on AWS. \\ \hline
+        \textbf{generatePDF()} & \begin{tabular}[c]{@{}l@{}} Automated scripts hosted on GitHub servers\\ generate PDF files based on the latest information.\end{tabular} \\ \hline
+        \textbf{validateData()} & \begin{tabular}[c]{@{}l@{}} Automated scripts hosted on GitHub servers\\ validate the data stored on AWS.\end{tabular} \\ \hline
+        \textbf{storeData()} & \begin{tabular}[c]{@{}l@{}} Automated scripts hosted on GitHub servers\\ store the data on AWS.\end{tabular} \\ \hline
+        \textbf{sendData()} & \begin{tabular}[c]{@{}l@{}} Automated scripts hosted on GitHub servers\\ request data from AWS and AWS sends the data.\end{tabular} \\ \hline
+        \textbf{read()} & \begin{tabular}[c]{@{}l@{}} Users can read the information\\ stored on the Google Sheets.\end{tabular} \\ \hline
+        \textbf{write()} & \begin{tabular}[c]{@{}l@{}} Users can write the information\\ stored on the Google Sheets.\end{tabular} \\ \hline
+        \end{tabular}%
+        }
+        \captionof{table}{Operations on External Interfaces}
+    \end{table}
+    \vspace{1cm}
+
     \subsubsection{Interaction Scenarios}
-    \lipsum[1-1] % TODO: here
+    
+    \begin{figure}
+        \includesvg[inkscapelatex=false, width=\textwidth ]{assets/InteractionScenarios1a-registered.svg}
+        \caption{Activity Diagram for GitHub - AWS Interactions}
+    \end{figure}
+
+    \begin{figure}
+        \includesvg[inkscapelatex=false, width=\textwidth ]{assets/InteractionScenarios1b-registered.svg}
+        \caption{Activity Diagram for GitHub - Google Sheets Interactions}
+    \end{figure}
+    
     \subsection{Functional View}
     \subsubsection{Stakeholders' Uses}
-    \lipsum[1-1] % TODO: here
+    There are four main stakeholders of the system: the users, emergency responders, information providers and the programmers.
+    The users use this view to understand the capabilities and limitations of the system. The emergency responders use it to
+    determine how the system can be used to respond to the disaster. Information providers use it to understand what procedures
+    are used and how they operate on their data. Programmers use it to understand the capabilities and limitations of the system
+    to develop and maintain it.
     \subsubsection{Component Diagram}
+    \begin{figure}
+        \includesvg[inkscapelatex=false, width=\textwidth ]{assets/ComponentDiagram1-registered.svg}
+        \caption{Component Diagram}
+    \end{figure}
+
+    Our system consists of two main subsystems: the Frontend and the PDF Generator.
+
+    % \begin{itemize*}
+    %     \item GitHub is an external component that hosts the source code of the system. It is used by the developers to develop and maintain the system. It is also responsible for generating PDF files based on the latest information. For this purpose, it uses the PDF Generator subsystem via GitHub Actions.
+    %     \item The frontend is the main subsystem of the system. It is responsible for providing the main functionality of the system to the users. It is also responsible for communicating with the AWS-hosted database.
+    %     \item The PDF Generator is a subsystem that is responsible for generating PDF files based on the latest information. It is used by the GitHub server to generate PDF files based on the latest information.
+    %     \item Google Maps is an external component that is used by the frontend to display maps of affected areas and help users locate nearby emergency resources.
+    %     \item AWS is an external component that is used by the frontend to store and retrieve data. It is also used by the PDF Generator to store and retrieve data.
+    % \end{itemize*}
+
     \subsubsection{Internal Interfaces}
     \lipsum[1-1] % TODO: here
     \subsubsection{Interaction Patterns}
     \lipsum[1-1] % TODO: here
     \subsection{Information View}
     \subsubsection{Stakeholders' Uses}
-    \lipsum[1-1] % TODO: here
+    There are four main stakeholders of the system: the users, emergency responders, information providers and the programmers.
+    The users use this view to understand the data that is stored in the system. The emergency responders use it to understand
+    the data that is stored in the system to plan their response to the disaster. Information providers use it to understand
+    what data is stored in the system and how it is used. Programmers use it to understand the data that is stored in the system
+    to develop and maintain it.
     \subsubsection{Database Class Diagram}
     \subsubsection{Operations on Data}
     \lipsum[1-1] % TODO: here
     \subsection{Deployment View}
     \subsubsection{Stakeholders' Uses}
-    \lipsum[1-1] % TODO: here
+    There are four main stakeholders of the system: the users, emergency responders, information providers and the programmers.
+    The users use this view to understand how the system is deployed and how it reacts to changes, in other words, how dynamic it is.
+    The emergency responders use it to understand how the system is deployed and how it reacts to changes to plan their response
+    to the disaster. Information providers use it to understand how the system is deployed and how the data is processed and the
+    changes are reflected. Programmers use it to understand how the system is deployed and how it reacts to changes to develop
+    and maintain it.
     \subsubsection{Deployment Diagram}
     \subsection{Design Rationale}
     \subsubsection{Context View}
@@ -285,5 +364,5 @@
     \subsubsection{Deployment View}
     The rationale behind the deployment view is to provide a detailed description of how the system is deployed and how it reacts
     to changes. This information is useful for understanding how dynamic the system is.
-    
+
 \end{document}
