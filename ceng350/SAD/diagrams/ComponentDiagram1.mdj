@@ -373,7 +373,7 @@
 											"top": 101,
 											"width": 147,
 											"height": 13,
-											"text": "«subsystem»"
+											"text": "«external»"
 										},
 										{
 											"_type": "LabelView",
@@ -5875,7 +5875,7 @@
 							}
 						}
 					],
-					"stereotype": "subsystem",
+					"stereotype": "external",
 					"attributes": [
 						{
 							"_type": "UMLPort",
