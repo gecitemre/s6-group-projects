@@ -266,8 +266,24 @@
     what data is stored in the system and how it is used. Programmers use it to understand the data that is stored in the system
     to develop and maintain it.
     \subsubsection{Database Class Diagram}
+
+    \begin{figure}
+        \includesvg[inkscapelatex=false, width=\textwidth ]{assets/DatabaseClassDiagram1-registered.svg}
+        \caption{Database Class Diagram}
+    \end{figure}
+
     \subsubsection{Operations on Data}
-    \lipsum[1-1] % TODO: here
+    
+    \begin{itemize*}
+        \item \textbf{saveUserLocation()} - Saves the user's location to the database.
+        \item \textbf{getUserLocation()} - Retrieves the user's location from the database.
+        \item \textbf{registerImportantLocation()} - Registers an important location to the database.
+        \item \textbf{getImportantLocations()} - Retrieves important locations from the database.
+        \item \textbf{saveLog()} - Saves a log to the database.
+        \item \textbf{seeLog()} - Retrieves a log from the database.
+        \item \textbf{save()} - Saves the current state of the database to the backup bucket on AWS cloud.
+    \end{itemize*}
+
     \subsection{Deployment View}
     \subsubsection{Stakeholders' Uses}
     There are four main stakeholders of the system: the users, emergency responders, information providers and the programmers.
