@@ -319,7 +319,10 @@
     \caption{External Interfaces}
     \end{figure}
 
-
+    A database component is used to store information about natural disasters, emergency response procedures, and other related
+    content. The database is accessed through a web service that provides an interface for reading and writing data. The web
+    service is hosted on a cloud platform and can be accessed from anywhere in the world.
+    
     \begin{table}[H]
         \resizebox{\textwidth}{!}{%
         \begin{tabular}{|l|l|}
@@ -341,58 +344,88 @@
     
     \subsection{Functional View}
     \subsubsection{Stakeholders' Uses}
-    There are four main stakeholders of the system: the users, emergency responders, information providers and the programmers.
-    The users use this view to understand the capabilities and limitations of the system. The emergency responders use it to
-    determine how the system can be used to respond to the disaster. Information providers use it to understand what procedures
-    are used and how they operate on their data. Programmers use it to understand the capabilities and limitations of the system
-    to develop and maintain it.
+    There are four main stakeholders of the system for suggestions to improve the existing system: the users, emergency responders,
+    information providers and the programmers. The users use this view to understand the capabilities and limitations of the system
+    for suggestions to improve the existing system. The emergency responders use it to understand the capabilities and limitations
+    of the system for suggestions to improve the existing system to plan their response to the disaster. Information providers use
+    it to understand the capabilities and limitations of the system for suggestions to improve the existing system and how the data
+    is processed and the changes are reflected. Programmers use it to understand the capabilities and limitations of the system for
+    suggestions to improve the existing system to develop and maintain it.
+
     \subsubsection{Component Diagram}
     \begin{figure}
         \includesvg[inkscapelatex=false, width=\textwidth ]{assets/ComponentDiagram1-registered.svg}
         \caption{Component Diagram}
     \end{figure}
 
-    Our system consists of two main subsystems: the Frontend and the PDF Generator.
+    Our system consists of three main components: a web application, a database, and a web service. The web application is used by
+    users to view information about natural disasters, emergency response procedures, and other related content. The database is
+    used to store this information. The web service provides an interface for reading and writing data to the database.
 
     \subsubsection{Internal Interfaces}
-    This section should include Internal Interfaces Class Diagram for your
-    suggestions. Descriptions of the operations given in the internal interface class
-    diagram should also be given. You should aim for 2 internal interfaces.
+    \begin{figure}
+        \includesvg[inkscapelatex=false, width=\textwidth ]{assets/InternalInterfaces1-registered.svg}
+        \caption{Internal Interfaces}
+    \end{figure}
     \subsubsection{Interaction Patterns}
-    This section includes 1 Sequence Diagram to show messaging sequences taking
-    place among the system components over the internal interfaces for your
-    suggestions. Choose the most complex interaction for sequence diagram. They
-    must be different from those in your SRS document.
+    \begin{figure}
+        \includesvg[inkscapelatex=false, width=\textwidth ]{assets/InteractionPatterns1-registered.svg}
+        \caption{Interaction Patterns}
+    \end{figure}
+
     \subsection{Information View}
     \subsubsection{Stakeholders' Uses}
-    There is no change in the stakeholders' uses of the information view.
+    There are four main stakeholders of the system for suggestions to improve the existing system: the users, emergency responders,
+    information providers and the programmers. The users use this view to understand the data that is stored in the system for
+    suggestions to improve the existing system. The emergency responders use it to understand the data that is stored in the system
+    for suggestions to improve the existing system to plan their response to the disaster. Information providers use it to
+    understand the data that is stored in the system for suggestions to improve the existing system and how the data is processed
+    and the changes are reflected. Programmers use it to understand the data that is stored in the system for suggestions to
+    improve the existing system to develop and maintain it.
     \subsubsection{Database Class Diagram}
-    Database Class Diagram involving the key database or main memory objects for
-    your suggestions. Complete with relevant associations. Descriptions of the non-
-    obvious names (for classes, attributes, operations) should also be given.
+    \begin{figure}
+        \includesvg[inkscapelatex=false, width=\textwidth ]{assets/DatabaseClassDiagram1-registered.svg}
+        \caption{Database Class Diagram}
+    \end{figure}
     \subsubsection{Operations on Data}
-    Descriptions of the operations given in the database class diagram. These
-    operations may possibly deal with storage and handling of information regarding
-    stores, customers, products and so on. Operations for your suggestions should be
-    listed in a table or using bullets.
-    These are usually CRUD (Create Read Update Delete) operations.
+    \begin{table}[H]
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Operation}    & \textbf{Description} \\ \hline
+        \textbf{read()}       & Read data from the database \\ \hline
+        \textbf{write()}      & Write (or delete) data to the database \\ \hline
+        \end{tabular}%
+        }
+        \captionof{table}{Operations on Data}
+    \end{table}
+    \vspace{1cm}
     \subsection{Deployment View}
     \subsubsection{Stakeholders' Uses}
-    There is no change in the stakeholders' uses of the deployment view.
+    There are four main stakeholders of the system for suggestions to improve the existing system: the users, emergency responders,
+    information providers and the programmers. The users use this view to understand how the system is deployed and how it reacts
+    to changes for suggestions to improve the existing system. The emergency responders use it to understand how the system is
+    deployed and how it reacts to changes for suggestions to improve the existing system to plan their response to the disaster.
+    Information providers use it to understand how the system is deployed and how it reacts to changes for suggestions to improve
+    the existing system and how the data is processed and the changes are reflected. Programmers use it to understand how the
+    system is deployed and how it reacts to changes for suggestions to improve the existing system to develop and maintain it.
+
     \subsubsection{Deployment Diagram}
     \subsection{Design Rationale}
     \subsubsection{Context View}
-    The rationale behind the context view is to provide a high-level overview of how afetbilgi.com interacts with its external
-    environment and stakeholders. This information is useful for understanding the scope of the system and identifying potential
-    risks or dependencies that may impact its operation.
-    \subsubsection{Functional View}
-    The rationale behind the functional view is to provide a detailed description of the capabilities and limitations of the
-    system. This information is useful for understanding how the system can be used to respond to the disaster.
-    \subsubsection{Information View}
-    The rationale behind the information view is to provide a detailed description of the data that is stored in the system.
-    This information is useful for understanding what data is stored in the system and how it is used.
-    \subsubsection{Deployment View}
-    The rationale behind the deployment view is to provide a detailed description of how the system is deployed and how it reacts
-    to changes. This information is useful for understanding how dynamic the system is.
+    The rationale behind the context view is to provide a high-level description of the system and its environment. This
+    information is useful for understanding how the system interacts with its environment.
 
+    \subsubsection{Functional View}
+    The rationale behind the functional view is to provide a detailed description of the system's functionality. This information
+    is useful for understanding what the system does and how it does it.
+
+    \subsubsection{Information View}
+    The rationale behind the information view is to provide a detailed description of the system's data. This information is
+    useful for understanding what data the system stores and how it is stored.
+
+    \subsubsection{Deployment View}
+    The rationale behind the deployment view is to provide a detailed description of the system's deployment. This information is
+    useful for understanding how the system is deployed and how it reacts to changes.
+    
 \end{document}
