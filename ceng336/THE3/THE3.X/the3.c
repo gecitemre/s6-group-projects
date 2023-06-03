@@ -284,18 +284,12 @@ void __interrupt(high_priority) ISR()
     }
     if (INTCONbits.TMR0IF)
     {
-        if (rb0_debouncer == 1) rb0_debouncer = 2;
-        else if (rb0_debouncer == 2) rb0_debouncer = 0;
-        if (rb1_debouncer == 1) rb1_debouncer = 2;
-        else if (rb1_debouncer == 2) rb1_debouncer = 0;
-        if (rb4_debouncer == 1) rb4_debouncer = 2;
-        else if (rb4_debouncer == 2) rb4_debouncer = 0;
-        if (rb5_debouncer == 1) rb5_debouncer = 2;
-        else if (rb5_debouncer == 2) rb5_debouncer = 0;
-        if (rb6_debouncer == 1) rb6_debouncer = 2;
-        else if (rb6_debouncer == 2) rb6_debouncer = 0;
-        if (rb7_debouncer == 1) rb7_debouncer = 2;
-        else if (rb7_debouncer == 2) rb7_debouncer = 0;
+        rb0_debouncer = (rb0_debouncer == 1) ? 2 : 0;
+        rb1_debouncer = (rb1_debouncer == 1) ? 2 : 0;
+        rb4_debouncer = (rb4_debouncer == 1) ? 2 : 0;
+        rb5_debouncer = (rb5_debouncer == 1) ? 2 : 0;
+        rb6_debouncer = (rb6_debouncer == 1) ? 2 : 0;
+        rb7_debouncer = (rb7_debouncer == 1) ? 2 : 0;
         TMR0Interrupt();
         INTCONbits.TMR0IF = 0;
     }
