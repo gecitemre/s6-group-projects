@@ -1,7 +1,7 @@
 TEX=pdflatex
 TFLAGS=-shell-escape -interaction=nonstopmode -file-line-error
 FIGURES = $(wildcard figures/*.svg)
-TARGET = hw4.pdf
+TARGET = hw4
 
 $(TARGET).pdf: $(TARGET).tex $(FIGURES)
 	$(TEX) $(TFLAGS) $<
