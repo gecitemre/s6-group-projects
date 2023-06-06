@@ -88,8 +88,46 @@ Homework 4}
 	\begin{enumerate}
     % Write your solutions in the following items.
     \item %write the solution of q2a
+    \begin{align*}
+        y[n + 1] - \frac{1}{2}y[n] &= x[n + 1] \\ 
+        e^{j\omega}Y(e^{j\omega}) - \frac{1}{2}Y(e^{j\omega}) &= e^{j\omega}X(e^{j\omega}) \\
+        H(e^{j\omega}) &= \frac{Y(e^{j\omega})}{X(e^{j\omega})} \\
+        H(e^{j\omega}) &= \frac{e^{j\omega}}{e^{j\omega} - \frac{1}{2}} \\
+    \end{align*}
     \item %write the solution of q2b
+    % fiind the impulse response
+    \begin{align*}
+        H(e^{j\omega}) &= \frac{e^{j\omega}}{e^{j\omega} - \frac{1}{2}} \\
+        h[n] &= \mathcal{F}^{-1}\{H(e^{j\omega})\} \\
+        &= \mathcal{F}^{-1}\{\frac{e^{j\omega}}{e^{j\omega} - \frac{1}{2}}\} \\
+        &= \mathcal{F}^{-1}\{\frac{e^{j\omega} - \frac{1}{2} + \frac{1}{2}}{e^{j\omega} - \frac{1}{2}}\} \\
+        &= \mathcal{F}^{-1}\{\frac{e^{j\omega} - \frac{1}{2}}{e^{j\omega} - \frac{1}{2}} + \frac{\frac{1}{2}}{e^{j\omega} - \frac{1}{2}}\} \\
+        &= \mathcal{F}^{-1}\{1 + \frac{\frac{1}{2}}{e^{j\omega} - \frac{1}{2}}\} \\
+        &= \mathcal{F}^{-1}\{1\} + \mathcal{F}^{-1}\{\frac{\frac{1}{2}}{e^{j\omega} - \frac{1}{2}}\} \\
+        &= \delta[n] + \frac{1}{2}\mathcal{F}^{-1}\{\frac{1}{e^{j\omega} - \frac{1}{2}}\} \\
+        &= \delta[n] + \frac{1}{2}e^{\frac{1}{2}n}u[n] \\
+    \end{align*}
 	\item %write the solution of q2c
+    % find and plot the output for the input x[n] = \left(\frac{3}{4}\right)^nu[n]
+    \begin{align*}
+        y[n + 1] - \frac{1}{2}y[n] &= x[n + 1] \\ 
+        y[n + 1] - \frac{1}{2}y[n] &= \left(\frac{3}{4}\right)^{n + 1}u[n + 1] \\ 
+        y_p[n] &= A\left(\frac{3}{4}\right)^n \\
+        y_p[n + 1] &= A\left(\frac{3}{4}\right)^{n + 1} \\
+        A\left(\frac{3}{4}\right)^{n + 1} - \frac{1}{2}A\left(\frac{3}{4}\right)^n &= \left(\frac{3}{4}\right)^{n + 1}u[n + 1] \\
+        \frac{3}{4}A\left(\frac{3}{4}\right)^n - \frac{1}{2}A\left(\frac{3}{4}\right)^n &= \frac{3}{4}\left(\frac{3}{4}\right)^nu[n + 1] \\
+        \frac{3}{4}A - \frac{1}{2}A &= \frac{3}{4}u[n + 1] \\
+        A &= 3 \\
+        y_p[n] &= 3\left(\frac{3}{4}\right)^n \\
+        y_h[n] &= c_1\left(\frac{1}{2}\right)^nu[n] \\
+        y[n] &= y_p[n] + y_h[n] \\
+        &= 3\left(\frac{3}{4}\right)^n + c_1\left(\frac{1}{2}\right)^nu[n] \\
+        y[0] &= 0 \\
+        0 &= 3\left(\frac{3}{4}\right)^0 + c_1\left(\frac{1}{2}\right)^0u[0] \\
+        0 &= 3 + c_1 \\
+        c_1 &= -3 \\
+        y[n] &= 3\left(\frac{3}{4}\right)^n - 3\left(\frac{1}{2}\right)^nu[n] \\
+    \end{align*}
     \end{enumerate}
 
 \item %write the solution of q3
