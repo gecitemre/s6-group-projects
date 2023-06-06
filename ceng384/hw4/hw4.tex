@@ -134,8 +134,44 @@ Homework 4}
 	\begin{enumerate}
     % Write your solutions in the following items.
     \item %write the solution of q3a
+    \begin{align*}
+        H(j\omega) &= H_1(j\omega)H_2(j\omega) \\
+        &= \frac{1}{j\omega + 1}\frac{1}{j\omega + 2} \\
+        &= \frac{Y(j\omega)}{X(j\omega)} \\
+        Y(j\omega)(j\omega + 1)(j\omega + 2) &= X(j\omega) \\
+        Y(j\omega)(j^2\omega^2 + 3j\omega + 2) &= X(j\omega) \\
+        y''(t) + 3y'(t) + 2y(t) &= x(t) \\
+    \end{align*}
     \item %write the solution of q3b
+    \begin{align*}
+        H(j\omega) &= H_1(j\omega)H_2(j\omega) \\
+        H_1(j\omega) &= \frac{1}{j\omega + 1} \\
+        H_2(j\omega) &= \frac{1}{j\omega + 2} \\
+        H(j\omega) &= \frac{1}{j\omega + 1}\frac{1}{j\omega + 2} \\
+        h_1(t) &= \mathcal{F}^{-1}\{H(j\omega)\} \\
+        &= \mathcal{F}^{-1}\{\frac{1}{j\omega + 1}\frac{1}{j\omega + 2}\} \\
+        &= \mathcal{F}^{-1}\{\frac{1}{j\omega + 1}\} * \mathcal{F}^{-1}\{\frac{1}{j\omega + 2}\} \\
+        &= e^{-t}u(t) * e^{-2t}u(t) \\
+        &= \int_{-\infty}^{\infty}e^{-(t - \tau)}u(t - \tau)e^{-2\tau}u(\tau)d\tau \\
+        &= \int_{0}^{t}e^{-(t - \tau)}e^{-2\tau}d\tau \\
+        &= \int_{0}^{t}e^{-t + \tau}e^{-2\tau}d\tau \\
+        &= \int_{0}^{t}e^{-t}e^{\tau}e^{-2\tau}d\tau \\
+        &= e^{-t}\int_{0}^{t}e^{-\tau}d\tau \\
+        &= e^{-t}\left[-e^{-\tau}\right]_{0}^{t} \\
+        &= e^{-t}\left[-e^{-t} + 1\right] \\
+        &= e^{-t} - e^{-2t} \\
+    \end{align*}
 	\item %write the solution of q3c
+    \begin{align*}
+        X(j\omega) &= j\omega \\
+        Y(j\omega) &= H(j\omega)X(j\omega) \\
+        &= \frac{1}{j\omega + 1}\frac{1}{j\omega + 2}j\omega \\
+        y(t) &= \mathcal{F}^{-1}\{Y(j\omega)\} \\
+        &= \mathcal{F}^{-1}\{\frac{j\omega}{(j\omega + 1)(j\omega + 2)}\} \\
+        &= \mathcal{F}^{-1}\{\frac{-1}{j\omega + 1} + \frac{2}{j\omega + 2}\} \\
+        &= \mathcal{F}^{-1}\{\frac{-1}{j\omega + 1}\} + \mathcal{F}^{-1}\{\frac{2}{j\omega + 2}\} \\
+        &= -e^{-t}u(t) + 2e^{-2t}u(t) \\
+    \end{align*}
     \end{enumerate}
 
 \item %write the solution of q4
