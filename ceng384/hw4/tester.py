@@ -2,7 +2,7 @@ from numpy.fft import fft, ifft
 from numpy import flip, concatenate, int16
 from scipy.io import wavfile
 
-def test(encoded, decoded, rate):
+def test(encoded, decoded):
     N = len(encoded)
     reference = fft(encoded)
     flipped_reference = flip(reference)

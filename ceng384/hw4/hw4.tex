@@ -4,7 +4,7 @@
 \usepackage{amsthm}
 \usepackage{graphicx}
 \usepackage{float}
-
+\usepackage{minted}
 \usepackage{tkz-euclide}
 \usepackage{tikz}
 \usepackage{pgfplots}
@@ -176,14 +176,30 @@ Homework 4}
 
 \item %write the solution of q4
     \begin{enumerate}   
-    % Write your solutions in the following items.
-    \item %write the solution of q4a
-    \item %write the solution of q4b
-	\item %write the solution of q4c
+    \item \begin{align*}
+    H(e^{j\omega}) & = \frac{Y(e^{j\omega})}{X(e^{j\omega})} = \frac{5e^{-j\omega} + 12}{e^{-2j\omega}+5e^{-j\omega}+6} && \text{Found in part 4b} \\
+        Y(e^{j\omega})(e^{-2j\omega}+5e^{-j\omega}+6) &= X(e^{j\omega})(5e^{-j\omega} + 12) \\
+        y[n-2] + 5y[n-1] + 6y[n] &= 5x[n-1] + 12x[n] \\
+    \end{align*}
+    \item \begin{align*}
+        H(e^{j\omega}) &= H_1(e^{j\omega}) + H_2(e^{j\omega}) \\
+        &= \frac{3}{3+e^{-j\omega}} + \frac{2}{2+e^{-j\omega}} \\
+        &= \frac{5e^{-j\omega} + 12}{e^{-2j\omega}+5e^{-j\omega}+6} \\
+    \end{align*}
+	\item \begin{align*}
+        h[n] &= \mathcal{F}^{-1}\{H_1(j\omega) + H_2(j\omega)\}\\
+        &= \mathcal{F}^{-1}\{\frac{3}{3+e^{-j\omega}} + \frac{2}{2+e^{-j\omega}}\}\\
+        &= \mathcal{F}^{-1}\{\frac{3}{3+e^{-j\omega}}\} + \mathcal{F}^{-1}\{\frac{2}{2+e^{-j\omega}}\}\\
+        &= \frac{-1}{3} u[n] + \frac{1}{2} u[n] \\
+    \end{align*}
     \end{enumerate}
 
-\item %write the solution of q5
-        
+\item After decoding \textbf{encoded.wav} according to the recipe given, a wav file \textbf{decoded.wav} is obtained.
+When played by a media player, the decoded file says "I have a dream".
+
+The code for the decoding process is given below.
+\inputminted{python}{hw4.py}
+
 
 \end{enumerate}
 
