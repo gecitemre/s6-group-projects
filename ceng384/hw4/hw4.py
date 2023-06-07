@@ -1,21 +1,26 @@
 import numpy
 from scipy.io import wavfile
+from tester import test # This is to verify the implementation, uses numpy.fft
 
-def fft(x):
+def fft(x: numpy.ndarray) -> numpy.ndarray:
     N = len(x)
     if N <= 1:
         return x
-    odd = fft(x[::2]) # check indexing NOTE
-    even = fft(x[1::2]) # check indexing NOTE
 
-    return numpy.concatenate([odd + even * numpy.exp(-2j * numpy.pi * numpy.arange(N // 2) / N),
-                              odd - even * numpy.exp(-2j * numpy.pi * numpy.arange(N // 2) / N)])
+    # Even and odd with mathematical indexing
+    odd = fft(x[::2])
+    even = fft(x[1::2]) * numpy.exp(-2j * numpy.pi * numpy.arange(N // 2) / N)
+    return numpy.concatenate([odd + even,
+                              odd - even])
 
-rate, message = wavfile.read("encoded.wav")
-message = fft(message)
-first_half = message[:len(message) // 2 + 1]
-second_half = message[len(message) // 2 + 1:]
-message2 = numpy.concatenate([numpy.flip(first_half), numpy.flip(second_half)])
-message3 = numpy.fft.ifft(message2)
+def ifft(X: numpy.ndarray) -> numpy.ndarray:
+    return fft(X)[::-1] / len(X)
 
-wavfile.write("decoded.wav", rate, message3.astype(numpy.int16))
+
+rate, encoded = wavfile.read("encoded.wav")
+N = len(encoded)
+dft_coefficients = fft(encoded)
+flipped = numpy.flip(dft_coefficients)
+decoded = ifft(numpy.concatenate([flipped[N//2 + 1:], flipped[:N//2 + 1]]))
+test(encoded, decoded, rate)
+wavfile.write("decoded.wav", rate, decoded.real.astype(numpy.int16))
