@@ -8,6 +8,7 @@
 \usepackage{tkz-euclide}
 \usepackage{tikz}
 \usepackage{pgfplots}
+\usepackage{circuitikz}
 \pgfplotsset{compat=1.13}
 
 \usepackage{geometry}
@@ -81,7 +82,40 @@ Homework 4}
         y(t) &= 3e^{-2t} - 3e^{-t}u(t) \\
     \end{align*}
     \item %write the solution of q1d
-    % TODO: draw
+    \begin{center}
+        \begin{figure}[!ht]
+            \centering
+            \resizebox{1\textwidth}{!}{%
+            \begin{circuitikz}
+            \tikzstyle{every node}=[font=\LARGE]
+            \node [font=\LARGE] at (1.25,12.75) {x(t)};
+            \draw [](2.75,12.75) to[short] (2.75,11.25);
+            \draw  (2,11.25) rectangle (3.5,10);
+            \node [font=\LARGE] at (2.8, 10.63) {$\int$};
+            \draw  (2,11.25) rectangle  (3.5,10);
+            \draw  (5.5,9) circle (0.5cm);
+            \draw [](2.75,9) to[short] (2.75,10);
+            \draw [](5.5,9.25) to[short] (5.5,8.75);
+            \draw [](5.25,9) to[short] (5.75,9);
+            \draw [ -Stealth] (2.75,9) -- (5,9);
+            \draw [ -Stealth] (5.5,9.5) -- (5.5,12.25);
+            \node [font=\LARGE] at (10.25,12.75) {y(t)};
+            \draw [ -Stealth] (6,12.75) -- (9.5,12.75);
+            \draw  (5.5,12.75) circle (0.5cm);
+            \draw [short] (5.5,13) -- (5.5,12.5);
+            \draw [short] (5.25,12.75) -- (5.75,12.75);
+            \draw [short] (3.5,9.25) -- (3.75,9.25);
+            \draw [short] (7.25,9.25) -- (7.5,9.25);
+            \draw [ -Stealth] (8.25,9) -- (6,9);
+            \draw  (7.5,11.25) rectangle (9,10);
+            \draw [short] (8.25,12.75) -- (8.25,11.25);
+            \draw [short] (8.25,9) -- (8.25,10);
+            \node [font=\LARGE] at (8.25,10.63) {$\int$};
+            \draw [ -Stealth] (1.75,12.75) -- (5,12.75);
+            \end{circuitikz}
+            }
+        \end{figure}
+    \end{center}
     \end{enumerate}
 
 \item %write the solution of q2  
