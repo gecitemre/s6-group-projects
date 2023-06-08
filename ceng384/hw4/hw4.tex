@@ -67,21 +67,21 @@ Homework 4}
         y'(t) + y(t) &= x'(t) - x(t) \\
         y'(t) + y(t) &= -2e^{-2t}u(t) - e^{-2t}u(t) \\
         y'(t) + y(t) &= -3e^{-2t}u(t) \\
-        y_p(t) &= Ae^{-2t} \\
-        y_p'(t) &= -2Ae^{-2t} \\
+        y_p(t) &= Ae^{-2t} u(t) \\
+        y_p'(t) &= -2Ae^{-2t} u(t) \\
         -2Ae^{-2t} + Ae^{-2t} &= -3e^{-2t}u(t) \\
         A &= 3 \\
-        y_p(t) &= 3e^{-2t} \\
-        y_h(t) &= c_1e^{-t}u(t) \\
+        y_p(t) &= 3e^{-2t} u(t)\\
+        y_h(t) &= c_1e^{-t}\\
         y(t) &= y_p(t) + y_h(t) \\
-        &= 3e^{-2t} + c_1e^{-t}u(t) \\
+        &= 3e^{-2t}u(t) + c_1e^{-t} \\
         y(0) &= 0 \\
-        0 &= 3e^{-2(0)} + c_1e^{-0}u(0) \\
+        0 &= 3e^{-2(0)}u(0) + c_1e^{-0} \\
         0 &= 3 + c_1 \\
         c_1 &= -3 \\
-        y(t) &= 3e^{-2t} - 3e^{-t}u(t) \\
+        y(t) &= 3e^{-2t}u(t) - 3e^{-t} \\
     \end{align*}
-    \begin{figure}
+    \begin{figure}[H]
         \centering
         \scalebox{0.6}{%
         \input{figures/q1c.pgf}
