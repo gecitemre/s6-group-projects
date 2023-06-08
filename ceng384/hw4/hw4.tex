@@ -8,6 +8,7 @@
 \usepackage{tkz-euclide}
 \usepackage{tikz}
 \usepackage{pgfplots}
+\usepackage{svg}
 \pgfplotsset{compat=1.13}
 
 \usepackage{geometry}
@@ -196,6 +197,31 @@ Homework 4}
 
 \item After decoding \textbf{encoded.wav} according to the recipe given, a wav file \textbf{decoded.wav} is obtained.
 When played by a media player, the decoded file says "I have a dream".
+
+\begin{figure}[H]
+    \centering
+    \input{figures/encoded.pgf}
+    \caption{The plot of the encoded signal}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \input{figures/encoded.pgf}
+    \caption{DFT of the encoded signal}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \input{figures/decoded.pgf}
+    \caption{DFT of the decoded signal}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \input{figures/decoded.pgf}
+    \caption{The plot of the decoded signal}
+\end{figure}
+
 
 The code for the decoding process is given below.
 \inputminted{python}{hw4.py}

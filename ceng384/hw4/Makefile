@@ -1,6 +1,6 @@
 TEX=pdflatex
 TFLAGS=-shell-escape -interaction=nonstopmode -file-line-error
-FIGURES = $(wildcard figures/*.svg)
+FIGURES = $(wildcard figures/*.pgf)
 TARGET = hw4
 PYTHON_FILE = $(TARGET).py
 
