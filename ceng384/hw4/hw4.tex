@@ -8,7 +8,7 @@
 \usepackage{tkz-euclide}
 \usepackage{tikz}
 \usepackage{pgfplots}
-\usepackage{svg}
+\usepackage{circuitikz}
 \pgfplotsset{compat=1.13}
 
 \usepackage{geometry}
@@ -81,8 +81,42 @@ Homework 4}
         c_1 &= -3 \\
         y(t) &= 3e^{-2t} - 3e^{-t}u(t) \\
     \end{align*}
-    \item %write the solution of q1d
-    % TODO: draw
+    \item Block diagram of the system:
+
+        \begin{figure}[H]
+            \centering
+            \resizebox{0.6\textwidth}{!}{%
+            \begin{circuitikz}
+            \tikzstyle{every node}=[font=\LARGE]
+            \node [font=\LARGE] at (1.25,12.75) {x(t)};
+            \draw [](2.75,12.75) to[short] (2.75,11.25);
+            \draw  (2,11.25) rectangle (3.5,10);
+            \node [font=\LARGE] at (2.8, 10.63) {$\int$};
+            \draw  (2,11.25) rectangle  (3.5,10);
+            \draw  (5.5,9) circle (0.5cm);
+            \draw [](2.75,9) to[short] (2.75,10);
+            \draw [](5.5,9.25) to[short] (5.5,8.75);
+            \draw [](5.25,9) to[short] (5.75,9);
+            \draw [ -Stealth] (2.75,9) -- (5,9);
+            \draw [ -Stealth] (5.5,9.5) -- (5.5,12.25);
+            \node [font=\LARGE] at (10.25,12.75) {y(t)};
+            \draw [ -Stealth] (6,12.75) -- (9.5,12.75);
+            \draw  (5.5,12.75) circle (0.5cm);
+            \draw [short] (5.5,13) -- (5.5,12.5);
+            \draw [short] (5.25,12.75) -- (5.75,12.75);
+            \draw [short] (3.5,9.25) -- (3.75,9.25);
+            \draw [short] (7.25,9.25) -- (7.5,9.25);
+            \draw [ -Stealth] (8.25,9) -- (6,9);
+            \draw  (7.5,11.25) rectangle (9,10);
+            \draw [short] (8.25,12.75) -- (8.25,11.25);
+            \draw [short] (8.25,9) -- (8.25,10);
+            \node [font=\LARGE] at (8.25,10.63) {$\int$};
+            \draw [ -Stealth] (1.75,12.75) -- (5,12.75);
+            \end{circuitikz}
+            }
+            \caption{Block Diagram of the System}
+        \end{figure}
+
     \end{enumerate}
 
 \item %write the solution of q2  
@@ -110,24 +144,28 @@ Homework 4}
     \end{align*}
 	\item %write the solution of q2c
     % find and plot the output for the input x[n] = \left(\frac{3}{4}\right)^nu[n]
+    The initial condition is $y[a] = 0, a \leq -1$.
     \begin{align*}
-        y[n + 1] - \frac{1}{2}y[n] &= x[n + 1] \\ 
-        y[n + 1] - \frac{1}{2}y[n] &= \left(\frac{3}{4}\right)^{n + 1}u[n + 1] \\ 
-        y_p[n] &= A\left(\frac{3}{4}\right)^n \\
-        y_p[n + 1] &= A\left(\frac{3}{4}\right)^{n + 1} \\
-        A\left(\frac{3}{4}\right)^{n + 1} - \frac{1}{2}A\left(\frac{3}{4}\right)^n &= \left(\frac{3}{4}\right)^{n + 1}u[n + 1] \\
-        \frac{3}{4}A\left(\frac{3}{4}\right)^n - \frac{1}{2}A\left(\frac{3}{4}\right)^n &= \frac{3}{4}\left(\frac{3}{4}\right)^nu[n + 1] \\
-        \frac{3}{4}A - \frac{1}{2}A &= \frac{3}{4}u[n + 1] \\
-        A &= 3 \\
-        y_p[n] &= 3\left(\frac{3}{4}\right)^n \\
-        y_h[n] &= c_1\left(\frac{1}{2}\right)^nu[n] \\
-        y[n] &= y_p[n] + y_h[n] \\
-        &= 3\left(\frac{3}{4}\right)^n + c_1\left(\frac{1}{2}\right)^nu[n] \\
-        y[0] &= 0 \\
-        0 &= 3\left(\frac{3}{4}\right)^0 + c_1\left(\frac{1}{2}\right)^0u[0] \\
-        0 &= 3 + c_1 \\
-        c_1 &= -3 \\
-        y[n] &= 3\left(\frac{3}{4}\right)^n - 3\left(\frac{1}{2}\right)^nu[n] \\
+        y[n + 1] - \frac{1}{2}y[n] &= x[n + 1] \\
+        y[n + 1] &= \frac{1}{2}y[n] + x[n + 1] \\
+        y[0] &= \frac{1}{2}y[-1] + x[0] \\
+        &= 0 + 1 \\
+        &= 1 \\
+        y[1] &= \frac{1}{2}y[0] + x[1] \\
+        &= \frac{1}{2} + \frac{3}{4} \\
+        &= \frac{5}{4} \\
+        y[2] &= \frac{1}{2}y[1] + x[2] \\
+        &= \frac{5}{8} + \frac{9}{16} \\
+        &= \frac{19}{16} \\
+        y[3] &= \frac{1}{2}y[2] + x[3] \\
+        &= \frac{19}{32} + \frac{27}{64} \\
+        &= \frac{65}{64} \\
+        y[4] &= \frac{1}{2}y[3] + x[4] \\
+        &= \frac{65}{128} + \frac{81}{256} \\
+        &= \frac{211}{256} \\
+        &...\\
+        % general rule
+        y[n] &= 2^{-n}\left(1 + 3\left( \left(\frac{3}{2}\right)^n - 1 \right)\right)
     \end{align*}
     \end{enumerate}
 
@@ -201,25 +239,25 @@ When played by a media player, the decoded file says "I have a dream".
 \begin{figure}[H]
     \centering
     \input{figures/encoded.pgf}
-    \caption{The plot of the encoded signal}
+    \caption{Time Domain Representation of The Encoded Signal}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \input{figures/encoded.pgf}
-    \caption{DFT of the encoded signal}
+    \input{figures/dft_encoded.pgf}
+    \caption{Frequency Domain Representation of The Encoded Signal}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \input{figures/dft_decoded.pgf}
+    \caption{Frequency Domain Representation of The Decoded Signal}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \input{figures/decoded.pgf}
-    \caption{DFT of the decoded signal}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \input{figures/decoded.pgf}
-    \caption{The plot of the decoded signal}
+    \caption{Time Domain Representation of The Decoded Signal}
 \end{figure}
 
 
