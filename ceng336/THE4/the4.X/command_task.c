@@ -5,8 +5,9 @@ extern byte* output_pointer, output_buffer[MAX_COMMAND_LENGTH];
 // send command output
 TASK(COMMAND_TASK) 
 {
-	SetRelAlarm(ALARM_TSK0, 20 * 90, 50);
-
+    WaitEvent(COMMAND_EVENT_MASK);
+    ClearEvent(COMMAND_EVENT_MASK);
+    SetRelAlarm(ALARM_TSK0, 30, 50);
 	while(1) {
         WaitEvent(ALARM_EVENT_MASK);
         ClearEvent(ALARM_EVENT_MASK);

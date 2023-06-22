@@ -40,8 +40,8 @@ AlarmObject Alarm_list[] =
      0,                                    /* AlarmValue              */
      0,                                    /* Cycle                   */
      &Counter_kernel,                      /* ptrCounter              */
-     0,                             /* TaskID2Activate         */
-             ALARM_EVENT_MASK,
+     COMMAND_TASK_ID,
+     ALARM_EVENT_MASK,
      0                                     /* CallBack                */
    },
  };
@@ -74,7 +74,8 @@ unsigned char RESOURCENUMBER = _RESOURCENUMBER_;
 DeclareTask(RESPONSE_TASK);
 DeclareTask(COMMAND_TASK);
 
-#define PRIORITY(RESPONSE_TASK) 9
+#define RESPONSE_TASK_PRIORITY 9
+#define COMMAND_TASK_PRIORITY 9
 
 
 // to avoid any C18 map error : regroup the stacks into blocks
@@ -94,7 +95,7 @@ const rom unsigned int descromarea;
  * -----------------------------  task 0 ------------------------------
  **********************************************************************/
 rom_desc_tsk rom_desc_task0 = {
-	PRIORITY(RESPONSE_TASK),                       /* prioinit from 0 to 15       */
+	RESPONSE_TASK_PRIORITY,                       /* prioinit from 0 to 15       */
 	stack0,                           /* stack address (16 bits)     */
 	RESPONSE_TASK,                            /* start address (16 bits)     */
 	READY,                            /* state at init phase         */
@@ -106,7 +107,7 @@ rom_desc_tsk rom_desc_task0 = {
  * -----------------------------  task 1 ------------------------------
  **********************************************************************/
 rom_desc_tsk rom_desc_task1 = {
-	PRIORITY(COMMAND_TASK),                       /* prioinit from 0 to 15       */
+	COMMAND_TASK_PRIORITY,                       /* prioinit from 0 to 15       */
 	stack1,                           /* stack address (16 bits)     */
 	COMMAND_TASK,                            /* start address (16 bits)     */
 	READY,                            /* state at init phase         */
