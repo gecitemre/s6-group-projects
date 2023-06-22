@@ -5,8 +5,7 @@ extern typedef enum {IDLE, ACTIVE, END} simulator_mode;
 extern customer_status customers[3];
 extern unsigned short money;
 extern byte input_buffer[MAX_RESPONSE_LENGTH];
-extern byte *input_pointer = input_buffer;
-extern byte output_buffer[MAX_COMMAND_LENGTH] = {'$', 'W', ':'};
+extern byte output_buffer[MAX_COMMAND_LENGTH];
 extern byte *output_pointer = output_buffer;
 // This function guarantees that first 3 bytes of output_buffer won't be changed if no customer is served.
 void Serve() {
