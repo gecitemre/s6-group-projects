@@ -11,6 +11,9 @@ extern unsigned short money;
 // This function guarantees that first 3 bytes of output_buffer won't be changed if no customer is served.
 void Serve() {
         byte i = 0, l, j, k;
+        
+        if (mode == END) return;
+        
         for (i = 0; i < 3; i++) {
                 if (customers[i].patience < 2) continue;
                 l = 3;
@@ -55,6 +58,7 @@ TASK(RESPONSE_TASK)
                         break;
                 case 'E':
                         // END
+                        mode = END;
                         break;
                 case 'R':
                         // STATUS

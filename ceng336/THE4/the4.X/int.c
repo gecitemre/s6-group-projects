@@ -2,7 +2,6 @@
 
 char rcv_value;
 ingredient_status ingredients[4];
-typedef enum {IDLE, ACTIVE, END} simulator_mode;
 customer_status customers[3];
 unsigned short money;
 byte input_buffer[MAX_RESPONSE_LENGTH];
