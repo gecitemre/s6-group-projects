@@ -2,6 +2,7 @@
 
 extern byte* output_pointer, output_buffer[MAX_COMMAND_LENGTH];
 
+// send command output
 TASK(COMMAND_TASK) 
 {
 	SetRelAlarm(ALARM_TSK0, 20 * 90, 50);

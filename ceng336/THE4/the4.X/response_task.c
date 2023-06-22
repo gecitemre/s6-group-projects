@@ -51,7 +51,7 @@ TASK(RESPONSE_TASK)
                 case 'G':
                         // GO
                         mode = ACTIVE;
-                        SetEvent(COMMAND_EVENT, COMMAND_EVENT_MASK);
+                        SetEvent(COMMAND_TASK_ID, COMMAND_EVENT_MASK);
                         break;
                 case 'E':
                         // END

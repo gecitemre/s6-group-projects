@@ -1,4 +1,4 @@
-{ "PORT": "/dev/tnt0",
+{ "PORT": "/dev/tnt3",
   "BAUDRATE": 9600,
   "FPS": 30,
   "HASH_KEY_LENGTH": 8,

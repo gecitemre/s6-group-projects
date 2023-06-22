@@ -98,7 +98,7 @@ rom_desc_tsk rom_desc_task0 = {
 	stack0,                           /* stack address (16 bits)     */
 	RESPONSE_TASK,                            /* start address (16 bits)     */
 	READY,                            /* state at init phase         */
-	0,                         /* id_tsk from 0 to 15         */
+	RESPONSE_TASK_ID,                         /* id_tsk from 0 to 15         */
 	sizeof(stack0)                    /* stack size    (16 bits)     */
 };
 
@@ -110,7 +110,7 @@ rom_desc_tsk rom_desc_task1 = {
 	stack1,                           /* stack address (16 bits)     */
 	COMMAND_TASK,                            /* start address (16 bits)     */
 	READY,                            /* state at init phase         */
-	1,                         /* id_tsk from 0 to 15         */
+	COMMAND_TASK_ID,                         /* id_tsk from 0 to 15         */
 	sizeof(stack1)                    /* stack size    (16 bits)     */
 };
 

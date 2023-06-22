@@ -65,11 +65,12 @@ void InterruptVectorL(void)
         }
 	}
 	if (PIR1bits.RCIF == 1) {
-        *input_pointer++ = RCREG;
-        if (RCREG == ':') {
+        *input_pointer = RCREG;
+        if (*input_pointer == ':') {
             input_pointer = input_buffer;
-            SetEvent(RESPONSE_EVENT, RESPONSE_EVENT_MASK);
+            SetEvent(RESPONSE_TASK_ID, RESPONSE_EVENT_MASK);
         }
+        input_pointer++;
 		PIR1bits.RCIF = 0;	// clear RC1IF flag
 	}
         if (RCSTAbits.OERR)
