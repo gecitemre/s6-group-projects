@@ -59,10 +59,7 @@ void InterruptVectorL(void)
 		AddOneTick();
 	/* Here are the other interrupts you would desire to manage */
 	if (PIR1bits.TXIF == 1) {
-        if(hello > 0){
-            hello--;
-            TXREG = rcv_value-hello;
-        }
+    SetEvent(COMMAND_TASK_ID, COMMAND_EVENT_MASK);
 	}
 	if (PIR1bits.RCIF == 1) {
         *input_pointer = RCREG;

@@ -51,7 +51,7 @@ TASK(RESPONSE_TASK)
                 case 'G':
                         // GO
                         mode = ACTIVE;
-                        SetEvent(COMMAND_TASK_ID, COMMAND_EVENT_MASK);
+                        SetRelAlarm(ALARM_TSK0, 30, 50);
                         break;
                 case 'E':
                         // END
