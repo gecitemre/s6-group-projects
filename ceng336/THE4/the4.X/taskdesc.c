@@ -77,7 +77,6 @@ DeclareTask(COMMAND_TASK);
 #define RESPONSE_TASK_PRIORITY 9
 #define COMMAND_TASK_PRIORITY 9
 
-
 // to avoid any C18 map error : regroup the stacks into blocks
 // of 256 bytes (except the last one).
 #pragma		udata      STACK_A   

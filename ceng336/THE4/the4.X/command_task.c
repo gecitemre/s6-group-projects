@@ -11,12 +11,13 @@ TASK(COMMAND_TASK)
 	while(1) {
         WaitEvent(ALARM_EVENT_MASK);
         ClearEvent(ALARM_EVENT_MASK);
-        TXREG = *output_pointer++;
+        TXREG = *output_pointer;
         if (*output_pointer == ':') {
             output_pointer = output_buffer;
             WaitEvent(COMMAND_EVENT_MASK);
             ClearEvent(COMMAND_EVENT_MASK);
         }
+        output_pointer++;
 	}
 	TerminateTask();
 }
