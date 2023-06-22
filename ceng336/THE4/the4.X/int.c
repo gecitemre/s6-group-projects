@@ -1,7 +1,5 @@
 #include "common.h"
 
-byte input_buffer[21];
-byte input_buffer_index = 0;
 char rcv_value;
 /**********************************************************************
  * Function you want to call when an IT occurs.
@@ -50,11 +48,10 @@ void InterruptVectorL(void)
         }
 	}
 	if (PIR1bits.RCIF == 1) {
-        input_buffer[input_buffer_index++] = RCREG;
-        if (RCREG == ':' || input_buffer_index == 20) {
-            input_buffer_index = 0;
-            SetEvent(RESPONSE_EVENT_ID, RESPONSE_EVENT);
-        }
+        // receiving is the same for both picsim and real life.
+        rcv_value = RCREG;
+        hello = 10;
+        SetEvent(TASK1_ID, ECHO_EVENT);
 		PIR1bits.RCIF = 0;	// clear RC1IF flag
 	}
         if (RCSTAbits.OERR)

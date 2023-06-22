@@ -40,7 +40,7 @@ AlarmObject Alarm_list[] =
      0,                                    /* AlarmValue              */
      0,                                    /* Cycle                   */
      &Counter_kernel,                      /* ptrCounter              */
-     0,                             /* TaskID2Activate         */
+     TASK0_ID,                             /* TaskID2Activate         */
      ALARM_EVENT,                          /* EventToPost             */
      0                                     /* CallBack                */
    },
@@ -95,7 +95,7 @@ rom_desc_tsk rom_desc_task0 = {
 	stack0,                           /* stack address (16 bits)     */
 	TASK0,                            /* start address (16 bits)     */
 	READY,                            /* state at init phase         */
-	0,                         /* id_tsk from 0 to 15         */
+	TASK0_ID,                         /* id_tsk from 0 to 15         */
 	sizeof(stack0)                    /* stack size    (16 bits)     */
 };
 
@@ -107,7 +107,7 @@ rom_desc_tsk rom_desc_task1 = {
 	stack1,                           /* stack address (16 bits)     */
 	TASK1,                            /* start address (16 bits)     */
 	READY,                            /* state at init phase         */
-	1,                         /* id_tsk from 0 to 15         */
+	TASK1_ID,                         /* id_tsk from 0 to 15         */
 	sizeof(stack1)                    /* stack size    (16 bits)     */
 };
 
