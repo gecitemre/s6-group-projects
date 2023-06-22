@@ -43,10 +43,10 @@ TASK(RESPONSE_TASK)
 {
         while (1)
         {
-                byte index = 0, i;
+                byte index = 1, i;
                 WaitEvent(RESPONSE_EVENT_MASK);
                 ClearEvent(RESPONSE_EVENT_MASK);
-                switch (input_buffer[++index])
+                switch (input_buffer[index++])
                 {
                 case 'G':
                         // GO
@@ -60,17 +60,17 @@ TASK(RESPONSE_TASK)
                         // STATUS
                         for (i = 0; i < 3; i++)
                         {
-                                customers[i].customer_id = input_buffer[++index];
-                                customers[i].ingredients[0] = input_buffer[++index];
-                                customers[i].ingredients[1] = input_buffer[++index];
-                                customers[i].patience = input_buffer[++index];
+                                customers[i].customer_id = input_buffer[index++];
+                                customers[i].ingredients[0] = input_buffer[index++];
+                                customers[i].ingredients[1] = input_buffer[index++];
+                                customers[i].patience = input_buffer[index++];
                         }
 
                         for (i = 0; i < 4; i++)
                         {
-                                ingredients[i] = input_buffer[++index];
+                                ingredients[i] = input_buffer[index++];
                         }
-                        money = *(unsigned short*)input_buffer[++index];
+                        money = *(unsigned short*)input_buffer[index++];
                         Serve();
                         break;
                 case 'H':
