@@ -17,8 +17,8 @@
       <itemPath>int.c</itemPath>
       <itemPath>main.c</itemPath>
       <itemPath>taskdesc.c</itemPath>
-      <itemPath>tsk_task0.c</itemPath>
-      <itemPath>tsk_task1.c</itemPath>
+      <itemPath>response_task.c</itemPath>
+      <itemPath>command_task.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

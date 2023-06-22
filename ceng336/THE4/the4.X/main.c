@@ -21,7 +21,7 @@ void PostTaskHook(void);
 
 extern union Timers Tmr0;
 
-AppModeType SelectedMode;
+AppModeType selected_mode;
 
 /**********************************************************************
  * -------------------------- main function ---------------------------
@@ -32,11 +32,12 @@ AppModeType SelectedMode;
 void main(void)
 {
   STKPTR = 0;
-  SelectedMode = DEFAULT_MODE;
+  selected_mode = DEFAULT_MODE;
+
   Init();
   
   while(1) {
-    StartOS(SelectedMode);
+    StartOS(selected_mode);
   }
 }
 
@@ -69,7 +70,6 @@ void Init(void)
 	RCSTA = 0x90;      // (= 10010000) 8-bit receiver, receiver enabled,
                         // continuous receive, serial port enabled
 	/* configure the interrupts */
-    TXSTAbits.TXEN = 1;
 	INTCON = 0;			// clear interrupt register completely
 	PIE1bits.TXIE = 1;	// enable USART transmit interrupt
 	PIE1bits.RCIE = 1;	// enable USART receive interrupt

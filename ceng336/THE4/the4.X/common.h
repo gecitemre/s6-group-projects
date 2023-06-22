@@ -15,25 +15,48 @@
 /***********************************************************************
  * ----------------------------- Events --------------------------------
  **********************************************************************/
-#define ALARM_EVENT       0x80
-#define ECHO_EVENT        0x40
+
+enum {ALARM_EVENT, RESPONSE_EVENT, COMMAND_EVENT}; // Event IDs
+#define VALUE(ID) (1 << ID)
+#define ALARM_TSK0 0
 
 /***********************************************************************
- * ----------------------------- Task ID -------------------------------
+ * --------------------------- Game Logic ------------------------------
  **********************************************************************/
-/* Info about the tasks:
- * TASK0: USART
- * TASK1: USART
- */
-#define TASK0_ID             1
-#define TASK1_ID             2
+#define byte unsigned char
 
-/* Priorities of the tasks */
-#define TASK0_PRIO           8
-#define TASK1_PRIO           7
+typedef enum {IDLE, ACTIVE, END} simulator_mode;
+simulator_mode mode;
 
-#define ALARM_TSK0           0
+typedef enum {MEAT = 'M', BREAD = 'B', POTATO = 'P', COOKING = 'C', SLOW_COOKING = 'S', NONE = 'N'} ingredient_status;
 
+ingredient_status ingredients[4];
+
+typedef struct
+{
+    byte customer_id;
+    ingredient_status ingredients[2];
+    byte patience;
+} customer_status;
+
+customer_status customers[3];
+
+unsigned short money;
+
+byte IsPresent(customer_status customer) {
+    return !(customer.customer_id == 0 && ingredients[0] == 'N' && ingredients[1] == 'N' && customer.patience == 0);
+}
+
+byte IsFoodJudge(customer_status customer) {
+    return customer.ingredients[0] == 'F';
+}
+
+#define MAX_RESPONSE_LENGTH 21
+#define MAX_COMMAND_LENGTH 18
+byte input_buffer[MAX_RESPONSE_LENGTH];
+byte *input_pointer = input_buffer;
+byte output_buffer[MAX_COMMAND_LENGTH] = {'$', 'W', ':'};
+byte *output_pointer = output_buffer;
 
 #endif
 

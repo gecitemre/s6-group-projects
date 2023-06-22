@@ -40,8 +40,8 @@ AlarmObject Alarm_list[] =
      0,                                    /* AlarmValue              */
      0,                                    /* Cycle                   */
      &Counter_kernel,                      /* ptrCounter              */
-     TASK0_ID,                             /* TaskID2Activate         */
-     ALARM_EVENT,                          /* EventToPost             */
+     0,                             /* TaskID2Activate         */
+     VALUE(ALARM_EVENT),                          /* EventToPost             */
      0                                     /* CallBack                */
    },
  };
@@ -71,8 +71,11 @@ unsigned char RESOURCENUMBER = _RESOURCENUMBER_;
  * ----------------------- TASK & STACK DEFINITION --------------------
  **********************************************************************/
 #define DEFAULT_STACK_SIZE      256
-DeclareTask(TASK0);
-DeclareTask(TASK1);
+DeclareTask(RESPONSE_TASK);
+DeclareTask(COMMAND_TASK);
+
+#define PRIORITY(RESPONSE_TASK) 9
+
 
 // to avoid any C18 map error : regroup the stacks into blocks
 // of 256 bytes (except the last one).
@@ -91,11 +94,11 @@ const rom unsigned int descromarea;
  * -----------------------------  task 0 ------------------------------
  **********************************************************************/
 rom_desc_tsk rom_desc_task0 = {
-	TASK0_PRIO,                       /* prioinit from 0 to 15       */
+	PRIORITY(RESPONSE_TASK),                       /* prioinit from 0 to 15       */
 	stack0,                           /* stack address (16 bits)     */
-	TASK0,                            /* start address (16 bits)     */
+	RESPONSE_TASK,                            /* start address (16 bits)     */
 	READY,                            /* state at init phase         */
-	TASK0_ID,                         /* id_tsk from 0 to 15         */
+	0,                         /* id_tsk from 0 to 15         */
 	sizeof(stack0)                    /* stack size    (16 bits)     */
 };
 
@@ -103,11 +106,11 @@ rom_desc_tsk rom_desc_task0 = {
  * -----------------------------  task 1 ------------------------------
  **********************************************************************/
 rom_desc_tsk rom_desc_task1 = {
-	TASK1_PRIO,                       /* prioinit from 0 to 15       */
+	PRIORITY(COMMAND_TASK),                       /* prioinit from 0 to 15       */
 	stack1,                           /* stack address (16 bits)     */
-	TASK1,                            /* start address (16 bits)     */
+	COMMAND_TASK,                            /* start address (16 bits)     */
 	READY,                            /* state at init phase         */
-	TASK1_ID,                         /* id_tsk from 0 to 15         */
+	1,                         /* id_tsk from 0 to 15         */
 	sizeof(stack1)                    /* stack size    (16 bits)     */
 };
 
