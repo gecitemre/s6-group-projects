@@ -1,12 +1,13 @@
 #include "common.h"
 
 extern ingredient_status ingredients[4];
-extern typedef enum {IDLE, ACTIVE, END} simulator_mode;
+simulator_mode mode;
 extern customer_status customers[3];
 extern unsigned short money;
 extern byte input_buffer[MAX_RESPONSE_LENGTH];
 extern byte output_buffer[MAX_COMMAND_LENGTH];
 extern byte *output_pointer = output_buffer;
+extern unsigned short money;
 // This function guarantees that first 3 bytes of output_buffer won't be changed if no customer is served.
 void Serve() {
         byte i = 0, l, j, k;
@@ -42,14 +43,14 @@ TASK(RESPONSE_TASK)
 {
         while (1)
         {
+                byte index = 0, i;
                 WaitEvent(RESPONSE_EVENT_MASK);
                 ClearEvent(RESPONSE_EVENT_MASK);
-                byte index = 0;
                 switch (input_buffer[++index])
                 {
                 case 'G':
                         // GO
-                        simulator_mode = ACTIVE;
+                        mode = ACTIVE;
                         SetEvent(COMMAND_EVENT, COMMAND_EVENT_MASK);
                         break;
                 case 'E':
@@ -57,7 +58,7 @@ TASK(RESPONSE_TASK)
                         break;
                 case 'R':
                         // STATUS
-                        for (byte i = 0; i < 3; i++)
+                        for (i = 0; i < 3; i++)
                         {
                                 customers[i].customer_id = input_buffer[++index];
                                 customers[i].ingredients[0] = input_buffer[++index];
@@ -65,12 +66,11 @@ TASK(RESPONSE_TASK)
                                 customers[i].patience = input_buffer[++index];
                         }
 
-                        for (byte i = 0; i < 4; i++)
+                        for (i = 0; i < 4; i++)
                         {
                                 ingredients[i] = input_buffer[++index];
                         }
-                        money = *(unsigned short*)(++input_pointer);
-                        input_pointer = input_buffer;
+                        money = *(unsigned short*)input_buffer[++index];
                         Serve();
                         break;
                 case 'H':
