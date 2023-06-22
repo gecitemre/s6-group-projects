@@ -1,17 +1,12 @@
 #include "common.h"
 
-extern byte output_buffer[MAX_COMMAND_LENGTH], input_buffer[MAX_RESPONSE_LENGTH];
-extern unsigned short money;
-extern simulator_mode mode;
-extern ingredient_status ingredients[4];
-
 // This function guarantees that first 3 bytes of output_buffer won't be changed if no customer is served.
 void Serve() {
-        byte i = 0;
+        byte i = 0, l, j, k;
         for (i = 0; i < 3; i++) {
                 if (customers[i].patience < 2) continue;
-                byte l = 3;
-                for (byte j = 0; j < 2; j++) {
+                l = 3;
+                for (j = 0; j < 2; j++) {
                         switch (customers[i].ingredients[j]) {
                                 case 'C':
                                         goto next_customer;
@@ -21,7 +16,6 @@ void Serve() {
                                         output_buffer[l++] = 'N';
                                         break;
                                 default:
-                                        byte k;
                                         for (k = 0; k < 4; k++) {
                                                 if (ingredients[k] == customers[i].ingredients[j]) output_buffer[l++] = k;
                                                 break;
@@ -41,15 +35,15 @@ TASK(RESPONSE_TASK)
 {
         while (1)
         {
-                WaitEvent(VALUE(RESPONSE_EVENT));
-                ClearEvent(VALUE(RESPONSE_EVENT));
-                byte *input_pointer = input_buffer;
-                switch (*++input_pointer)
+                WaitEvent(RESPONSE_EVENT_MASK);
+                ClearEvent(RESPONSE_EVENT_MASK);
+                byte index = 0;
+                switch (input_buffer[++index])
                 {
                 case 'G':
                         // GO
-                        mode = ACTIVE;
-                        SetEvent(COMMAND_TASK, VALUE(COMMAND_EVENT));
+                        simulator_mode = ACTIVE;
+                        SetEvent(COMMAND_TASK, COMMAND_EVENT_MASK);
                         break;
                 case 'E':
                         // END
@@ -58,15 +52,15 @@ TASK(RESPONSE_TASK)
                         // STATUS
                         for (byte i = 0; i < 3; i++)
                         {
-                                customers[i].customer_id = *++input_pointer;
-                                customers[i].ingredients[0] = *++input_pointer;
-                                customers[i].ingredients[1] = *++input_pointer;
-                                customers[i].patience = *++input_pointer;
+                                customers[i].customer_id = input_buffer[++index];
+                                customers[i].ingredients[0] = input_buffer[++index];
+                                customers[i].ingredients[1] = input_buffer[++index];
+                                customers[i].patience = input_buffer[++index];
                         }
 
                         for (byte i = 0; i < 4; i++)
                         {
-                                ingredients[i] = *++input_pointer;
+                                ingredients[i] = input_buffer[++index];
                         }
                         money = *(unsigned short*)(++input_pointer);
                         input_pointer = input_buffer;

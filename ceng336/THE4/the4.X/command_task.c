@@ -7,13 +7,13 @@ TASK(COMMAND_TASK)
 	SetRelAlarm(ALARM_TSK0, 20 * 90, 50);
 
 	while(1) {
-        WaitEvent(VALUE(ALARM_EVENT));
-        ClearEvent(VALUE(ALARM_EVENT));
+        WaitEvent(ALARM_EVENT_MASK);
+        ClearEvent(ALARM_EVENT_MASK);
         TXREG = *output_pointer++;
         if (*output_pointer == ':') {
             output_pointer = output_buffer;
-            WaitEvent(VALUE(COMMAND_EVENT));
-            ClearEvent(VALUE(COMMAND_EVENT));
+            WaitEvent(COMMAND_EVENT_MASK);
+            ClearEvent(COMMAND_EVENT_MASK);
         }
 	}
 	TerminateTask();

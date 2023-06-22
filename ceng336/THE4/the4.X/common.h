@@ -2,6 +2,7 @@
 #define COMMON_H
 
 #include "device.h"
+typedef unsigned char byte;
 
 /***********************************************************************
  * ------------------------ Timer settings -----------------------------
@@ -17,17 +18,17 @@
  **********************************************************************/
 
 enum {ALARM_EVENT, RESPONSE_EVENT, COMMAND_EVENT}; // Event IDs
-#define VALUE(ID) (1 << ID)
+#define ALARM_EVENT_MASK 0x01
+#define RESPONSE_EVENT_MASK 0x02
+#define COMMAND_EVENT_MASK 0x04
+
 #define ALARM_TSK0 0
 
 /***********************************************************************
  * --------------------------- Game Logic ------------------------------
  **********************************************************************/
-#define byte unsigned char
 
-typedef enum {IDLE, ACTIVE, END} simulator_mode;
-simulator_mode mode;
-
+enum {IDLE, ACTIVE, END} simulator_mode;
 typedef enum {MEAT = 'M', BREAD = 'B', POTATO = 'P', COOKING = 'C', SLOW_COOKING = 'S', NONE = 'N'} ingredient_status;
 
 ingredient_status ingredients[4];

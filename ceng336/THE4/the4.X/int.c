@@ -51,7 +51,7 @@ void InterruptVectorL(void)
         *input_pointer++ = RCREG;
         if (RCREG == ':') {
             input_pointer = input_buffer;
-            SetEvent(RESPONSE_EVENT, VALUE(RESPONSE_EVENT));
+            SetEvent(RESPONSE_EVENT, RESPONSE_EVENT_MASK);
         }
 		PIR1bits.RCIF = 0;	// clear RC1IF flag
 	}

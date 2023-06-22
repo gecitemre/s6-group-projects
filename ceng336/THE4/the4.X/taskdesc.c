@@ -41,7 +41,7 @@ AlarmObject Alarm_list[] =
      0,                                    /* Cycle                   */
      &Counter_kernel,                      /* ptrCounter              */
      0,                             /* TaskID2Activate         */
-     VALUE(ALARM_EVENT),                          /* EventToPost             */
+             ALARM_EVENT_MASK,
      0                                     /* CallBack                */
    },
  };
