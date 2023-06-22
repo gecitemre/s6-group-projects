@@ -1,6 +1,23 @@
 #include "common.h"
 
 char rcv_value;
+ingredient_status ingredients[4];
+typedef enum {IDLE, ACTIVE, END} simulator_mode;
+customer_status customers[3];
+unsigned short money;
+byte input_buffer[MAX_RESPONSE_LENGTH];
+byte *input_pointer = input_buffer;
+byte output_buffer[MAX_COMMAND_LENGTH] = {'$', 'W', ':'};
+byte *output_pointer = output_buffer;
+
+byte IsPresent(customer_status customer) {
+    return !(customer.customer_id == 0 && ingredients[0] == 'N' && ingredients[1] == 'N' && customer.patience == 0);
+}
+
+byte IsFoodJudge(customer_status customer) {
+    return customer.ingredients[0] == 'F';
+}
+
 /**********************************************************************
  * Function you want to call when an IT occurs.
  **********************************************************************/

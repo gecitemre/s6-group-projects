@@ -124,6 +124,7 @@
         <property key="stack-analysis" value="false"/>
         <property key="stack-analysis-mcc18" value="false"/>
         <property key="stack-analysis-mplink" value="false"/>
+        <appendMe value="--verbose"/>
       </C18LanguageToolchain>
       <Simulator>
         <property key="codecoverage.enabled" value="Disable"/>
