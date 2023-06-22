@@ -6,6 +6,8 @@ extern byte* output_pointer, output_buffer[MAX_COMMAND_LENGTH];
 TASK(COMMAND_TASK) 
 {
 	while(1) {
+        WaitEvent(ALARM_EVENT_MASK);
+        ClearEvent(ALARM_EVENT_MASK);
         while (1) {
             TXREG = *output_pointer;
             if (*output_pointer == ':') {
@@ -19,8 +21,6 @@ TASK(COMMAND_TASK)
             WaitEvent(COMMAND_EVENT_MASK);
             ClearEvent(COMMAND_EVENT_MASK);
         }
-        WaitEvent(ALARM_EVENT_MASK);
-        ClearEvent(ALARM_EVENT_MASK);
 	}
 	TerminateTask();
 }
