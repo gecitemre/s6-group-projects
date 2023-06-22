@@ -23,3 +23,4 @@ disassembly/
 *.i
 cmake-build-debug/
 group20.zip
+*.err

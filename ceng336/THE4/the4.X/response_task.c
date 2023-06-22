@@ -43,7 +43,7 @@ TASK(RESPONSE_TASK)
                 case 'G':
                         // GO
                         simulator_mode = ACTIVE;
-                        SetEvent(COMMAND_TASK, COMMAND_EVENT_MASK);
+                        SetEvent(COMMAND_EVENT, COMMAND_EVENT_MASK);
                         break;
                 case 'E':
                         // END
