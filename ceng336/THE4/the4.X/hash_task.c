@@ -25,7 +25,7 @@ TASK(HASH_TASK) {
                 compute_hash(hash_input, hash_output + 2);
                 hash_output[0] = '$';
                 hash_output[1] = 'H';
-                hash_output[17] = ':';
+                hash_output[18] = ':';
                 hash_ready = 1;
 
 	}

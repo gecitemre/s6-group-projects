@@ -33,7 +33,7 @@ enum {RESPONSE_TASK_ID, COMMAND_TASK_ID, HASH_TASK_ID, LCD_TASK_ID}; // Task IDs
  **********************************************************************/
 
 #define MAX_RESPONSE_LENGTH 21
-#define MAX_COMMAND_LENGTH 18
+#define MAX_COMMAND_LENGTH 19
 
 /***********************************************************************
  * --------------------------- Game Logic ------------------------------
