@@ -3,11 +3,13 @@
 extern byte hash_ready;
 extern byte* output_pointer, output_buffer[MAX_COMMAND_LENGTH], hash_output[MAX_COMMAND_LENGTH + 1];
 extern ingredient_status ingredients[4];
+extern byte food_judge_served;
 
 /**
  * @brief The task responsible for sending commands to the robot.
  */
 TASK(COMMAND_TASK) {
+    byte mode;
 	while(mode != END) {
         byte i = 4, toss_index = 0;
 
@@ -16,8 +18,10 @@ TASK(COMMAND_TASK) {
         if (hash_ready) {
             output_pointer = hash_output;
             hash_ready = 0;
+            mode = 0;
         }
         else {
+            mode = 1;
             output_pointer = output_buffer;
             while (i--) {
                 if (ingredients[i] == 'N') break;
@@ -37,6 +41,9 @@ TASK(COMMAND_TASK) {
                 // reset output buffer to $W:
                 output_buffer[1] = 'W';
                 output_buffer[2] = ':';
+                if (mode == 0) {
+                    food_judge_served = 0;
+                }
                 break;
             }
             output_pointer++;

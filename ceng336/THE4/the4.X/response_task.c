@@ -9,7 +9,7 @@ extern byte output_buffer[MAX_COMMAND_LENGTH];
 extern byte *output_pointer = output_buffer;
 extern unsigned short money;
 
-
+byte food_judge_served = 0;
 /**
  * @brief The function responsible for serving customers.
  */
@@ -22,7 +22,8 @@ void Serve() {
         {
                 if (!IsPresent(customers[i]) || customers[i].patience < 2 || customers[i].served)
                         continue;
-                if (customers[i].ingredients[0] == 'F') {
+                if (customers[i].ingredients[0] == 'F' && !food_judge_served) {
+                        food_judge_served = 1;
                         for (k = 0; k < 4; k++) {
                                 switch (ingredients[k])
                                 {
