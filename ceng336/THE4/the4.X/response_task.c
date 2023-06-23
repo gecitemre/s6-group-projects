@@ -18,7 +18,7 @@ void Serve()
         
         for (i = 0; i < 3; i++)
         {
-                if (!IsPresent(customers[i]) || customers[i].patience < 2)
+                if (!IsPresent(customers[i]) || customers[i].patience < 2 || customers[i].served)
                         continue;
                 for (j = 0; j < 2; j++)
                 {
@@ -65,6 +65,7 @@ void Serve()
         }
         output_buffer[1] = 'C';
         output_buffer[5] = ':';
+        customers[i].served = 1;
 }
 
 TASK(RESPONSE_TASK)
@@ -89,9 +90,8 @@ TASK(RESPONSE_TASK)
                         // STATUS
                         for (i = 0; i < 3; i++)
                         {
-                                if (customers[i].customer_id == input_buffer[index]) {
-                                    index += 4;
-                                    continue;
+                                if (!(customers[i].customer_id == input_buffer[index])) {
+                                    customers[i].served = 0;
                                 }
                                 customers[i].customer_id = input_buffer[index++];
                                 customers[i].ingredients[0] = input_buffer[index++];

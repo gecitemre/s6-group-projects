@@ -38,6 +38,7 @@ typedef struct
     byte customer_id;
     ingredient_status ingredients[2];
     byte patience;
+    byte served;
 } customer_status;
 
 #define MAX_RESPONSE_LENGTH 21
