@@ -22,7 +22,7 @@ void Serve() {
         {
                 if (!IsPresent(customers[i]) || customers[i].patience < 2 || customers[i].served)
                         continue;
-                if (IsFoodJudge(customers[i])) {
+                if (customers[i].ingredients[0] == 'F') {
                         for (k = 0; k < 4; k++) {
                                 switch (ingredients[k])
                                 {
