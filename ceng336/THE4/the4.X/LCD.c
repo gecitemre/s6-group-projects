@@ -1,13 +1,14 @@
 #include "common.h"
+#include "LCD.h"
+
 #include <p18cxxx.h>
 #include <p18f4620.h>
-#include "LCD.h"
 
 /**********************************************************************
  * ----------------------- LCD USER SETTINGS --------------------------
  **********************************************************************/
-#define COLUMN            16              /* Character number per line */
-#define LINE              2               /*      Number of line       */
+#define COLUMN  16              /* Character number per line */
+#define LINE    2               /*      Number of line       */
 
 
 /**********************************************************************
