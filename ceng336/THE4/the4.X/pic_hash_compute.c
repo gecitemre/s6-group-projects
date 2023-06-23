@@ -2,6 +2,7 @@
 #include <string.h>
 
 #include "pic_hash_compute.h"
+char hexDigits[] = "0123456789abcdef";
 
 // INPUT: inp must be NULL terminated char array //
 // OUTPUT: out must be a big enough (17 bytes) char array //
