@@ -9,9 +9,13 @@ extern byte output_buffer[MAX_COMMAND_LENGTH];
 extern byte *output_pointer = output_buffer;
 extern unsigned short money;
 // This function guarantees that first 3 bytes of output_buffer won't be changed if no customer is served.
+
 void Serve()
 {
         byte i, j, k;
+        
+        if (mode == END) return;
+        
         for (i = 0; i < 3; i++)
         {
                 if (!IsPresent(customers[i]) || customers[i].patience < 2)
@@ -79,6 +83,7 @@ TASK(RESPONSE_TASK)
                         break;
                 case 'E':
                         // END
+                        mode = END;
                         break;
                 case 'R':
                         // STATUS

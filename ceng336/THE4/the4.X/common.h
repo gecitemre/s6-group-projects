@@ -43,6 +43,8 @@ typedef struct
 #define MAX_RESPONSE_LENGTH 21
 #define MAX_COMMAND_LENGTH 18
 
+extern simulator_mode mode;
+
 #endif
 
 /* End of File : common.h */
