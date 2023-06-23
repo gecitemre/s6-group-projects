@@ -89,8 +89,10 @@ TASK(RESPONSE_TASK)
                         // STATUS
                         for (i = 0; i < 3; i++)
                         {
-                                if (customers[i].customer_id == input_buffer[index])
-                                        continue;
+                                if (customers[i].customer_id == input_buffer[index]) {
+                                    index += 4;
+                                    continue;
+                                }
                                 customers[i].customer_id = input_buffer[index++];
                                 customers[i].ingredients[0] = input_buffer[index++];
                                 customers[i].ingredients[1] = input_buffer[index++];
