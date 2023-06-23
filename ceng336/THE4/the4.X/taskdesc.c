@@ -77,10 +77,10 @@ DeclareTask(HASH_TASK);
 DeclareTask(LCD_TASK);
 
 
+#define LCD_TASK_PRIORITY 15
+#define COMMAND_TASK_PRIORITY 12
 #define RESPONSE_TASK_PRIORITY 9
-#define COMMAND_TASK_PRIORITY 9
-#define HASH_TASK_PRIORITY 1
-#define LCD_TASK_PRIORITY 8
+#define HASH_TASK_PRIORITY 6
 
 // to avoid any C18 map error : regroup the stacks into blocks
 // of 256 bytes (except the last one).

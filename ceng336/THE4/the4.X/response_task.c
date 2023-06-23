@@ -20,12 +20,28 @@ void Serve()
         {
                 if (!IsPresent(customers[i]) || customers[i].patience < 2 || customers[i].served)
                         continue;
+                if (IsFoodJudge(customers[i])) {
+                        for (k = 0; k < 4; k++) {
+                                switch (ingredients[k])
+                                {
+                                case 'C':
+                                case 'S':
+                                case 'N':
+                                        break;
+                                default:
+                                        output_buffer[1] = 'S';
+                                        output_buffer[2] = customers[i].customer_id;
+                                        output_buffer[3] = k;
+                                        output_buffer[4] = ':';
+                                        return;
+                                }
+                        }
+                }
                 for (j = 0; j < 2; j++)
                 {
                         switch (customers[i].ingredients[j])
                         {
                         case 'C':
-                                goto next_customer;
                         case 'S':
                                 goto next_customer;
                         case 'N':
