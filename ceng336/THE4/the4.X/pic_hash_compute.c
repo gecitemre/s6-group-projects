@@ -50,7 +50,6 @@ void compute_hash(unsigned char *inp, unsigned char *out) {
             out[j] = hexDigits[hash_L & 0xF];
             hash_L >>= 4;
         }
-        out[16] = '\0';
         //repeat algo for new str
         cp = out;
     
