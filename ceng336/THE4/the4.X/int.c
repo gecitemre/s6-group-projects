@@ -14,7 +14,7 @@ byte IsPresent(customer_status customer) {
 }
 
 byte IsFoodJudge(customer_status customer) {
-    return customer.ingredients[0] == 'F';
+  return (customer.ingredients[0] == 'F');
 }
 
 /**********************************************************************
@@ -79,7 +79,7 @@ void InterruptVectorL(void) {
 
 	LeaveISR();
 }
-#pragma	coder
+#pragma	code
 
 /* BE CARREFULL : ONLY BSR, WREG AND STATUS REGISTERS ARE SAVED  */
 /* DO NOT CALL ANY FUNCTION AND USE PLEASE VERY SIMPLE CODE LIKE */

@@ -63,19 +63,6 @@ void Serve() {
                         }
                 }
                 output_buffer[2] = customers[i].customer_id;
-                break;
-            default:
-                for (k = 0; k < 4; k++) {
-                    if (ingredients[k] == customers[i].ingredients[j]) {
-                        output_buffer[3 + j] = k;
-                        break;
-                    }
-                }
-                if (k == 4)
-                    goto next_customer; // ingredient not found
-            }
-        }
-        output_buffer[2] = customers[i].customer_id;
         break;
         next_customer:;
     }
