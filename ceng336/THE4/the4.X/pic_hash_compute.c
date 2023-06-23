@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "pic_hash_compute.h"
+
 // INPUT: inp must be NULL terminated char array //
 // OUTPUT: out must be a big enough (17 bytes) char array //
 
