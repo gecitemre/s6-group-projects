@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>common.h</itemPath>
       <itemPath>pic_hash_compute.h</itemPath>
+      <itemPath>LCD.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -22,6 +23,8 @@
       <itemPath>command_task.c</itemPath>
       <itemPath>pic_hash_compute.c</itemPath>
       <itemPath>../../../../../Downloads/PICos18_v2/Linker/hash_task.c</itemPath>
+      <itemPath>LCD_task.c</itemPath>
+      <itemPath>LCD.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

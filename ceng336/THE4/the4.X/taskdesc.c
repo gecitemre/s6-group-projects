@@ -74,10 +74,13 @@ unsigned char RESOURCENUMBER = _RESOURCENUMBER_;
 DeclareTask(RESPONSE_TASK);
 DeclareTask(COMMAND_TASK);
 DeclareTask(HASH_TASK);
+DeclareTask(LCD_TASK);
+
 
 #define RESPONSE_TASK_PRIORITY 9
 #define COMMAND_TASK_PRIORITY 9
 #define HASH_TASK_PRIORITY 1
+#define LCD_TASK_PRIORITY 8
 
 // to avoid any C18 map error : regroup the stacks into blocks
 // of 256 bytes (except the last one).
@@ -85,6 +88,10 @@ DeclareTask(HASH_TASK);
 volatile unsigned char stack0[DEFAULT_STACK_SIZE];
 #pragma		udata      STACK_B   
 volatile unsigned char stack1[DEFAULT_STACK_SIZE];
+#pragma udata STACK_C
+volatile unsigned char stack2[DEFAULT_STACK_SIZE];
+#pragma udata STACK_D
+volatile unsigned char stack3[DEFAULT_STACK_SIZE];
 #pragma		udata
 
 /**********************************************************************
@@ -121,13 +128,21 @@ rom_desc_tsk rom_desc_task1 = {
  **********************************************************************/
 rom_desc_tsk rom_desc_task1 = {
 	HASH_TASK_PRIORITY,                       /* prioinit from 0 to 15       */
-	stack1,                           /* stack address (16 bits)     */
+	stack2,                           /* stack address (16 bits)     */
 	HASH_TASK,                            /* start address (16 bits)     */
 	READY,                            /* state at init phase         */
 	HASH_TASK_ID,                         /* id_tsk from 0 to 15         */
-	sizeof(stack1)                    /* stack size    (16 bits)     */
+	sizeof(stack2)                    /* stack size    (16 bits)     */
 };
 
+rom_desc_tsk rom_desc_task2 = {
+	LCD_TASK_PRIORITY,                       /* prioinit from 0 to 15       */
+	stack3,                           /* stack address (16 bits)     */
+	LCD_TASK,                            /* start address (16 bits)     */
+	READY,                            /* state at init phase         */
+	LCD_TASK_ID,                         /* id_tsk from 0 to 15         */
+	sizeof(stack3)                    /* stack size    (16 bits)     */
+};
 
 /**********************************************************************
  * --------------------- END TASK DESCRIPTOR SECTION ------------------
