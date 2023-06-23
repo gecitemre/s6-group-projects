@@ -4,11 +4,12 @@
 extern byte input_buffer[MAX_RESPONSE_LENGTH];
 extern byte output_buffer[MAX_COMMAND_LENGTH];
 
-TASK(HASH_TASK)
-{
+/**
+ * @brief The task responsible for computing the hash.
+ */
+TASK(HASH_TASK) {
 	while(mode != END) {
-        byte i;
-        byte inp[22], out[19];
+        byte i, inp[22], out[19];
         
         WaitEvent(HASH_EVENT_MASK);
         ClearEvent(HASH_EVENT_MASK);
@@ -24,5 +25,6 @@ TASK(HASH_TASK)
             output_buffer[i] = out[i];
         }
 	}
+    
 	TerminateTask();
 }

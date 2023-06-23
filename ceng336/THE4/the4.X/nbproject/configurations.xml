@@ -7,6 +7,7 @@
       <itemPath>common.h</itemPath>
       <itemPath>pic_hash_compute.h</itemPath>
       <itemPath>LCD.h</itemPath>
+      <itemPath>global.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
