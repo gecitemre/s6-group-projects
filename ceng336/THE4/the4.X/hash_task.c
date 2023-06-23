@@ -18,9 +18,10 @@ TASK(HASH_TASK) {
                 ClearEvent(HASH_EVENT_MASK);
                 
                 for (i = 0; i < MAX_RESPONSE_LENGTH; i++) {
-                hash_input[i] = input_buffer[i];
+                    if (input_buffer[i+2] == ':') break;
+                    hash_input[i] = input_buffer[i+2];
                 }
-                hash_input[MAX_RESPONSE_LENGTH] = 0;
+                hash_input[i] = 0;
                 
                 compute_hash(hash_input, hash_output + 2);
                 hash_output[0] = '$';

@@ -22,23 +22,23 @@ void compute_hash(unsigned char *inp, unsigned char *out) {
         hash_L = 5381;
         hash_H = 0;
         while ((c = *cp++)) {
-        // hash_HL << 5 //
-        tmp_H = (hash_H << 5) + ((hash_L & 0xF8000000) >> 27);
-        tmp_L = hash_L << 5;
-        // tmp_HL + hash_HL //
-        tmp = hash_L + tmp_L;
-        if ((tmp < hash_L) || (tmp < tmp_L)) // 4 byte unsigned int overflow !
-            tmp_H += 1;
-        tmp_L = tmp;
-        tmp_H = hash_H + tmp_H;
-        // tmp_HL + c //
-        tmp = tmp_L + c;
-        if ((tmp < c) || (tmp < tmp_L)) // 4 byte unsigned int overflow !
-            tmp_H += 1;
-        tmp_L = tmp;
-        // update hash_HL with tmp_HL //
-        hash_L = tmp_L;
-        hash_H = tmp_H;
+            // hash_HL << 5 //
+            tmp_H = (hash_H << 5) + ((hash_L & 0xF8000000) >> 27);
+            tmp_L = hash_L << 5;
+            // tmp_HL + hash_HL //
+            tmp = hash_L + tmp_L;
+            if ((tmp < hash_L) || (tmp < tmp_L)) // 4 byte unsigned int overflow !
+                tmp_H += 1;
+            tmp_L = tmp;
+            tmp_H = hash_H + tmp_H;
+            // tmp_HL + c //
+            tmp = tmp_L + c;
+            if ((tmp < c) || (tmp < tmp_L)) // 4 byte unsigned int overflow !
+                tmp_H += 1;
+            tmp_L = tmp;
+            // update hash_HL with tmp_HL //
+            hash_L = tmp_L;
+            hash_H = tmp_H;
         }
 
         //write hex values of each byte
