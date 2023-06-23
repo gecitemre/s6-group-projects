@@ -17,7 +17,7 @@ TASK(COMMAND_TASK)
         if (i == -1 && output_buffer[1] == 'W') {
             // TOSS
             output_buffer[1] = 'T';
-            output_buffer[2] = i;
+            output_buffer[2] = toss_index;
             output_buffer[3] = ':';
         }
         while (mode != END) {
