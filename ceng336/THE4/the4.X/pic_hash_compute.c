@@ -7,8 +7,6 @@ char hexDigits[] = "0123456789abcdef";
 // INPUT: inp must be NULL terminated char array //
 // OUTPUT: out must be a big enough (17 bytes) char array //
 
-char hexDigits[] = "0123456789abcdef";
-
 void compute_hash(unsigned char *inp, unsigned char *out) {
   unsigned long hash_L;
   unsigned long hash_H;

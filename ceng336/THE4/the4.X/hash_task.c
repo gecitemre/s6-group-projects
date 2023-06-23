@@ -9,7 +9,6 @@ TASK(HASH_TASK)
 	while(mode != END) {
         byte i;
         byte inp[22], out[19];
-        byte i = 0;
         
         WaitEvent(HASH_EVENT_MASK);
         ClearEvent(HASH_EVENT_MASK);
