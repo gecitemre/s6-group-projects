@@ -74,7 +74,7 @@ TASK(RESPONSE_TASK)
                         Serve();
                         break;
                 case 'H':
-                        // HASH
+                        SetEvent(HASH_TASK_ID, HASH_EVENT_MASK);
                         break;
                 }
         }
