@@ -17,11 +17,12 @@ typedef unsigned char byte;
  * ----------------------------- Events --------------------------------
  **********************************************************************/
 
-enum {ALARM_EVENT, RESPONSE_EVENT, COMMAND_EVENT}; // Event IDs
-enum {RESPONSE_TASK_ID, COMMAND_TASK_ID}; // Task IDs
+enum {ALARM_EVENT, RESPONSE_EVENT, COMMAND_EVENT, LCD_EVENT}; // Event IDs
+enum {RESPONSE_TASK_ID, COMMAND_TASK_ID, LCD_TASK_ID}; // Task IDs
 #define ALARM_EVENT_MASK 0x01
 #define RESPONSE_EVENT_MASK 0x02
 #define COMMAND_EVENT_MASK 0x04
+#define LCD_EVENT_MASK 0x40
 
 #define ALARM_TSK0 0
 
