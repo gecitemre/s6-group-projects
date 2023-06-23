@@ -126,7 +126,7 @@ rom_desc_tsk rom_desc_task1 = {
 /**********************************************************************
  * -----------------------------  task 2 ------------------------------
  **********************************************************************/
-rom_desc_tsk rom_desc_task1 = {
+rom_desc_tsk rom_desc_task2 = {
 	HASH_TASK_PRIORITY,                       /* prioinit from 0 to 15       */
 	stack2,                           /* stack address (16 bits)     */
 	HASH_TASK,                            /* start address (16 bits)     */
@@ -135,7 +135,7 @@ rom_desc_tsk rom_desc_task1 = {
 	sizeof(stack2)                    /* stack size    (16 bits)     */
 };
 
-rom_desc_tsk rom_desc_task2 = {
+rom_desc_tsk rom_desc_task3 = {
 	LCD_TASK_PRIORITY,                       /* prioinit from 0 to 15       */
 	stack3,                           /* stack address (16 bits)     */
 	LCD_TASK,                            /* start address (16 bits)     */

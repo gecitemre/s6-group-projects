@@ -25,6 +25,8 @@ enum {RESPONSE_TASK_ID, COMMAND_TASK_ID, HASH_TASK_ID, LCD_TASK_ID}; // Task IDs
 #define HASH_EVENT_MASK 0x08
 #define LCD_EVENT_MASK 0x40
 
+#define ALARM_TSK0 0
+
 /***********************************************************************
  * --------------------------- Game Logic ------------------------------
  **********************************************************************/
