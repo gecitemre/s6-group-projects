@@ -2,6 +2,7 @@
 #define COMMON_H
 
 #include "device.h"
+
 typedef unsigned char byte;
 
 /***********************************************************************
@@ -28,23 +29,33 @@ enum {RESPONSE_TASK_ID, COMMAND_TASK_ID, HASH_TASK_ID, LCD_TASK_ID}; // Task IDs
 #define ALARM_TSK0 0
 
 /***********************************************************************
+ * ------------------------ Maxima and Minima --------------------------
+ **********************************************************************/
+
+#define MAX_RESPONSE_LENGTH 21
+#define MAX_COMMAND_LENGTH 18
+
+/***********************************************************************
  * --------------------------- Game Logic ------------------------------
  **********************************************************************/
 
 typedef enum {MEAT = 'M', BREAD = 'B', POTATO = 'P', COOKING = 'C', SLOW_COOKING = 'S', NONE = 'N'} ingredient_status;
-
 typedef enum {IDLE, ACTIVE, END} simulator_mode;
 
-typedef struct
-{
+/**
+ * @brief The customer status structure.
+ * @field customer_id The customer ID.
+ * @field ingredients The ingredients the customer wants.
+ * @field patience The patience of the customer.
+ * @field served Whether the customer has been served.
+ */
+typedef struct {
     byte customer_id;
     ingredient_status ingredients[2];
     byte patience;
     byte served;
 } customer_status;
 
-#define MAX_RESPONSE_LENGTH 21
-#define MAX_COMMAND_LENGTH 18
 
 extern simulator_mode mode;
 

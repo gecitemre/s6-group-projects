@@ -4,11 +4,13 @@ extern byte hash_ready;
 extern byte* output_pointer, output_buffer[MAX_COMMAND_LENGTH], hash_output[MAX_COMMAND_LENGTH + 1];
 extern ingredient_status ingredients[4];
 
-// send command output
-TASK(COMMAND_TASK) 
-{
+/**
+ * @brief The task responsible for sending commands to the robot.
+ */
+TASK(COMMAND_TASK) {
 	while(mode != END) {
         byte i = 4, toss_index = 0;
+
         WaitEvent(ALARM_EVENT_MASK);
         ClearEvent(ALARM_EVENT_MASK);
         if (hash_ready) {
@@ -28,6 +30,7 @@ TASK(COMMAND_TASK)
                 output_buffer[3] = ':';
             }
         }
+
         while (mode != END) {
             TXREG = *output_pointer;
             if (*output_pointer == ':' && mode != END) {
@@ -41,6 +44,7 @@ TASK(COMMAND_TASK)
             ClearEvent(COMMAND_EVENT_MASK);
         }
 	}
+    
 	TerminateTask();
 }
 

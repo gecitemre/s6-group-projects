@@ -6,8 +6,10 @@ extern byte output_buffer[MAX_COMMAND_LENGTH];
 byte hash_ready = 0;
 byte hash_output[MAX_COMMAND_LENGTH + 1];
 
-TASK(HASH_TASK)
-{
+/**
+ * @brief The task responsible for computing the hash.
+ */
+TASK(HASH_TASK) {
 	while(mode != END) {
                 byte hash_input[MAX_RESPONSE_LENGTH + 1];
                 byte i;
@@ -24,5 +26,6 @@ TASK(HASH_TASK)
                 hash_ready = 1;
 
 	}
+    
 	TerminateTask();
 }

@@ -29,16 +29,16 @@ AppModeType selected_mode;
  * Setup the different alarms and start the kernel.
  *
  **********************************************************************/
-void main(void)
-{
-  STKPTR = 0;
-  selected_mode = DEFAULT_MODE;
+void main(void) {
+    STKPTR = 0;
+    selected_mode = DEFAULT_MODE;
 
-  Init();
+    Init();
   
-  while(1) {
-    StartOS(selected_mode);
-  }
+    while(1) {
+        StartOS(selected_mode);
+    }
+    return 0;
 }
 
 /**********************************************************************
@@ -85,8 +85,7 @@ void Init(void)
  * @param error      IN The new error stored in buffer
  * @return error     Error level
  **********************************************************************/
-void StartupHook(void)
-{
+void StartupHook(void) {
 }
 
 /**********************************************************************
@@ -95,8 +94,7 @@ void StartupHook(void)
  * @param error      IN The last error detected by OS
  * @return void
  **********************************************************************/
-void ShutdownHook(StatusType error)
-{
+void ShutdownHook(StatusType error) {
 }
 
 /**********************************************************************
@@ -106,8 +104,7 @@ void ShutdownHook(StatusType error)
  * @param error      IN The new error stored in buffer
  * @return void
  **********************************************************************/
-void ErrorHook(StatusType error)
-{
+void ErrorHook(StatusType error) {
 }
 
 /**********************************************************************
@@ -115,8 +112,7 @@ void ErrorHook(StatusType error)
  *
  * @return void
  **********************************************************************/
-void PreTaskHook(void)
-{
+void PreTaskHook(void) {
 }
 
 /**********************************************************************
@@ -124,8 +120,7 @@ void PreTaskHook(void)
  *
  * @return void
  **********************************************************************/
-void PostTaskHook(void)
-{
+void PostTaskHook(void) {
 }
 
 /* End of File : main.c */
